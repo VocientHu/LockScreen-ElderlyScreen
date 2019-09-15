@@ -1,3 +1,35 @@
 <resources>
-    <string name="app_name">laowulao</string>
+    <string name="app_name">Easy Call</string>
+    <string name="btn_one_key_start">开启服务</string>
+    <string name="btn_one_key_stop">停止服务</string>
+    <string name="lock_screen_started">锁屏已开启</string>
+    <string name="main_title">Easy Call</string>
+    <string name="theme_text">老吾老，以及人之老</string>
+    <string name="constact_people">联系人</string>
+    <string name="constact_people_count">联系人(%s人)</string>
+    <string name="loading">正在初始化...</string>
+    <string name="config">配置锁屏界面</string>
+    <string name="name_size">名字大小</string>
+    <string name="list_style">通讯录样式</string>
+    <string name="des">本app的初心是作者为了解决年过古稀的父亲不会使用智能手机的问题，他不会打电话，不会开手机，
+        不会滑屏手势，但热切希望能跟在外地的儿子打电话，发视频。
+        \n 如果您恰巧也有同样的需求，不妨让您的亲人也装上试一下。
+        </string>
+
+    <string name="features_list">功能特性：
+        \n1、开启服务后，设备在按开电源键进入easy call的锁屏界面，能看到通讯录。
+        \n 2、锁屏界面可拨打电话，可开视频(目前开视频是进入微信，待实现)
+        \n 3、可配置字体大小，锁屏通讯录的展示方式(支持列表形式和网格形式)
+        \n 4、可设置绑定指定手机号，经绑定的手机号通过easy call可以远程配置申请绑定设备锁屏界面。(适合长辈的设备绑定晚辈的设备)
+        </string>
+
+
+    <string name="notice">注意：
+        \n 1、为保证每次锁屏页面能正常打开，请在手机安全管家软件中允许APP保活，允许开机启动，允许后台运行
+        \n 2、允许APP读取联系人权限，打电话权限。
+        \n 3、手机最好不要设密码锁，否则从锁屏点击打电话时需要密码开锁才能拨打。
+        \n 4、手机最好使用一张sim卡，如果是多张，点击拨打电话后需要选择sim卡拨打，多一步操作</string>
+
+
+
 </resources>

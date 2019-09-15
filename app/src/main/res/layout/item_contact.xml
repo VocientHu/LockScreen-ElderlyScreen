@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16">
+        <FrameLayout
+            android:id="@+id/fl_header"
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_60"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
+                android:id="@+id/iv_header"
+                />
+            <com.kanhui.laowulao.widget.Md5HeaderView
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
+                android:textColor="@color/white"
+                android:id="@+id/md5_header_view"
+                android:gravity="center"
+                android:textSize="@dimen/font_24"
+                />
+        </FrameLayout>
+
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_28"
+            android:textColor="@color/black_3"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/fl_header"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:singleLine="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_16"
+            android:textColor="@color/black_6"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:singleLine="true"
+            android:layout_alignLeft="@+id/tv_name"
+            />
+        <TextView
+            android:id="@+id/tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_14"
+            android:textColor="@color/black_9"
+            android:layout_below="@+id/tv_phone"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:singleLine="true"
+            android:layout_alignLeft="@+id/tv_phone"
+            />
+
+
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_call_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_40"
+            android:textColor="@color/main_green_low"
+            android:text="&#xf14a;"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_call_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_40"
+            android:textColor="@color/main_green_low"
+            android:text="&#xe647;"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_call_video"
+            android:layout_marginRight="@dimen/dimen_16"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_16"
+        android:background="@color/main_background"
+        />
+
+
+</LinearLayout>

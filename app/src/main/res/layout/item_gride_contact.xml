@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_5"
+    >
+
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+
+        <FrameLayout
+            android:id="@+id/fl_header"
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_60"
+            android:layout_centerVertical="true"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
+                android:id="@+id/iv_header"
+                />
+            <com.kanhui.laowulao.widget.Md5HeaderView
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
+                android:textColor="@color/white"
+                android:id="@+id/md5_header_view"
+                android:gravity="center"
+                android:textSize="@dimen/font_24"
+                />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_28"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_16"
+            />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_16"
+            android:textColor="@color/black_6"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:singleLine="true"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:id="@+id/tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_14"
+            android:textColor="@color/black_9"
+            android:layout_below="@+id/tv_phone"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:singleLine="true"
+            android:layout_centerHorizontal="true"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/tv_history"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:padding="@dimen/dimen_5"
+            android:background="@color/black_half_trans"
+            >
+            <com.kanhui.laowulao.widget.IconView
+                android:id="@+id/iv_call_video"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/font_30"
+                android:textColor="@color/main_green_low"
+                android:text="&#xf14a;"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                />
+
+            <View
+                android:layout_width="@dimen/dimen_half"
+                android:layout_height="match_parent"
+                android:background="@color/main_background"
+                />
+
+            <com.kanhui.laowulao.widget.IconView
+                android:id="@+id/iv_call_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_30"
+                android:textColor="@color/main_green_low"
+                android:text="&#xe647;"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/dimen_16"/>
+
+        </LinearLayout>
+
+
+
+            />
+    </RelativeLayout>
+
+</LinearLayout>
