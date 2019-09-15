@@ -2,6 +2,9 @@ package com.kanhui.laowulao.base;
 
 import android.app.Application;
 
+import com.kanhui.laowulao.config.Constants;
+import com.tencent.bugly.crashreport.CrashReport;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +18,15 @@ public class LWLApplicatoin extends Application {
         return application;
     };
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         application = this;
+        // init bugly
+        CrashReport.initCrashReport(getApplicationContext(), Constants.BuglyAppId, false);
     }
 
     public void addActivity(BaseActivity activity){
