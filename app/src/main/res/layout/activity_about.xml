@@ -9,6 +9,17 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/dimen_16"
         >
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#xe67d;"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            />
         <TextView
             android:id="@+id/tv_main"
             android:layout_width="wrap_content"
@@ -19,6 +30,7 @@
             android:textStyle="bold"
             android:layout_centerHorizontal="true"
             />
+
     </RelativeLayout>
 
     <View style="@style/horizontal_line"

@@ -14,18 +14,19 @@
     <color name="black_ec">#ececec</color>
     <color name="main_background">#ececec</color>
     <color name="white">#ffffff</color>
+    <color name="white_trans">#a0ffffff</color>
     <color name="main_green">#009933</color>
     <color name="main_green_low">#00cc33</color>
     <color name="red">#ca0c16</color>
 
 
-    <color name="header_bg1">#29d4ff</color>
-    <color name="header_bg2">#1594ff</color>
-    <color name="header_bg3">#ffa92f</color>
-    <color name="header_bg4">#b587fa</color>
-    <color name="header_bg5">#06cf86</color>
-    <color name="header_bg6">#fa6771</color>
-    <color name="header_bg7">#73d51c</color>
-    <color name="header_bg8">#8991ff</color>
+    <color name="header_bg1">#336699</color>
+    <color name="header_bg2">#660099</color>
+    <color name="header_bg3">#996600</color>
+    <color name="header_bg4">#006633</color>
+    <color name="header_bg5">#6633cc</color>
+    <color name="header_bg6">#0000ff</color>
+    <color name="header_bg7">#1b1b1b</color>
+    <color name="header_bg8">#993333</color>
 
 </resources>

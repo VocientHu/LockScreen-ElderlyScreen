@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/white_trans"
     android:orientation="vertical"
     >
     <RelativeLayout
@@ -71,8 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_40"
-            android:textColor="@color/main_green_low"
-            android:text="&#xf14a;"
+            android:textColor="@color/black_9"
+            android:text="&#xe621;"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             />
@@ -86,7 +86,7 @@
             android:text="&#xe647;"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/iv_call_video"
-            android:layout_marginRight="@dimen/dimen_16"
+            android:layout_marginRight="@dimen/dimen_20"
             />
     </RelativeLayout>
 

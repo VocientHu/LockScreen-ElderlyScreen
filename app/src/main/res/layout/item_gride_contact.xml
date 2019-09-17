@@ -84,7 +84,7 @@
                 android:layout_weight="1"
                 android:textSize="@dimen/font_30"
                 android:textColor="@color/main_green_low"
-                android:text="&#xf14a;"
+                android:text="&#xe621;"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:gravity="center"

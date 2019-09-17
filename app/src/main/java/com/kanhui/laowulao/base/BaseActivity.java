@@ -19,9 +19,8 @@ public class BaseActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // 处理状态栏
         getWindow().setStatusBarColor(getResources().getColor(R.color.main_green));
         View decorView = getWindow().getDecorView();
