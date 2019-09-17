@@ -147,6 +147,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/dimen_20"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:textColor="@color/black_3"
+                    android:text="@string/send_phone_des"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_14"
+                    />
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/phone_code"
+                    android:padding="@dimen/dimen_16"
+                    android:background="@color/main_background"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/dimen_10"
                 >
                 <Button
