@@ -7,10 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.locker.model.Config;
 import com.kanhui.laowulao.locker.model.ContactModel;
@@ -22,19 +18,19 @@ import com.kanhui.laowulao.widget.Md5HeaderView;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
     private static final int[] colors = {R.color.header_bg1,R.color.header_bg2,R.color.header_bg3,
             R.color.header_bg4,R.color.header_bg5,R.color.header_bg6,R.color.header_bg7,R.color.header_bg8};
-
-    public static final int TYPE_GRIDE = 10;
-    public static final int TYPE_LIST = 11;
 
     public static final int CALL_PHONE = 1;
     public static final int CALL_VIDEO = 2;
 
     private List<ContactModel> list = new ArrayList<>();
     private Context context;
-    private int type = TYPE_LIST;
+    private int type = Config.TYPE_LIST;
 
     private ItemClickListener listener;
 
@@ -61,7 +57,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if(type == TYPE_GRIDE){
+        if(type == Config.TYPE_GRIDE){
             view = LayoutInflater.from(context).inflate(R.layout.item_gride_contact,null);
         } else {
             view = LayoutInflater.from(context).inflate(R.layout.item_contact,null);
@@ -97,7 +93,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         } else {
             holder.tvHistory.setText("");
         }
-        if(type == TYPE_GRIDE){
+        if(type == Config.TYPE_GRIDE){
             int bgColor = getCurrentBgResId(model.getName());
             holder.itemGride.setBackgroundColor(context.getResources().getColor(bgColor));
             holder.tvHistory.setTextColor(context.getResources().getColor(R.color.white));

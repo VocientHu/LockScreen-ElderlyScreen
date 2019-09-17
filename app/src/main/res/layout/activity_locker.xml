@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/black_ec">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/dimen_20"
+        android:paddingHorizontal="@dimen/dimen_20"
+        android:paddingVertical="@dimen/dimen_20"
         android:background="@color/white"
         >
         <TextView
@@ -17,10 +18,31 @@
             android:layout_height="wrap_content"
             android:text="@string/constact_people"
             android:textColor="@color/black_3"
-            android:textSize="@dimen/font_18"
+            android:textSize="@dimen/font_20"
             android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             />
-    </LinearLayout>
+
+        <com.kanhui.laowulao.widget.BatteryView
+            android:id="@+id/bv_battery"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/tv_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/font_24"
+            android:visibility="gone"
+            android:text="@string/push_battery"
+            />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list"

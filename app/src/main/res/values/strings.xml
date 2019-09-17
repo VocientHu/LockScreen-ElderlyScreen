@@ -6,6 +6,7 @@
     <string name="main_title">Easy Call</string>
     <string name="theme_text">老吾老，以及人之老</string>
     <string name="constact_people">联系人</string>
+    <string name="push_battery">建议充电</string>
     <string name="constact_people_count">联系人(%s人)</string>
     <string name="loading">正在初始化...</string>
     <string name="config">配置锁屏界面</string>
@@ -31,5 +32,10 @@
         \n 4、手机最好使用一张sim卡，如果是多张，点击拨打电话后需要选择sim卡拨打，多一步操作</string>
 
 
+    <string name="about">关于Easy Call</string>
+    <string name="step1_des">您希望使用Easy Call达到什么目的？</string>
+    <string name="step1_answer1">自己能更便捷的打电话，玩微信</string>
+    <string name="step1_answer2">协助亲人更便捷的打电话，玩微信</string>
+    <string name="step_next">下一步</string>
 
 </resources>

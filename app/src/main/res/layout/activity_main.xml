@@ -11,28 +11,28 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16"
         >
         <TextView
             android:id="@+id/tv_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="@string/config"
             android:textColor="@color/black_3"
             android:textSize="@dimen/font_18"
-            android:layout_marginTop="@dimen/dimen_16"
+            android:textStyle="bold"
             android:layout_marginHorizontal="@dimen/dimen_16"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             />
         <com.kanhui.laowulao.widget.IconView
             android:id="@+id/iv_call_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_40"
+            android:textSize="@dimen/font_30"
             android:textColor="@color/main_green_low"
             android:text="&#xe648;"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dimen_16"
             />
 
     </RelativeLayout>
@@ -53,47 +53,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/dimen_10">
-            <TextView
-                android:id="@+id/tv_des"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/black_6"
-                android:text="@string/des"
-                android:textSize="@dimen/font_14"
-                />
-            <View style="@style/horizontal_line"/>
-            <TextView
-                android:id="@+id/tv_features"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/black_6"
-                android:text="@string/features_list"
-                android:textSize="@dimen/font_14"
-                />
-             <View style="@style/horizontal_line"/>
-             <TextView
-                android:id="@+id/tv_notice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/red"
-                android:text="@string/notice"
-                android:textSize="@dimen/font_14"
-                />
-            <View style="@style/horizontal_line"/>
-            <TextView
-                android:id="@+id/tv_setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/black_3"
-                android:text="@string/config"
-                android:textStyle="bold"
-                android:textSize="@dimen/font_16"
-                />
-            <View style="@style/horizontal_line"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

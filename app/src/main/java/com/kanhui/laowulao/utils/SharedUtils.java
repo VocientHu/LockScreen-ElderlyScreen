@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.kanhui.laowulao.base.LWLApplicatoin;
-import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.locker.model.Config;
 
 public class SharedUtils {
@@ -43,9 +42,21 @@ public class SharedUtils {
         editor.commit();
     }
 
+    public void putBoolean(String name,boolean value){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(name,value);
+        editor.commit();
+    }
+
+
     public int getInt(String name,int defaultValue){
         return sharedPreferences.getInt(name,defaultValue);
     }
+
+    public boolean getBoolean(String name,boolean defaultValue){
+        return sharedPreferences.getBoolean(name,defaultValue);
+    }
+
 
     public String getString(String name,String defaultValue){
         return sharedPreferences.getString(name,defaultValue);
@@ -55,7 +66,7 @@ public class SharedUtils {
     private static final String LOCK_SCALE_SIZE = "lock_SCALE_SIZE";
     public Config getConfig(){
         Config config = new Config();
-        config.setListType(getInt(LOCK_LIST_TYPE, ContactAdapter.TYPE_LIST));
+        config.setListType(getInt(LOCK_LIST_TYPE, Config.TYPE_LIST));
         config.setScaleSize(getInt(LOCK_SCALE_SIZE,Config.SCALE_MIDDLE));
         return config;
     }

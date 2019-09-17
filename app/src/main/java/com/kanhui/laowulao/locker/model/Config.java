@@ -1,13 +1,16 @@
 package com.kanhui.laowulao.locker.model;
 
-import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.utils.SharedUtils;
 
 public class Config {
 
-    public static final int SCALE_BIG = 32;
-    public static final int SCALE_MIDDLE = 28;
-    public static final int SCALE_SMALL = 24;
+    //锁屏界面联系人列表类型
+    public static final int TYPE_GRIDE = 10;// 网格类型，两列
+    public static final int TYPE_LIST = 11;// 列表类型
+
+    public static final int SCALE_BIG = 32;// 字体大小，大
+    public static final int SCALE_MIDDLE = 28;// 字体大小，中
+    public static final int SCALE_SMALL = 24;// 字体大小，小
 
     private static Config config;
 
@@ -29,7 +32,7 @@ public class Config {
 
 
 
-    private int listType = ContactAdapter.TYPE_LIST;
+    private int listType = TYPE_LIST;
 
     private int scaleSize = SCALE_MIDDLE;
 

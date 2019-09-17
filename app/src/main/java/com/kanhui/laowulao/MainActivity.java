@@ -1,37 +1,24 @@
 package com.kanhui.laowulao;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
+import com.kanhui.laowulao.about.AboutActivity;
 import com.kanhui.laowulao.base.BaseActivity;
-import com.kanhui.laowulao.base.LWLApplicatoin;
-import com.kanhui.laowulao.locker.LockerActivity;
-import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.locker.model.Config;
 import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.utils.PermissionUtils;
-import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
@@ -72,6 +59,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.btn_stop).setOnClickListener(this);
         findViewById(R.id.btn_save).setOnClickListener(this);
         findViewById(R.id.btn_send).setOnClickListener(this);
+        findViewById(R.id.iv_call_phone).setOnClickListener(this);
+
     }
 
     void initData(){
@@ -95,10 +84,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         cbList.setChecked(false);
         cbGride.setChecked(false);
         switch (config.getListType()){
-            case ContactAdapter.TYPE_LIST:
+            case Config.TYPE_LIST:
                 cbList.setChecked(true);
                 break;
-            case ContactAdapter.TYPE_GRIDE:
+            case Config.TYPE_GRIDE:
                 cbGride.setChecked(true);
                 break;
         }
@@ -139,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onClick(View view) {
                 cbGride.setChecked(true);
                 cbList.setChecked(false);
-                config.setListType(ContactAdapter.TYPE_GRIDE);
+                config.setListType(Config.TYPE_GRIDE);
             }
         });
         cbList.setOnClickListener(new View.OnClickListener(){
@@ -148,7 +137,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onClick(View view) {
                 cbGride.setChecked(false);
                 cbList.setChecked(true);
-                config.setListType(ContactAdapter.TYPE_LIST);
+                config.setListType(Config.TYPE_LIST);
             }
         });
 
@@ -159,30 +148,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 MainActivity.this,permissions,PERMISSION_CODE_READ_CONTACT);
     }
 
-    private void setStartBtnStatus(boolean status){
-        btnStart.setEnabled(status);
-        int resId = status ? R.string.btn_one_key_start : R.string.lock_screen_started;
-        btnStart.setText(resId);
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_start:
+            case R.id.btn_start:// 开启服务
                 toStart();
                 break;
-            case R.id.btn_stop:
+            case R.id.btn_stop:// 停止服务
                 toStop();
                 break;
-            case R.id.btn_save:
+            case R.id.btn_save:// 保存配置
                 saveConfig();
                 break;
-            case R.id.btn_send:
+            case R.id.btn_send:// 发送配置给指定设备
                 sendConfig();
+                break;
+            case R.id.iv_call_phone:// 关于
+                toAbout();
                 break;
                 default:
                     break;
         }
+    }
+
+    void toAbout(){
+        startActivity(AboutActivity.class);
     }
 
     void saveConfig(){
@@ -204,7 +194,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             dealwithPermiss(MainActivity.this);
             return;
         }
-//        startActivity(new Intent(this,LockerActivity.class));
+//        startActivity(LockerActivity.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(new Intent(this, LockerService.class));
         } else {

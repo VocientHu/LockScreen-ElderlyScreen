@@ -7,21 +7,15 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.base.LWLApplicatoin;
@@ -29,10 +23,17 @@ import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.locker.model.Config;
 import com.kanhui.laowulao.locker.model.ContactEngin;
 import com.kanhui.laowulao.locker.model.ContactModel;
-import com.kanhui.laowulao.utils.PermissionUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
+import com.kanhui.laowulao.widget.BatteryView;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
@@ -44,6 +45,7 @@ public class LockerActivity extends BaseActivity {
     private TextView tvTitle;
 
     private ContactAdapter adapter;
+    private BatteryView bvBattery;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class LockerActivity extends BaseActivity {
         tvTitle = findViewById(R.id.tv_title);
         Config config = Config.getConfig();
         adapter = new ContactAdapter(LockerActivity.this,config.getListType());
-        if(config.getListType() == ContactAdapter.TYPE_GRIDE){
+        if(config.getListType() == Config.TYPE_GRIDE){
             GridLayoutManager manager = new GridLayoutManager(this, 2);
             manager.setOrientation(GridLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(manager);
@@ -92,6 +94,27 @@ public class LockerActivity extends BaseActivity {
 
             }
         });
+        initBaterry();
+    }
+
+    // 初始化电源状态
+    private void initBaterry(){
+        bvBattery = findViewById(R.id.bv_battery);
+        // api > 5.0
+        if(android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            bvBattery.setVisibility(View.VISIBLE);
+            BatteryManager manager = (BatteryManager) getSystemService(BATTERY_SERVICE);
+            int percent = manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+            bvBattery.setPercent(percent);
+            if(percent <= 20){
+                findViewById(R.id.tv_battery).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.tv_battery).setVisibility(View.GONE);
+            }
+        } else {
+            bvBattery.setVisibility(View.GONE);
+        }
+
     }
 
     public void diallPhone(String phoneNum) {

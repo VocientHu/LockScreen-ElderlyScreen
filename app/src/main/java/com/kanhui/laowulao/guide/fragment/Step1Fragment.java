@@ -1,0 +1,64 @@
+package com.kanhui.laowulao.guide.fragment;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+
+import com.kanhui.laowulao.MainActivity;
+import com.kanhui.laowulao.R;
+import com.kanhui.laowulao.base.BaseFragment;
+import com.kanhui.laowulao.splash.SplashActivity;
+import com.kanhui.laowulao.utils.SharedUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class Step1Fragment extends BaseFragment implements View.OnClickListener {
+
+    private CheckBox answer1,answer2;
+
+    private int answer = 2;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        if(rootView == null){
+            rootView = inflater.inflate(R.layout.fragment_step1,null);
+        }
+
+        initView();
+        return rootView;
+    }
+
+    private void initView() {
+        answer1 = rootView.findViewById(R.id.cb_answer1);
+        answer2 = rootView.findViewById(R.id.cb_answer2);
+        answer1.setOnClickListener(this);
+        answer2.setOnClickListener(this);
+        rootView.findViewById(R.id.btn_next).setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.cb_answer1:
+                answer1.setChecked(true);
+                answer2.setChecked(false);
+                answer = 1;
+                break;
+            case R.id.cb_answer2:
+                answer = 2;
+                answer1.setChecked(false);
+                answer2.setChecked(true);
+                break;
+            case R.id.btn_next:
+                startActivity(MainActivity.class);
+                SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
+                break;
+        }
+    }
+}
