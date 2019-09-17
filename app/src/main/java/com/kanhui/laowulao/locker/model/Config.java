@@ -4,6 +4,8 @@ import com.kanhui.laowulao.utils.SharedUtils;
 
 public class Config {
 
+    public static final String SHARED_BIND_PHONES = "shared_bind_phones";
+
     //锁屏界面联系人列表类型
     public static final int TYPE_GRIDE = 10;// 网格类型，两列
     public static final int TYPE_LIST = 11;// 列表类型
@@ -36,6 +38,8 @@ public class Config {
 
     private int scaleSize = SCALE_MIDDLE;
 
+    private String bindPhones = "";
+
     public int getScaleSize() {
         return scaleSize;
     }
@@ -50,5 +54,13 @@ public class Config {
 
     public void setListType(int listType) {
         this.listType = listType;
+    }
+
+    public String getBindPhones() {
+        return bindPhones;
+    }
+
+    public void setBindPhones(String bindPhones) {
+        this.bindPhones = bindPhones;
     }
 }

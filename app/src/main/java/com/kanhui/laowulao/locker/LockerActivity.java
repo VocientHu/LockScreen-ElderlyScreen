@@ -21,7 +21,7 @@ import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.locker.model.Config;
-import com.kanhui.laowulao.locker.model.ContactEngin;
+import com.kanhui.laowulao.locker.model.ContactEngine;
 import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.BatteryView;
@@ -143,7 +143,7 @@ public class LockerActivity extends BaseActivity {
             @Override
             public void run() {
                 super.run();
-                List<ContactModel> list =  ContactEngin.getInstance(LockerActivity.this).getContactsWidthLog();
+                List<ContactModel> list =  ContactEngine.getInstance(LockerActivity.this).getContactsWidthLog();
                 Message msg = new Message();
                 msg.what = LOAD_DATA;
                 msg.obj = list;

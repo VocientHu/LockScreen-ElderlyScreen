@@ -17,6 +17,9 @@ import androidx.annotation.Nullable;
 
 public class Step1Fragment extends BaseFragment implements View.OnClickListener {
 
+    public static final int ANWSER_OLD_MAN = 1;
+    public static final int ANWSER_YONG_MAN = 2;
+
     private CheckBox answer1,answer2;
 
     private int answer = 2;
@@ -48,16 +51,21 @@ public class Step1Fragment extends BaseFragment implements View.OnClickListener 
             case R.id.cb_answer1:
                 answer1.setChecked(true);
                 answer2.setChecked(false);
-                answer = 1;
+                answer = ANWSER_OLD_MAN;
                 break;
             case R.id.cb_answer2:
-                answer = 2;
+                answer = ANWSER_YONG_MAN;
                 answer1.setChecked(false);
                 answer2.setChecked(true);
                 break;
             case R.id.btn_next:
-                startActivity(MainActivity.class);
-                SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
+                if(answer == ANWSER_OLD_MAN){
+                    turnToFragment(Step2Fragment.class,null,R.id.framelayout);
+                } else {
+                    startActivity(MainActivity.class);
+                    SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
+                }
+
                 break;
         }
     }

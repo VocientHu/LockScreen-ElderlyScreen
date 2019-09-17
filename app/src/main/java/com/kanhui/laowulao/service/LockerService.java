@@ -11,18 +11,32 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.telephony.SmsMessage;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
+import com.google.gson.Gson;
 import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.locker.LockerActivity;
+import com.kanhui.laowulao.locker.model.Config;
+import com.kanhui.laowulao.locker.model.SMSModel;
+import com.kanhui.laowulao.utils.StringUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class LockerService extends Service {
     private static final String TAG = "LockerService";
+
+    private static final String SMS_ACTION = "com.android.TinySMS.RESULT";
+    private static final String SMS_FLAG = "[easycall]";
+
+    private static final int RECEIVERED_MSG = 1;
+
     private Intent serviceIntent;
 
     @Override
@@ -77,7 +91,10 @@ public class LockerService extends Service {
 
     private void initBroadcast(){
         IntentFilter filter = new IntentFilter();
+        // 屏幕关闭
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+        // 接收短信
+        filter.addAction(SMS_ACTION);
         registerReceiver(receiver,filter);
     }
 
@@ -85,7 +102,54 @@ public class LockerService extends Service {
     private BroadcastReceiver receiver = new BroadcastReceiver(){
         @Override
         public void onReceive(Context context, Intent intent) {
-            lockScreen();
+            String action = intent.getAction();
+            if(Intent.ACTION_SCREEN_OFF.equals(action)){
+                lockScreen();
+            } else if(SMS_ACTION.equals(action)){
+                dealMessage(intent);
+            }
+
+        }
+    };
+
+    void dealMessage(Intent intent){
+        Object[] object=(Object[]) intent.getExtras().get("pdus");
+        SMSModel model = new SMSModel();
+        for (Object pdus : object) {
+            byte[] pdusMsg=(byte[]) pdus;
+            SmsMessage sms= SmsMessage.createFromPdu(pdusMsg);
+            String mobile=sms.getOriginatingAddress();//发送短信的手机号
+            String content=sms.getMessageBody();//短信内容
+            model.setPhone(mobile);
+            model.setContent(content);
+            break;
+
+        }
+        Message msg=new Message();
+        msg.what = RECEIVERED_MSG;
+        msg.obj = model;
+        handler.sendMessage(msg);
+    }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            SMSModel model = (SMSModel) msg.obj;
+            String phone = model.getPhone();
+            String content = model.getContent();
+            String bindPhons = Config.getConfig().getBindPhones();
+            //只处理绑定手机发来的短信
+            if(!StringUtils.isEmpty(bindPhons) && bindPhons.contains(phone)){
+                if(!StringUtils.isEmpty(content) && content.startsWith(SMS_FLAG)){
+                    // 配置文件
+                    String configStr = content.replace(SMS_FLAG,"");
+                    Config newConfig = new Gson().fromJson(configStr,Config.class);
+                    Config oldConfig = Config.getConfig();
+                    newConfig.setBindPhones(oldConfig.getBindPhones());
+                    Config.setConfig(newConfig);
+                }
+            }
         }
     };
 

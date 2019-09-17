@@ -36,6 +36,8 @@
     <string name="step1_des">您希望使用Easy Call达到什么目的？</string>
     <string name="step1_answer1">自己能更便捷的打电话，玩微信</string>
     <string name="step1_answer2">协助亲人更便捷的打电话，玩微信</string>
+    <string name="step2_des">您是否需要人协助？如果是，请填写协助人手机号,如不需要，请直接点击下一步</string>
     <string name="step_next">下一步</string>
+    <string name="set_phone_code">请填写手机号，多个手机号请用;隔开，最多支持3个</string>
 
 </resources>

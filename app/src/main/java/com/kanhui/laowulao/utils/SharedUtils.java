@@ -68,12 +68,15 @@ public class SharedUtils {
         Config config = new Config();
         config.setListType(getInt(LOCK_LIST_TYPE, Config.TYPE_LIST));
         config.setScaleSize(getInt(LOCK_SCALE_SIZE,Config.SCALE_MIDDLE));
+        config.setBindPhones(getString(Config.SHARED_BIND_PHONES,""));
         return config;
     }
 
     public void saveConfig(Config config){
         putInt(LOCK_LIST_TYPE,config.getListType());
         putInt(LOCK_SCALE_SIZE,config.getScaleSize());
+        putString(Config.SHARED_BIND_PHONES,config.getBindPhones());
+
     }
 
 
