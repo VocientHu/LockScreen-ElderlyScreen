@@ -45,23 +45,34 @@ public class SettingContactAdapter extends RecyclerView.Adapter<SettingContactAd
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if(listener != null){
+                        listener.onAdd();
+                    }
                 }
             });
             return new ViewHolder(view);
         }
 
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_contact,null));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_gride_contact,null));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if(getItemViewType(position) == TYPE_ADD){
             return;
         }
         ContactModel model = list.get(position);
         holder.tvName.setText(model.getName());
         holder.tvPhone.setText(model.getPhone());
+        holder.tvDelete.setVisibility(View.VISIBLE);
+        holder.tvPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listener != null){
+                    listener.onDelete(position);
+                }
+            }
+        });
         int bgColor = getCurrentBgResId(model.getName());
         holder.itemGride.setBackgroundColor(context.getResources().getColor(bgColor));
         holder.tvHistory.setVisibility(View.GONE);
@@ -71,7 +82,7 @@ public class SettingContactAdapter extends RecyclerView.Adapter<SettingContactAd
     @Override
     public int getItemCount() {
 
-        return list.size() < 4 ? list.size()+1 : list.size();
+        return list == null ? 1 : list.size() < 4 ? list.size()+1 : 4;
     }
 
     @Override
@@ -92,13 +103,16 @@ public class SettingContactAdapter extends RecyclerView.Adapter<SettingContactAd
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvName,tvPhone,tvHistory;
+        TextView tvName,tvPhone,tvHistory,tvDelete;
         View itemGride;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
+            tvDelete = itemView.findViewById(R.id.tv_delete);
             tvPhone = itemView.findViewById(R.id.tv_phone);
+            tvHistory = itemView.findViewById(R.id.tv_history);
             itemGride = itemView.findViewById(R.id.rl_layout);
+
         }
     }
 
@@ -114,5 +128,7 @@ public class SettingContactAdapter extends RecyclerView.Adapter<SettingContactAd
 
     public interface SettingContactAddListener{
         void onAdd();
+
+        void onDelete(int position);
     }
 }

@@ -87,9 +87,23 @@
                 android:text="&#xe647;"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:visibility="gone"
                 />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_14"
+            android:textColor="@color/black_6"
+            android:singleLine="true"
+            android:text="删除"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            />
 
     </RelativeLayout>
 

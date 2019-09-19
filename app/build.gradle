@@ -12,12 +12,33 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+
+    signingConfigs {
+        debug {
+            keyAlias 'easy_call.jks'
+            keyPassword '123456'
+            storeFile file('../easy_call.jks')
+            storePassword '123456'
+        }
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            keyAlias 'easy_call.jks'
+            keyPassword '123456'
+            storeFile file('../easy_call.jks')
+            storePassword '123456'
         }
     }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
 }
 
 dependencies {
@@ -33,5 +54,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.amap.api:location:latest.integration'
+    implementation 'pub.devrel:easypermissions:3.0.0'
 
 }

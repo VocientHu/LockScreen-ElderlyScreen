@@ -10,8 +10,6 @@ import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -21,19 +19,18 @@ import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.locker.model.Config;
-import com.kanhui.laowulao.locker.model.ContactEngine;
 import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.BatteryView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.realm.Realm;
 
 import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
@@ -66,15 +63,10 @@ public class LockerActivity extends BaseActivity {
         recyclerView = findViewById(R.id.rv_list);
         tvTitle = findViewById(R.id.tv_title);
         Config config = Config.getConfig();
-        adapter = new ContactAdapter(LockerActivity.this,config.getListType());
-        if(config.getListType() == Config.TYPE_GRIDE){
-            GridLayoutManager manager = new GridLayoutManager(this, 2);
-            manager.setOrientation(GridLayoutManager.VERTICAL);
-            recyclerView.setLayoutManager(manager);
-        } else {
-            LinearLayoutManager manager = new LinearLayoutManager(LockerActivity.this);
-            recyclerView.setLayoutManager(manager);
-        }
+        adapter = new ContactAdapter(LockerActivity.this,Config.TYPE_GRIDE);
+        GridLayoutManager manager = new GridLayoutManager(this, 2);
+        manager.setOrientation(GridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
         adapter.setListener(new ContactAdapter.ItemClickListener() {
@@ -94,6 +86,8 @@ public class LockerActivity extends BaseActivity {
 
             }
         });
+
+
         initBaterry();
     }
 
@@ -139,32 +133,17 @@ public class LockerActivity extends BaseActivity {
 
     void initData(){
         tvTitle.setText(R.string.loading);
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                List<ContactModel> list =  ContactEngine.getInstance(LockerActivity.this).getContactsWidthLog();
-                Message msg = new Message();
-                msg.what = LOAD_DATA;
-                msg.obj = list;
-                handler.sendMessage(msg);
-            }
-        }.start();
+        List<ContactModel> list = new ArrayList<>();
+        List<ContactModel> oldData = Realm.getDefaultInstance().where(ContactModel.class).findAllAsync();
+        list.addAll(oldData);
+        adapter.setData(list);
+        int count = list.size();
+        String text = getResources().getString(R.string.constact_people_count);
+        text = String.format(text,count+"");
+        tvTitle.setText(text);
+
     }
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            List<ContactModel> list = (List<ContactModel>) msg.obj;
-            adapter.setData(list);
-            int count = list.size();
-            String text = getResources().getString(R.string.constact_people_count);
-            text = String.format(text,count+"");
-            tvTitle.setText(text);
-
-        }
-    };
 
     private void openWeiXin(){
         Intent intent = new Intent();

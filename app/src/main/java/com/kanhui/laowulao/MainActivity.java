@@ -31,7 +31,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private CheckBox cbBig,cbMiddle,cbSmall,cbList,cbGride;
     private TextView tvDes,tvFeatures,tvNotice;
 
-    private String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,Manifest.permission.READ_CALL_LOG};
+    private String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
 
     // 配置
     private Config config;
@@ -210,7 +211,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else {
             startService(new Intent(this, LockerService.class));
         }
-//        setStartBtnStatus(false);
         ToastUtils.showToast(MainActivity.this,"服务已开启");
     }
 

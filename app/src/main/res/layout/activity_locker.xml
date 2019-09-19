@@ -13,7 +13,7 @@
         android:background="@color/white"
         >
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_nav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/constact_people"
@@ -44,13 +44,57 @@
             />
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list"
+    <View style="@style/horizontal_line"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/dimen_half"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_16"
-        />
+        android:scrollbars="none"
+        android:padding="@dimen/dimen_16"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.kanhui.laowulao.widget.WeatherView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_10">
+            </com.kanhui.laowulao.widget.WeatherView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_3"
+                android:text="@string/contact"
+                android:id="@+id/tv_title"
+                android:layout_marginTop="@dimen/dimen_16"
+                android:layout_marginLeft="@dimen/dimen_10"
+
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_half"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dimen_16"
+                    android:nestedScrollingEnabled="false"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 
 
 </LinearLayout>

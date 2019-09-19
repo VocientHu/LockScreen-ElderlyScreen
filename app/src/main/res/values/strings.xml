@@ -13,6 +13,7 @@
     <string name="setting">设置</string>
     <string name="weather_setting">天气配置</string>
     <string name="contact_setting">联系人配置</string>
+    <string name="contact">联系人</string>
     <string name="today">今天</string>
     <string name="tomorrow">明天</string>
     <string name="save">保存</string>

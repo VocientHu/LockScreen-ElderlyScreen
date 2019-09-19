@@ -2,7 +2,6 @@ package com.kanhui.laowulao.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 
 import com.kanhui.laowulao.R;
@@ -16,12 +15,10 @@ import androidx.fragment.app.FragmentTransaction;
 public class BaseActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
-    private FragmentTransaction transaction;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // 处理状态栏
         getWindow().setStatusBarColor(getResources().getColor(R.color.main_green));
         View decorView = getWindow().getDecorView();
@@ -33,11 +30,12 @@ public class BaseActivity extends AppCompatActivity {
 
     private void initFragment() {
         fragmentManager = getSupportFragmentManager();
-        transaction = fragmentManager.beginTransaction();
     }
 
     public void turnToFragment(Class<? extends BaseFragment> fragment,Bundle bundle,int layoutId){
         String tag = fragment.getName();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
         Fragment oldFragment = fragmentManager.findFragmentByTag(tag);
         if(oldFragment != null){
             if(bundle != null){

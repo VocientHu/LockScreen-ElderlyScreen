@@ -11,6 +11,7 @@ import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.setting.adapter.SettingContactAdapter;
+import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.WeatherView;
 
 import java.util.ArrayList;
@@ -20,9 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.Forecast;
-import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.ForecastBase;
-import interfaces.heweather.com.interfacesmodule.view.HeWeather;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
@@ -67,40 +67,28 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     startActivityForResult(intent, REQUEST_SELECT_PHONE_NUMBER);
                 }
             }
-        });
-        initWeather();
-    }
-
-    private void initWeather(){
-        HeWeather.getWeatherForecast(SettingActivity.this, "深圳市", new HeWeather.OnResultWeatherForecastBeanListener() {
-            @Override
-            public void onError(Throwable throwable) {
-
-            }
 
             @Override
-            public void onSuccess(Forecast forecast) {
-                List<ForecastBase> listForecast = forecast.getDaily_forecast();
-                if(listForecast != null){
-                    ForecastBase today = listForecast.get(0);
-                    ForecastBase tomorrow = listForecast.get(1);
-                    setTodayWeather(today);
-                    setTomorrowWeather(tomorrow);
-                }
+            public void onDelete(final int position) {
+                ContactModel model = contactList.get(position);
+                final RealmResults<ContactModel> list = Realm.getDefaultInstance().where(ContactModel.class)
+                        .like("name",model.getName()).findAllAsync();
+                Realm.getDefaultInstance().executeTransaction(new Realm.Transaction(){
+                    @Override
+                    public void execute(Realm realm) {
+                        list.get(0).deleteFromRealm();
+                        contactList.remove(position);
+                        contactAdapter.setData(contactList);
+                    }
+                });
 
             }
         });
+        List<ContactModel> oldData = Realm.getDefaultInstance().where(ContactModel.class).findAllAsync();
+        contactList.addAll(oldData);
+        contactAdapter.setData(contactList);
     }
 
-    private void setTodayWeather(ForecastBase today){
-
-        weatherView.setTodayWeather(today.getDate(),today.getCond_txt_d());
-    }
-
-    private void setTomorrowWeather(ForecastBase tomorrow){
-
-        weatherView.setTodayWeather(tomorrow.getDate(),tomorrow.getCond_txt_d());
-    }
 
 
 
@@ -123,6 +111,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 ContactModel model = new ContactModel();
                 model.setName(name);
                 model.setPhone(number);
+
                 contactList.add(model);
 
                 cursor.close();
@@ -134,7 +123,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_save:
-
+                for(ContactModel model : contactList){
+                    Realm  mRealm=Realm.getDefaultInstance();
+                    mRealm.beginTransaction();
+                    mRealm.copyToRealm(model);
+                    mRealm.commitTransaction();
+                }
+                ToastUtils.showToast(SettingActivity.this,"保存成功");
                 break;
         }
     }
