@@ -15,6 +15,13 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
 
     <application
         android:name=".base.LWLApplicatoin"
@@ -26,7 +33,7 @@
         android:persistent="true"
         android:theme="@style/AppTheme">
         <activity android:name=".splash.SplashActivity"
-            android:launchMode="singleTask">
+            android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -44,20 +51,23 @@
         <activity android:name=".about.AboutActivity"
             android:exported="false"
             android:launchMode="standard"
-            android:screenOrientation="portrait"
             />
 
         <activity android:name=".MainActivity"
             android:exported="false"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
             />
 
         <activity android:name=".guide.GuideActivity"
             android:exported="false"
             android:launchMode="standard"
-            android:screenOrientation="portrait"
             />
+
+        <activity android:name=".setting.SettingActivity"
+            android:exported="false"
+            android:launchMode="standard"
+            />
+
 
         <service android:name=".service.LockerService"
             android:priority="1000"

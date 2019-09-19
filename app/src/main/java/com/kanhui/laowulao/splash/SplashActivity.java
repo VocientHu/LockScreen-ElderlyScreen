@@ -3,7 +3,6 @@ package com.kanhui.laowulao.splash;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
 
 import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.R;
@@ -19,8 +18,8 @@ public class SplashActivity extends BaseActivity {
     public static final String SHARED_GUIDE_STATUS = "shared_guide_status";
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
 

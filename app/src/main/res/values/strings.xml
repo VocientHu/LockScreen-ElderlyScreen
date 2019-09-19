@@ -10,6 +10,14 @@
     <string name="constact_people_count">联系人(%s人)</string>
     <string name="loading">正在初始化...</string>
     <string name="config">配置锁屏界面</string>
+    <string name="setting">设置</string>
+    <string name="weather_setting">天气配置</string>
+    <string name="contact_setting">联系人配置</string>
+    <string name="today">今天</string>
+    <string name="tomorrow">明天</string>
+    <string name="save">保存</string>
+    <string name="city">城市</string>
+    <string name="preview">预览</string>
     <string name="name_size">名字大小</string>
     <string name="list_style">通讯录样式</string>
     <string name="send_phone_des">发送到远程手机</string>

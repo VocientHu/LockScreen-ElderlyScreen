@@ -22,7 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
-    private static final int[] colors = {R.color.header_bg1,R.color.header_bg2,R.color.header_bg3,
+    public static final int[] colors = {R.color.header_bg1,R.color.header_bg2,R.color.header_bg3,
             R.color.header_bg4,R.color.header_bg5,R.color.header_bg6,R.color.header_bg7,R.color.header_bg8};
 
     public static final int CALL_PHONE = 1;
@@ -110,14 +110,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 }
             }
         });
-        holder.btnCallVideo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(listener != null){
-                    listener.onItemClick(model,position,CALL_VIDEO);
-                }
-            }
-        });
+//        holder.btnCallVideo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(listener != null){
+//                    listener.onItemClick(model,position,CALL_VIDEO);
+//                }
+//            }
+//        });
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +145,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
         View rootView;
         TextView tvName,tvPhone,tvHistory;
-        IconView btnCallPhone,btnCallVideo;
+        IconView btnCallPhone;//btnCallVideo;
         ImageView ivHeader;
         Md5HeaderView md5HeaderView;
         View itemGride;
@@ -156,7 +156,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             tvPhone = itemView.findViewById(R.id.tv_phone);
             ivHeader = itemView.findViewById(R.id.iv_header);
             btnCallPhone = itemView.findViewById(R.id.iv_call_phone);
-            btnCallVideo = itemView.findViewById(R.id.iv_call_video);
+            //btnCallVideo = itemView.findViewById(R.id.iv_call_video);
             md5HeaderView = itemView.findViewById(R.id.md5_header_view);
             tvHistory = itemView.findViewById(R.id.tv_history);
             itemGride = itemView.findViewById(R.id.rl_layout);

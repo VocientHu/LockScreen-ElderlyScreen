@@ -1,6 +1,8 @@
 package com.kanhui.laowulao.locker.model;
 
-public class ContactModel {
+import io.realm.RealmObject;
+
+public class ContactModel  extends RealmObject {
     public static final int CALL_IN = 1;
     public static final int CALL_OUT = 2;
     public static final int CALL_UNKNOWN= 3;

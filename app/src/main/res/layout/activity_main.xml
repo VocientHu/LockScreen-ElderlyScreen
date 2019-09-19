@@ -24,6 +24,18 @@
             android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_centerInParent="true"
             />
+
+        <TextView
+            android:id="@+id/tv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            />
+
         <com.kanhui.laowulao.widget.IconView
             android:id="@+id/iv_call_phone"
             android:layout_width="wrap_content"

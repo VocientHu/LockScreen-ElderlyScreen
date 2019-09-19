@@ -14,6 +14,7 @@ import com.kanhui.laowulao.about.AboutActivity;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.locker.model.Config;
 import com.kanhui.laowulao.service.LockerService;
+import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.utils.PermissionUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
 
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.btn_save).setOnClickListener(this);
         findViewById(R.id.btn_send).setOnClickListener(this);
         findViewById(R.id.iv_call_phone).setOnClickListener(this);
+        findViewById(R.id.tv_setting).setOnClickListener(this);
 
     }
 
@@ -166,9 +168,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.iv_call_phone:// 关于
                 toAbout();
                 break;
+            case R.id.tv_setting:// 设置
+                toSetting();
+                break;
+
                 default:
                     break;
         }
+    }
+
+    private void toSetting() {
+        startActivity(SettingActivity.class);
     }
 
     void toAbout(){

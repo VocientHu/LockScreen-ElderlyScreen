@@ -8,6 +8,9 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class LWLApplicatoin extends Application {
 
     private static LWLApplicatoin application;
@@ -27,6 +30,11 @@ public class LWLApplicatoin extends Application {
         application = this;
         // init bugly
         CrashReport.initCrashReport(getApplicationContext(), Constants.BuglyAppId, false);
+
+        // init realm
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder().name("laowulao.realm").build();
+        Realm.setDefaultConfiguration(config);
     }
 
     public void addActivity(BaseActivity activity){
