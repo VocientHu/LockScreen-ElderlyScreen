@@ -3,16 +3,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/white"
     android:padding="@dimen/dimen_10">
 
-    <TextView
+    <com.kanhui.laowulao.widget.IconView
         android:id="@+id/tv_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="&#xe618;"
         android:textSize="@dimen/font_60"
         android:textStyle="bold"
-        android:textColor="@color/black_9"/>
+        android:textColor="@color/black_9"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

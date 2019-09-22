@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.kanhui.laowulao.base.LWLApplicatoin;
-import com.kanhui.laowulao.locker.model.Config;
+import com.kanhui.laowulao.config.Config;
 
 public class SharedUtils {
 
@@ -63,12 +63,15 @@ public class SharedUtils {
     }
 
     private static final String LOCK_LIST_TYPE = "lock_list_type";
-    private static final String LOCK_SCALE_SIZE = "lock_SCALE_SIZE";
+    private static final String LOCK_SCALE_SIZE = "lock_scale_size";
+    private static final String LOCK_SHARE_URL = "lock_share_url";
     public Config getConfig(){
         Config config = new Config();
         config.setListType(getInt(LOCK_LIST_TYPE, Config.TYPE_LIST));
         config.setScaleSize(getInt(LOCK_SCALE_SIZE,Config.SCALE_MIDDLE));
         config.setBindPhones(getString(Config.SHARED_BIND_PHONES,""));
+        config.setShareUrl(getString(LOCK_SHARE_URL,""));
+
         return config;
     }
 
@@ -76,7 +79,7 @@ public class SharedUtils {
         putInt(LOCK_LIST_TYPE,config.getListType());
         putInt(LOCK_SCALE_SIZE,config.getScaleSize());
         putString(Config.SHARED_BIND_PHONES,config.getBindPhones());
-
+        putString(LOCK_SHARE_URL,config.getShareUrl());
     }
 
 

@@ -22,7 +22,7 @@ import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.locker.LockerActivity;
-import com.kanhui.laowulao.locker.model.Config;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.SMSModel;
 import com.kanhui.laowulao.utils.StringUtils;
 

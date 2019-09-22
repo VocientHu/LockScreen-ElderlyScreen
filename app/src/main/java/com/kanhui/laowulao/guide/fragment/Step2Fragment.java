@@ -9,7 +9,7 @@ import android.widget.EditText;
 import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseFragment;
-import com.kanhui.laowulao.locker.model.Config;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.splash.SplashActivity;
 import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.StringUtils;

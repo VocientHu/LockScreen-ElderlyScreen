@@ -9,7 +9,6 @@
         android:id="@+id/tv_today"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/city"
         android:textSize="@dimen/dimen_20"
         android:textColor="@color/black_3"
         android:textStyle="bold"
@@ -52,6 +51,14 @@
                 android:text="多云转晴"
                 android:layout_below="@+id/tv_city"
                 android:layout_marginTop="@dimen/dimen_10"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
+                android:id="@+id/iv_weather"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
                 />
 
         </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.kanhui.laowulao.locker.model;
+package com.kanhui.laowulao.config;
 
 import com.kanhui.laowulao.utils.SharedUtils;
 
@@ -40,6 +40,8 @@ public class Config {
 
     private String bindPhones = "";
 
+    private String shareUrl = "";
+
     public int getScaleSize() {
         return scaleSize;
     }
@@ -62,5 +64,13 @@ public class Config {
 
     public void setBindPhones(String bindPhones) {
         this.bindPhones = bindPhones;
+    }
+
+    public String getShareUrl() {
+        return shareUrl;
+    }
+
+    public void setShareUrl(String shareUrl) {
+        this.shareUrl = shareUrl;
     }
 }

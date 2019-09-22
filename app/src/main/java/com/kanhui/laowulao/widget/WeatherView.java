@@ -1,9 +1,12 @@
 package com.kanhui.laowulao.widget;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,13 +14,17 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.bumptech.glide.Glide;
 import com.kanhui.laowulao.R;
+import com.kanhui.laowulao.config.Constants;
 import com.kanhui.laowulao.utils.Lunar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.Nullable;
 import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.Forecast;
@@ -30,6 +37,8 @@ public class WeatherView extends LinearLayout {
     private Context context;
 
     private TextView tvCity,tvTodayDate,tvToday,tvTodayWeather;
+
+    private ImageView ivWeather;
 
     public WeatherView(Context context) {
         this(context,null);
@@ -59,6 +68,7 @@ public class WeatherView extends LinearLayout {
         tvTodayDate = findViewById(R.id.tv_today_date);
         tvToday = findViewById(R.id.tv_today);
         tvTodayWeather = findViewById(R.id.tv_today_weather_detail);
+        ivWeather = findViewById(R.id.iv_weather);
         initLocation();
         initDate();
     }
@@ -67,6 +77,7 @@ public class WeatherView extends LinearLayout {
         tvToday.setText(getSysDate());
         Calendar today = Calendar.getInstance();
         tvTodayDate.setText("农历" + new Lunar(today).toString());
+        refreshTime();
     }
 
     public void setTodayWeather(String weather){
@@ -141,8 +152,40 @@ public class WeatherView extends LinearLayout {
     }
 
     private void setTodayWeather(ForecastBase today){
-
         setTodayWeather(today.getCond_txt_d());
+        String iconUrl = Constants.WeatherIconURL ;
+        String code = today.getCond_code_d();
+        iconUrl = iconUrl + code + ".png";
+        Glide.with(context).load(iconUrl).into(ivWeather);
+    }
+
+    // refresh time
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            tvToday.setText(getSysDate());
+        }
+    };
+
+    Timer timer;
+    TimerTask task;
+
+    private void refreshTime(){
+        if(timer != null){
+            timer.cancel();
+        }
+        if(task != null){
+            task.cancel();
+        }
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(0);
+            }
+        };
+        timer.schedule(task,60*1000,60*1000);
     }
 
 }

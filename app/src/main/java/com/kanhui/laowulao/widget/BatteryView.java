@@ -87,7 +87,7 @@ public class BatteryView extends View {
         if(percent <= 20){
             paint.setColor(Color.RED);
         } else if(percent > 20 && percent <=50){
-            paint.setColor(Color.YELLOW);
+            paint.setColor(context.getResources().getColor(R.color.header_bg6));
         } else {
             paint.setColor(color);
         }

@@ -20,7 +20,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 处理状态栏
-        getWindow().setStatusBarColor(getResources().getColor(R.color.main_green));
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         View decorView = getWindow().getDecorView();
         int option = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         decorView.setSystemUiVisibility(option);

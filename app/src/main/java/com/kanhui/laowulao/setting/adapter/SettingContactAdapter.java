@@ -65,7 +65,7 @@ public class SettingContactAdapter extends RecyclerView.Adapter<SettingContactAd
         holder.tvName.setText(model.getName());
         holder.tvPhone.setText(model.getPhone());
         holder.tvDelete.setVisibility(View.VISIBLE);
-        holder.tvPhone.setOnClickListener(new View.OnClickListener() {
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(listener != null){

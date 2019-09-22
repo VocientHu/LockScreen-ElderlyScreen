@@ -36,6 +36,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:persistent="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity android:name=".splash.SplashActivity"
             android:launchMode="standard">
@@ -71,6 +72,11 @@
             android:exported="false"
             android:launchMode="standard"
             />
+        <activity android:name=".setting.AppSelectActivity"
+            android:exported="false"
+            android:launchMode="standard"
+            />
+
 
 
         <service android:name=".service.LockerService"

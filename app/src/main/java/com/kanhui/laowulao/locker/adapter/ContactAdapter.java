@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kanhui.laowulao.R;
-import com.kanhui.laowulao.locker.model.Config;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.utils.LogUtils;
 import com.kanhui.laowulao.utils.StringUtils;

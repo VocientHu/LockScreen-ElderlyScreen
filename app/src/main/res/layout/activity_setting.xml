@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_30"
             android:textColor="@color/black"
-            android:text="&#xe648;"
+            android:text="&#xe67d;"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             />
@@ -71,15 +71,40 @@
                 android:textColor="@color/black_3"
                 android:textSize="@dimen/font_18"
                 android:textStyle="bold"
+
                 />
 
             <com.kanhui.laowulao.widget.WeatherView
                 android:id="@+id/wv_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
                 android:minHeight="150dp">
 
             </com.kanhui.laowulao.widget.WeatherView>
+
+            <TextView
+                android:id="@+id/tv_apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/apps_setting"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/font_18"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/dimen_10"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_apps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_contact_setting"

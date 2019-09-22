@@ -1,6 +1,7 @@
 package com.kanhui.laowulao.locker.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class ContactModel  extends RealmObject {
     public static final int CALL_IN = 1;
@@ -9,6 +10,7 @@ public class ContactModel  extends RealmObject {
     // 姓名
     String name;
     // 手机号
+    @PrimaryKey
     String phone;
     // 上次通话时间
     String lastTime;

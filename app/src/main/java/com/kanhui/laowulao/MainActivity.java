@@ -3,16 +3,17 @@ package com.kanhui.laowulao;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kanhui.laowulao.about.AboutActivity;
 import com.kanhui.laowulao.base.BaseActivity;
-import com.kanhui.laowulao.locker.model.Config;
+import com.kanhui.laowulao.locker.LockerActivity;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.utils.PermissionUtils;
@@ -30,9 +31,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btnStart,btnStop,btnSave,btnSend;
     private CheckBox cbBig,cbMiddle,cbSmall,cbList,cbGride;
     private TextView tvDes,tvFeatures,tvNotice;
+    private EditText etPhone,etShare;
 
     private String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
-            Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
+            Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS};
 
     // 配置
     private Config config;
@@ -56,7 +59,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvDes = findViewById(R.id.tv_des);
         tvFeatures = findViewById(R.id.tv_features);
         tvNotice = findViewById(R.id.tv_notice);
-
+        etPhone = findViewById(R.id.et_phone);
+        etShare = findViewById(R.id.et_share);
         btnStart.setOnClickListener(this);
         findViewById(R.id.btn_stop).setOnClickListener(this);
         findViewById(R.id.btn_save).setOnClickListener(this);
@@ -186,13 +190,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         startActivity(AboutActivity.class);
     }
 
+    void commitConfig(){
+        String phone = etPhone.getText().toString();
+        config.setBindPhones(phone);
+        String address = etShare.getText().toString();
+        config.setShareUrl(address);
+    }
+
     void saveConfig(){
+        commitConfig();
         Config.setConfig(config);
         ToastUtils.showToast(MainActivity.this,"保存成功");
     }
 
     void sendConfig(){
-        ToastUtils.showToast(MainActivity.this,"建设中...");
+        commitConfig();
+        Config.setConfig(config);
+
     }
 
     private void toStop(){
@@ -205,12 +219,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             dealwithPermiss(MainActivity.this);
             return;
         }
-//        startActivity(LockerActivity.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(new Intent(this, LockerService.class));
-        } else {
-            startService(new Intent(this, LockerService.class));
-        }
+        startActivity(LockerActivity.class);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForegroundService(new Intent(this, LockerService.class));
+//        } else {
+//            startService(new Intent(this, LockerService.class));
+//        }
         ToastUtils.showToast(MainActivity.this,"服务已开启");
     }
 
