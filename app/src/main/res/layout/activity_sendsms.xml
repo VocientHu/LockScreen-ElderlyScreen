@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16"
+        android:background="@color/white"
+        >
+        <TextView
+            android:id="@+id/tv_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_config"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_centerInParent="true"
+            />
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_30"
+            android:textColor="@color/black"
+            android:text="&#xe67d;"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone_code"
+            android:padding="@dimen/dimen_5"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_margin="@dimen/dimen_20"
+            />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="发送短信"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/btn_main_selector"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/dimen_16"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        />
+
+</LinearLayout>

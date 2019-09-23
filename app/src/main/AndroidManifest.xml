@@ -76,6 +76,10 @@
             android:exported="false"
             android:launchMode="standard"
             />
+        <activity android:name=".SendSMSActivity"
+            android:exported="false"
+            android:launchMode="standard"
+            />
 
 
 
@@ -94,6 +98,15 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receiver.SmsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
         </receiver>
 

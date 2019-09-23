@@ -32,8 +32,8 @@ import androidx.annotation.Nullable;
 public class LockerService extends Service {
     private static final String TAG = "LockerService";
 
-    private static final String SMS_ACTION = "com.android.TinySMS.RESULT";
-    private static final String SMS_FLAG = "[easycall]";
+    private static final String SMS_ACTION = "android.provider.Telephony.SMS_RECEIVED";
+    public static final String SMS_FLAG = "[easycall]";
 
     private static final int RECEIVERED_MSG = 1;
 
@@ -94,7 +94,7 @@ public class LockerService extends Service {
         // 屏幕关闭
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         // 接收短信
-        filter.addAction(SMS_ACTION);
+        //filter.addAction(SMS_ACTION);
         registerReceiver(receiver,filter);
     }
 

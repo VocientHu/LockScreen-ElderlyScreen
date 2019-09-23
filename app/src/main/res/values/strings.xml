@@ -10,6 +10,7 @@
     <string name="constact_people_count">联系人(%s人)</string>
     <string name="loading">正在初始化...</string>
     <string name="config">参数配置</string>
+    <string name="send_config">发送配置</string>
     <string name="setting">设置</string>
     <string name="weather_setting">日期和天气</string>
     <string name="contact_setting">常用联系人配置</string>

@@ -3,16 +3,15 @@ package com.kanhui.laowulao;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.kanhui.laowulao.about.AboutActivity;
 import com.kanhui.laowulao.base.BaseActivity;
-import com.kanhui.laowulao.locker.LockerActivity;
 import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.setting.SettingActivity;
@@ -28,9 +27,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int PERMISSION_CODE_READ_CONTACT = 1;
 
-    private Button btnStart,btnStop,btnSave,btnSend;
+    private Button btnStart;
     private CheckBox cbBig,cbMiddle,cbSmall,cbList,cbGride;
-    private TextView tvDes,tvFeatures,tvNotice;
     private EditText etPhone,etShare;
 
     private String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
@@ -56,9 +54,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         cbSmall = findViewById(R.id.cb_small);
         cbList = findViewById(R.id.cb_list);
         cbGride = findViewById(R.id.cb_gride);
-        tvDes = findViewById(R.id.tv_des);
-        tvFeatures = findViewById(R.id.tv_features);
-        tvNotice = findViewById(R.id.tv_notice);
         etPhone = findViewById(R.id.et_phone);
         etShare = findViewById(R.id.et_share);
         btnStart.setOnClickListener(this);
@@ -67,7 +62,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.btn_send).setOnClickListener(this);
         findViewById(R.id.iv_call_phone).setOnClickListener(this);
         findViewById(R.id.tv_setting).setOnClickListener(this);
-
     }
 
     void initData(){
@@ -76,6 +70,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         cbBig.setChecked(false);
         cbMiddle.setChecked(false);
         cbSmall.setChecked(false);
+        etPhone.setText(config.getBindPhones());
+        etShare.setText(config.getShareUrl());
         switch (config.getScaleSize()){
             case Config.SCALE_BIG:
                 cbBig.setChecked(true);
@@ -206,6 +202,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     void sendConfig(){
         commitConfig();
         Config.setConfig(config);
+        startActivity(SendSMSActivity.class);
 
     }
 
@@ -219,12 +216,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             dealwithPermiss(MainActivity.this);
             return;
         }
-        startActivity(LockerActivity.class);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            startForegroundService(new Intent(this, LockerService.class));
-//        } else {
-//            startService(new Intent(this, LockerService.class));
-//        }
+//        startActivity(LockerActivity.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(new Intent(this, LockerService.class));
+        } else {
+            startService(new Intent(this, LockerService.class));
+        }
         ToastUtils.showToast(MainActivity.this,"服务已开启");
     }
 
