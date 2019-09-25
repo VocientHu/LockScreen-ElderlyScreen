@@ -33,7 +33,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
             Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS};
+            Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
+            Manifest.permission.RECEIVE_SMS};
 
     // 配置
     private Config config;

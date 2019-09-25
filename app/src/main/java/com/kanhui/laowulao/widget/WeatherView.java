@@ -76,7 +76,7 @@ public class WeatherView extends LinearLayout {
     private void initDate() {
         tvToday.setText(getSysDate());
         Calendar today = Calendar.getInstance();
-        tvTodayDate.setText("农历" + new Lunar(today).toString());
+        tvTodayDate.setText("农历" + new Lunar(today).toString() + " " + Lunar.getWeek());
         refreshTime();
     }
 

@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/dimen_20"
-        android:paddingVertical="@dimen/dimen_20"
+        android:paddingHorizontal="@dimen/dimen_10"
+        android:paddingVertical="@dimen/dimen_10"
         android:background="@color/white"
         >
         <TextView
@@ -61,7 +61,7 @@
             <com.kanhui.laowulao.widget.WeatherView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dimen_10">
+                >
             </com.kanhui.laowulao.widget.WeatherView>
 
             <TextView
@@ -71,7 +71,6 @@
                 android:text="@string/apps_usually"
                 android:id="@+id/tv_apps_title"
                 android:layout_marginTop="@dimen/dimen_16"
-                android:layout_marginLeft="@dimen/dimen_10"
                 />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -93,7 +92,6 @@
                 android:text="@string/contact"
                 android:id="@+id/tv_contact_title"
                 android:layout_marginTop="@dimen/dimen_16"
-                android:layout_marginLeft="@dimen/dimen_10"
                 />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -109,11 +107,11 @@
                     />
             </RelativeLayout>
 
-            <WebView
-                android:id="@+id/wv_share"
+            <ImageView
+                android:id="@+id/iv_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_10"
                 />
         </LinearLayout>
 

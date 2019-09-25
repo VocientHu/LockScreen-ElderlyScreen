@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.kanhui.laowulao.R;
+import com.kanhui.laowulao.locker.LockerActivity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,12 +20,14 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 处理状态栏
-        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
-        View decorView = getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-        decorView.setSystemUiVisibility(option);
-
+        // 锁屏界面才全屏，其他页面不全屏
+        if(this instanceof LockerActivity){
+            // 处理状态栏
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            decorView.setSystemUiVisibility(option);
+        }
         initFragment();
     }
 

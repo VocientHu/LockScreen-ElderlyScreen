@@ -14,7 +14,6 @@ import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.setting.adapter.AppSelectAdapter;
 import com.kanhui.laowulao.setting.adapter.AppsAdapter;
 import com.kanhui.laowulao.setting.adapter.SettingContactAdapter;
-import com.kanhui.laowulao.utils.LogUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.WeatherView;
 
@@ -25,7 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -113,7 +111,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             public void onDelete(final int position) {
                 AppsModel model = appsList.get(position);
                 final RealmResults<AppsModel> list = Realm.getDefaultInstance().where(AppsModel.class)
-                        .like("name",model.getAppName()).findAllAsync();
+                        .like("appName",model.getAppName()).findAllAsync();
                 Realm.getDefaultInstance().executeTransaction(new Realm.Transaction(){
                     @Override
                     public void execute(Realm realm) {

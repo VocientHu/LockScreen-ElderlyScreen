@@ -1,7 +1,6 @@
 package com.kanhui.laowulao.locker;
 
 import android.Manifest;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -12,14 +11,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.base.LWLApplicatoin;
-import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.config.Config;
+import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.locker.model.AppsModel;
 import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.setting.adapter.AppsAdapter;
@@ -50,7 +50,7 @@ public class LockerActivity extends BaseActivity {
     private AppsAdapter appsAdapter;// apps
     private BatteryView bvBattery;// 电源
 
-    private WebView wvShare;
+    private ImageView wvShare;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,10 +75,9 @@ public class LockerActivity extends BaseActivity {
     }
 
     private void initWebView() {
-        wvShare = findViewById(R.id.wv_share);
+        wvShare = findViewById(R.id.iv_share);
         if(!StringUtils.isEmpty(Config.getConfig().getShareUrl())){
-            wvShare.loadUrl(Config.getConfig().getShareUrl());
-            wvShare.setVisibility(View.VISIBLE);
+            Glide.with(LockerActivity.this).load(Config.getConfig().getShareUrl()).into(wvShare);
         } else {
             wvShare.setVisibility(View.GONE);
         }
