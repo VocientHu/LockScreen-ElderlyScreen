@@ -3,6 +3,7 @@ package com.kanhui.laowulao.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.telephony.SmsMessage;
@@ -10,6 +11,7 @@ import android.telephony.SmsMessage;
 import com.google.gson.Gson;
 import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.SMSModel;
+import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.utils.StringUtils;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,10 @@ public class SmsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         dealMessage(intent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(new Intent(context, LockerService.class));
+        }
     }
 
     void dealMessage(Intent intent){

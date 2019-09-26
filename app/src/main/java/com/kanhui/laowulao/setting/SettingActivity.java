@@ -31,6 +31,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     public static final int REQUEST_SELECT_PHONE_NUMBER = 1;// 选择联系人
     public static final int REQUEST_SELECT_APPS = 2;// 选择联系人
+    private static final String TAG = "SettingActivity";
 
     private RecyclerView rvContacts,rvApps;
     private SettingContactAdapter contactAdapter;
@@ -162,7 +163,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
 
 
-    static final String TAG = "SettingActivity";
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_OK) {
             return;
@@ -185,6 +186,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 contactAdapter.setData(contactList);
                 cursor.close();
             }
+            save();
         } else if(requestCode == REQUEST_SELECT_APPS){
             if(AppSelectActivity.selectedResult != null){
                 for(AppSelectAdapter.AppEntity entity : AppSelectActivity.selectedResult){
@@ -196,6 +198,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 }
                 appsAdapter.setData(appsList);
             }
+            save();
         }
     }
 
@@ -203,21 +206,24 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_save:
-                for(ContactModel model : contactList){
-                    Realm  mRealm=Realm.getDefaultInstance();
-                    mRealm.beginTransaction();
-                    mRealm.copyToRealmOrUpdate(model);
-                    mRealm.commitTransaction();
-                }
-                for(AppsModel model : appsList){
-                    Realm  mRealm=Realm.getDefaultInstance();
-                    mRealm.beginTransaction();
-                    mRealm.copyToRealmOrUpdate(model);
-                    mRealm.commitTransaction();
-                }
-
+                save();
                 ToastUtils.showToast(SettingActivity.this,"保存成功");
                 break;
+        }
+    }
+
+    private void save(){
+        for(ContactModel model : contactList){
+            Realm  mRealm=Realm.getDefaultInstance();
+            mRealm.beginTransaction();
+            mRealm.copyToRealmOrUpdate(model);
+            mRealm.commitTransaction();
+        }
+        for(AppsModel model : appsList){
+            Realm  mRealm=Realm.getDefaultInstance();
+            mRealm.beginTransaction();
+            mRealm.copyToRealmOrUpdate(model);
+            mRealm.commitTransaction();
         }
     }
 }
