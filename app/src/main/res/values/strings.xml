@@ -13,6 +13,7 @@
     <string name="send_config">发送配置</string>
     <string name="setting">设置</string>
     <string name="weather_setting">日期和天气</string>
+    <string name="cancel">取消</string>
     <string name="contact_setting">常用联系人配置</string>
     <string name="apps_setting">常用应用配置</string>
     <string name="contact">常用联系人</string>

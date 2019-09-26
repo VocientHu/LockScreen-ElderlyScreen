@@ -28,4 +28,9 @@
         <item name="android:background">@color/main_background</item>
     </style>
 
+    <style name="popwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_show_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_hide_anim</item>
+    </style>
+
 </resources>
