@@ -26,9 +26,11 @@
     <string name="finish">完成</string>
     <string name="app_select">选择应用</string>
     <string name="name_size">联系人名字大小</string>
+    <string name="app_img_size">APP图标大小</string>
+    <string name="app_name_size">APP名称大小</string>
     <string name="list_style">通讯录样式</string>
     <string name="send_phone_des">发送到远程手机</string>
-    <string name="bind_hones">绑定手机号</string>
+    <string name="bind_hones">绑定手机</string>
     <string name="des">本app的初心是作者为了解决年过古稀的父亲不会使用智能手机的问题，他不会打电话，不会开手机，
         不会滑屏手势，但热切希望能跟在外地的儿子打电话，发视频。
         \n 如果您恰巧也有同样的需求，不妨让您的亲人也装上试一下。
@@ -55,7 +57,7 @@
     <string name="step1_answer2">协助亲人更便捷的打电话，玩微信</string>
     <string name="step2_des">您是否需要人协助？如果是，请填写协助人手机号,如不需要，请直接点击下一步</string>
     <string name="step_next">下一步</string>
-    <string name="set_phone_code">多个手机号请用;隔开，最多支持3个</string>
+    <string name="set_phone_code">多个手机号请用;隔开</string>
     <string name="phone_code">请填写手机号</string>
 
 </resources>

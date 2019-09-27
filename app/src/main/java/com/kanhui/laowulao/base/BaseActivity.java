@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.locker.LockerActivity;
+import com.kanhui.laowulao.utils.LogUtils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +37,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void turnToFragment(Class<? extends BaseFragment> fragment,Bundle bundle,int layoutId){
-        String tag = fragment.getName();
+        String tag = fragment.getSimpleName();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         Fragment oldFragment = fragmentManager.findFragmentByTag(tag);

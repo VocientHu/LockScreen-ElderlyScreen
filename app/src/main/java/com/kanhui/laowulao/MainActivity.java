@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.kanhui.laowulao.about.AboutActivity;
 import com.kanhui.laowulao.base.BaseActivity;
@@ -17,6 +18,7 @@ import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.utils.PermissionUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
+import com.kanhui.laowulao.widget.FontSizePopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -28,13 +30,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final int PERMISSION_CODE_READ_CONTACT = 1;
 
     private Button btnStart;
-    private CheckBox cbBig,cbMiddle,cbSmall,cbList,cbGride;
     private EditText etPhone,etShare;
 
-    private String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
+    private static String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
             Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
             Manifest.permission.RECEIVE_SMS};
+
+    private TextView tvContactSize,tvAppImgSize,tvAppNameSize;
 
     // 配置
     private Config config;
@@ -50,102 +53,32 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     void initView(){
         btnStart = findViewById(R.id.btn_start);
-        cbBig = findViewById(R.id.cb_big);
-        cbMiddle = findViewById(R.id.cb_middle);
-        cbSmall = findViewById(R.id.cb_small);
-        cbList = findViewById(R.id.cb_list);
-        cbGride = findViewById(R.id.cb_gride);
         etPhone = findViewById(R.id.et_phone);
         etShare = findViewById(R.id.et_share);
         btnStart.setOnClickListener(this);
+        tvContactSize = findViewById(R.id.tv_contact_size);
+        tvAppImgSize = findViewById(R.id.tv_app_img_size);
+        tvAppNameSize = findViewById(R.id.tv_app_name_size);
         findViewById(R.id.btn_stop).setOnClickListener(this);
         findViewById(R.id.btn_save).setOnClickListener(this);
         findViewById(R.id.btn_send).setOnClickListener(this);
         findViewById(R.id.iv_call_phone).setOnClickListener(this);
         findViewById(R.id.tv_setting).setOnClickListener(this);
+        findViewById(R.id.rl_app_img_size).setOnClickListener(this);
+        findViewById(R.id.rl_app_name_size).setOnClickListener(this);
+        findViewById(R.id.rl_contact_size).setOnClickListener(this);
     }
 
     void initData(){
         requsetPermission();
         config = Config.getConfig();
-        cbBig.setChecked(false);
-        cbMiddle.setChecked(false);
-        cbSmall.setChecked(false);
         etPhone.setText(config.getBindPhones());
         etShare.setText(config.getShareUrl());
-        switch (config.getScaleSize()){
-            case Config.SCALE_BIG:
-                cbBig.setChecked(true);
-                break;
-            case Config.SCALE_MIDDLE:
-                cbMiddle.setChecked(true);
-                break;
-            case Config.SCALE_SMALL:
-                cbSmall.setChecked(true);
-                break;
-
-        }
-        cbList.setChecked(false);
-        cbGride.setChecked(false);
-        switch (config.getListType()){
-            case Config.TYPE_LIST:
-                cbList.setChecked(true);
-                break;
-            case Config.TYPE_GRIDE:
-                cbGride.setChecked(true);
-                break;
-        }
-        initSizeCheckBox();
+        tvContactSize.setText(Config.getContactNameSize(config.getScaleSize()));
+        tvAppImgSize.setText(Config.getContactNameSize(config.getAppImgSize()));
+        tvAppNameSize.setText(Config.getContactNameSize(config.getAppNameSize()));
     }
 
-    void initSizeCheckBox(){
-        cbBig.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cbMiddle.setChecked(false);
-                cbSmall.setChecked(false);
-                cbBig.setChecked(true);
-                config.setScaleSize(Config.SCALE_BIG);
-            }
-        });
-        cbMiddle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cbMiddle.setChecked(true);
-                cbSmall.setChecked(false);
-                cbBig.setChecked(false);
-                config.setScaleSize(Config.SCALE_MIDDLE);
-            }
-        });
-        cbSmall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cbMiddle.setChecked(false);
-                cbSmall.setChecked(true);
-                cbBig.setChecked(false);
-                config.setScaleSize(Config.SCALE_SMALL);
-            }
-        });
-        cbGride.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                cbGride.setChecked(true);
-                cbList.setChecked(false);
-                config.setListType(Config.TYPE_GRIDE);
-            }
-        });
-        cbList.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                cbGride.setChecked(false);
-                cbList.setChecked(true);
-                config.setListType(Config.TYPE_LIST);
-            }
-        });
-
-    }
 
     void requsetPermission(){
         ActivityCompat.requestPermissions(
@@ -173,11 +106,61 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_setting:// 设置
                 toSetting();
                 break;
-
+            case R.id.rl_app_img_size:// app图标大小
+                appIconSizeChanged(view);
+                break;
+            case R.id.rl_app_name_size:// app名称大小
+                appNameSizeChanged(view);
+                break;
+            case R.id.rl_contact_size:// 联系人名称大小
+                contactNameSizeChanged(view);
+                break;
                 default:
                     break;
         }
     }
+
+    private void contactNameSizeChanged(View view) {
+        FontSizePopupWindow popup = new FontSizePopupWindow(MainActivity.this,
+                new FontSizePopupWindow.FontSizeClickListener() {
+                    @Override
+                    public void onSizeChanged(int size) {
+                        config.setScaleSize(size);
+                        tvContactSize.setText(Config.getContactNameSize(size));
+                    }
+                });
+        popup.setValue(Config.SCALE_BIG,Config.SCALE_MIDDLE,Config.SCALE_SMALL);
+        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
+
+    }
+
+    private void appNameSizeChanged(View view) {
+        FontSizePopupWindow popup = new FontSizePopupWindow(MainActivity.this,
+                new FontSizePopupWindow.FontSizeClickListener() {
+                    @Override
+                    public void onSizeChanged(int size) {
+                        config.setScaleSize(size);
+                        tvAppNameSize.setText(Config.getAPPNameSize(size));
+                    }
+                });
+        popup.setValue(Config.APP_NAME_BIG,Config.APP_NAME_MIDDLE,Config.APP_NAME_SMALL);
+        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
+
+    }
+
+    private void appIconSizeChanged(View view) {
+        FontSizePopupWindow popup = new FontSizePopupWindow(MainActivity.this,
+                new FontSizePopupWindow.FontSizeClickListener() {
+                    @Override
+                    public void onSizeChanged(int size) {
+                        config.setScaleSize(size);
+                        tvAppImgSize.setText(Config.getAPPImgSize(size));
+                    }
+                });
+        popup.setValue(Config.APP_IMG_BIG,Config.APP_IMG_MIDDLE,Config.APP_IMG_SMALL);
+        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
+    }
+
 
     private void toSetting() {
         startActivity(SettingActivity.class);

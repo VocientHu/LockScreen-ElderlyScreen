@@ -1,34 +1,48 @@
 package com.kanhui.laowulao.widget;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
 import com.kanhui.laowulao.R;
-import com.kanhui.laowulao.config.Config;
 
 public class FontSizePopupWindow extends PopupWindow implements View.OnClickListener{
 
     private Context context;
 
-    public FontSizePopupWindow(Context c){
-        this.context = c;
+    private int big,middle,small;
 
+    public FontSizePopupWindow(Context c,FontSizeClickListener listener){
+        this.context = c;
+        this.listener = listener;
         init();
     }
 
     private void init() {
         View view = LayoutInflater.from(context).inflate(R.layout.widget_pop_menu,null);
+        setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         setContentView(view);
         setFocusable(true);
-//        setBackgroundDrawable(new BitmapDrawable());
+        setBackgroundDrawable(new ColorDrawable(0x66000000));
 
         setOutsideTouchable(true);
         setTouchable(true);
         setAnimationStyle(R.style.popwindow_anim_style);
 
         view.findViewById(R.id.tv_big).setOnClickListener(this);
+        view.findViewById(R.id.tv_middle).setOnClickListener(this);
+        view.findViewById(R.id.tv_small).setOnClickListener(this);
+        view.findViewById(R.id.tv_cancel).setOnClickListener(this);
+    }
+
+    public void setValue(int big,int middle,int small){
+        this.big = big;
+        this.middle = middle;
+        this.small = small;
     }
 
 
@@ -37,13 +51,13 @@ public class FontSizePopupWindow extends PopupWindow implements View.OnClickList
 
         switch (v.getId()){
             case R.id.tv_big:
-                fontSelected(Config.SCALE_BIG);
+                fontSelected(big);
                 break;
             case R.id.tv_middle:
-                fontSelected(Config.SCALE_MIDDLE);
+                fontSelected(middle);
                 break;
             case R.id.tv_small:
-                fontSelected(Config.SCALE_SMALL);
+                fontSelected(small);
                 break;
             case R.id.tv_cancel:
                 break;

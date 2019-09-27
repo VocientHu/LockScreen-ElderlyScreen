@@ -22,7 +22,7 @@ public class Step1Fragment extends BaseFragment implements View.OnClickListener 
 
     private CheckBox answer1,answer2;
 
-    private int answer = 2;
+    private int answer = ANWSER_OLD_MAN;
 
     @Nullable
     @Override
