@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.ContactModel;
+import com.kanhui.laowulao.setting.config.ContactConfig;
 import com.kanhui.laowulao.utils.LogUtils;
+import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.StringUtils;
 import com.kanhui.laowulao.widget.IconView;
 import com.kanhui.laowulao.widget.Md5HeaderView;
@@ -45,6 +47,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public ContactAdapter(Context c,int type){
         this.context = c;
         this.type = type;
+        this.config = SharedUtils.getInstance().getContactConfig();
     }
 
     public void setData(List<ContactModel> l){
@@ -74,19 +77,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         final ContactModel model = list.get(position);
         holder.tvName.setText(model.getName());
         holder.tvPhone.setText(model.getPhone());
-        Config config = Config.getConfig();
-        holder.tvName.setTextSize(config.getScaleSize());
-//        switch (config.getScaleSize()){
-//            case Config.SCALE_BIG:
-//                holder.tvName.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_32));
-//                break;
-//            case Config.SCALE_MIDDLE:
-//                holder.tvName.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_28));
-//                break;
-//            case Config.SCALE_SMALL:
-//                holder.tvName.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_24));
-//                break;
-//        }
+        if(config != null){
+            holder.tvName.setTextSize(config.getNameSize());
+        }
         String date = model.getDateStr();
         if(!StringUtils.isEmpty(date)){
             holder.tvHistory.setText(date + "有通话");
@@ -110,14 +103,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 }
             }
         });
-//        holder.btnCallVideo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(listener != null){
-//                    listener.onItemClick(model,position,CALL_VIDEO);
-//                }
-//            }
-//        });
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +111,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 }
             }
         });
+    }
+
+    private ContactConfig config;
+    public void refreshSize(ContactConfig config){
+        if(config == null){
+            config = SharedUtils.getInstance().getContactConfig();
+        }
+        this.config = config;
+        notifyDataSetChanged();
     }
 
     private int getCurrentBgResId(String text){

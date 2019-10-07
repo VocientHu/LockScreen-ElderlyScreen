@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background">
 
@@ -46,6 +48,23 @@
             />
 
     </RelativeLayout>
+
+    <View style="@style/horizontal_line"/>
+    <LinearLayout
+        android:id="@+id/ll_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView"
+            app:queryHint="@string/search_app_name"
+            app:queryBackground="@color/main_background"
+            android:layout_margin="@dimen/dimen_16"
+            android:background="@color/white"
+            />
+    </LinearLayout>
 
     <View style="@style/horizontal_line"/>
 

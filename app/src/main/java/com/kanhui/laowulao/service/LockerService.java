@@ -29,11 +29,19 @@ import com.kanhui.laowulao.utils.StringUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * 锁屏服务
+ * 注册屏幕打开广播监听，并保活。确保锁屏能正常使用
+ * 可开机启动，可短信激活。可以设置开关
+ */
 public class LockerService extends Service {
     private static final String TAG = "LockerService";
 
     private static final String SMS_ACTION = "android.provider.Telephony.SMS_RECEIVED";
     public static final String SMS_FLAG = "[easycall]";
+
+    private static final String CHANNEL_ONE_ID = "com.kanhui.laowulao";
+    private static final String CHANNEL_ONE_NAME = "Channel One";
 
     private static final int RECEIVERED_MSG = 1;
 
@@ -56,8 +64,7 @@ public class LockerService extends Service {
 
     private void addNotification(){
 
-        String CHANNEL_ONE_ID = "com.kanhui.laowulao";
-        String CHANNEL_ONE_NAME = "Channel One";
+
         NotificationChannel notificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notificationChannel = new NotificationChannel(CHANNEL_ONE_ID,
@@ -93,8 +100,6 @@ public class LockerService extends Service {
         IntentFilter filter = new IntentFilter();
         // 屏幕关闭
         filter.addAction(Intent.ACTION_SCREEN_OFF);
-        // 接收短信
-        //filter.addAction(SMS_ACTION);
         registerReceiver(receiver,filter);
     }
 
@@ -105,31 +110,9 @@ public class LockerService extends Service {
             String action = intent.getAction();
             if(Intent.ACTION_SCREEN_OFF.equals(action)){
                 lockScreen();
-            } else if(SMS_ACTION.equals(action)){
-                dealMessage(intent);
             }
-
         }
     };
-
-    void dealMessage(Intent intent){
-        Object[] object=(Object[]) intent.getExtras().get("pdus");
-        SMSModel model = new SMSModel();
-        for (Object pdus : object) {
-            byte[] pdusMsg=(byte[]) pdus;
-            SmsMessage sms= SmsMessage.createFromPdu(pdusMsg);
-            String mobile=sms.getOriginatingAddress();//发送短信的手机号
-            String content=sms.getMessageBody();//短信内容
-            model.setPhone(mobile);
-            model.setContent(content);
-            break;
-
-        }
-        Message msg=new Message();
-        msg.what = RECEIVERED_MSG;
-        msg.obj = model;
-        handler.sendMessage(msg);
-    }
 
     private Handler handler = new Handler(){
         @Override

@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.locker.model.AppsModel;
+import com.kanhui.laowulao.setting.config.AppConfig;
+import com.kanhui.laowulao.utils.AppUtils;
+import com.kanhui.laowulao.utils.SharedUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,27 +56,18 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
         }
     }
 
-    private List<ApplicationInfo> pakageinfos;
-    private PackageManager pm ;
-    private Drawable getIcon(String name){
-
-        if(pakageinfos == null || pm == null){
-            pm = context.getPackageManager();
-            pakageinfos = pm.getInstalledApplications(0);
-        }
-        for(int i = 0 ; i < pakageinfos.size() ; i++){
-            ApplicationInfo info = pakageinfos.get(i);
-            String label = info.loadLabel(pm).toString();
-            if(label.equals(name)){
-                Drawable d = info.loadIcon(pm);
-                return d;
-            }
-        }
-        return null;
-    }
-
     public void setData(List<AppsModel> apps){
         this.list = apps;
+        notifyDataSetChanged();
+    }
+
+    private AppConfig config;
+
+    public void refreshSize(AppConfig config){
+        if(config == null){
+            config = SharedUtils.getInstance().getAppConfig();
+        }
+        this.config = config;
         notifyDataSetChanged();
     }
 
@@ -106,7 +100,11 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
         if(getItemViewType(position) == TYPE_ADD) return;
         final AppsModel model = list.get(position);
         holder.tvName.setText(model.getAppName());
-        holder.ivIcon.setImageDrawable(getIcon(model.getAppName()));
+        holder.ivIcon.setImageDrawable(AppUtils.getInstance(context).getIcon(model.getAppName()));
+        if(config != null){
+            holder.tvName.setTextSize(config.getNameSize());
+            holder.ivIcon.setLayoutParams(new RecyclerView.LayoutParams(config.getIconSize(),config.getIconSize()));
+        }
         if(needHeaderView){
             holder.tvDelete.setVisibility(View.VISIBLE);
         } else {

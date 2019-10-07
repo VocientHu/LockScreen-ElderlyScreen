@@ -49,7 +49,6 @@
                 android:textSize="@dimen/dimen_20"
                 android:textStyle="bold"
                 android:textColor="@color/black_3"
-                android:text="多云转晴"
                 android:layout_below="@+id/tv_city"
                 android:layout_marginTop="@dimen/dimen_10"
                 />

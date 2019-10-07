@@ -5,6 +5,10 @@ import com.kanhui.laowulao.utils.SharedUtils;
 public class Config {
 
     public static final String SHARED_BIND_PHONES = "shared_bind_phones";
+    // 最多添加6个app
+    public static final int MAX_APPS = 6;
+    // 最多添加4个联系人
+    public static final int MAX_CONTACT = 4;
 
     public static final String BIG = "大";
     public static final String MIDDLE = "中";

@@ -274,7 +274,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="发送到亲人手机"
+                    android:text="发送到手机"
                     android:textSize="@dimen/font_14"
                     android:gravity="center"
                     android:paddingHorizontal="@dimen/dimen_16"

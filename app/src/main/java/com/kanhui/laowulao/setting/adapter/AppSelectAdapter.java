@@ -43,7 +43,7 @@ public class AppSelectAdapter extends RecyclerView.Adapter<AppSelectAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        AppEntity entity = list.get(position);
+        final AppEntity entity = list.get(position);
         holder.tvName.setText(entity.getName());
         holder.cbChoice.setChecked(entity.isChecked);
         holder.cbChoice.setClickable(false);
@@ -53,7 +53,7 @@ public class AppSelectAdapter extends RecyclerView.Adapter<AppSelectAdapter.View
             @Override
             public void onClick(View view) {
                 if(listener != null){
-                    listener.onClick(position);
+                    listener.onClick(position,entity);
                 }
             }
         });
@@ -75,7 +75,7 @@ public class AppSelectAdapter extends RecyclerView.Adapter<AppSelectAdapter.View
     }
 
     public interface OnClickListner{
-        void onClick(int index);
+        void onClick(int index,AppEntity model);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

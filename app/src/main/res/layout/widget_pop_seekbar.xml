@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/dimen_16">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_cancel"
+            android:text="@string/cancel"
+            android:textSize="@dimen/font_16"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:textColor="@color/black_9"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_sure"
+            android:text="@string/sure"
+            android:textSize="@dimen/font_16"
+            android:textColor="@color/main_green"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_10"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小"
+            android:textSize="@dimen/font_14"
+            android:textColor="@color/black_6"
+            android:layout_margin="@dimen/dimen_10"
+            android:layout_gravity="center_vertical"
+            />
+        <SeekBar
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:max="100"
+            android:min="16"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/seekbar"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="大"
+            android:textSize="@dimen/font_14"
+            android:textColor="@color/black_6"
+            android:layout_margin="@dimen/dimen_10"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

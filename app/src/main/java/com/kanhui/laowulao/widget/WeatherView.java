@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -17,7 +18,9 @@ import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.config.Constants;
+import com.kanhui.laowulao.setting.config.WeatherConfig;
 import com.kanhui.laowulao.utils.Lunar;
+import com.kanhui.laowulao.utils.SharedUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -186,6 +189,22 @@ public class WeatherView extends LinearLayout {
             }
         };
         timer.schedule(task,60*1000,60*1000);
+    }
+
+    public void refreshSize(WeatherConfig config){
+        if(config == null){
+            config = SharedUtils.getInstance().getWeatherConfig();
+        }
+        if(config == null){
+            return;
+        }
+        tvToday.setTextSize(config.getDateTimeSize());
+        tvTodayDate.setTextSize(config.getWeekSize());
+        tvCity.setTextSize(config.getCitySize());
+        tvTodayWeather.setTextSize(config.getWeatherSize());
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(config.getWeatherImgSize(),config.getWeatherImgSize());
+        ivWeather.setLayoutParams(params);
+        //SharedUtils.getInstance().setWeatherConfig(config);
     }
 
 }

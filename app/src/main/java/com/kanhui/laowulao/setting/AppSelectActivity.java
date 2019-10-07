@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.setting.adapter.AppSelectAdapter;
+import com.kanhui.laowulao.setting.adapter.AppsAdapter;
+import com.kanhui.laowulao.utils.StringUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +34,7 @@ public class AppSelectActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView rvList;
     private AppSelectAdapter adapter;
     private TextView tvTitle;
+    private SearchView searchView;
 
     private List<AppSelectAdapter.AppEntity> list = new ArrayList<>();
 
@@ -91,7 +97,7 @@ public class AppSelectActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.tv_finish).setOnClickListener(this);
         tvTitle = findViewById(R.id.tv_main);
-
+        searchView = findViewById(R.id.searchView);
         rvList = findViewById(R.id.rv_list);
         LinearLayoutManager manager = new LinearLayoutManager(AppSelectActivity.this);
         rvList.setLayoutManager(manager);
@@ -102,11 +108,61 @@ public class AppSelectActivity extends BaseActivity implements View.OnClickListe
 
         adapter.setListener(new AppSelectAdapter.OnClickListner() {
             @Override
-            public void onClick(int index) {
-                list.get(index).setChecked(!list.get(index).isChecked());
+            public void onClick(int index, AppSelectAdapter.AppEntity model) {
+                model.setChecked(!model.isChecked());
+                adapter.notifyDataSetChanged();
+                //list.get(index).setChecked(!list.get(index).isChecked());
                 adapter.setData(list);
             }
         });
+
+        searchView.setIconified(false);// icon不要显示在框内
+        searchView.setImeOptions(3);//设置键盘搜索键，默认为3
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                startSearch();
+                return false;
+            }
+        });
+        setUnderLinetransparent(searchView);
+    }
+
+    /**设置SearchView下划线透明**/
+    private void setUnderLinetransparent(SearchView searchView){
+        try {
+            Class<?> argClass = searchView.getClass();
+            // ll_search_view是SearchView父布局的名字
+            Field ownField = argClass.getDeclaredField("ll_search_view");
+            ownField.setAccessible(true);
+            View mView = (View) ownField.get(searchView);
+            mView.setBackgroundColor(Color.TRANSPARENT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void startSearch(){
+        String keywords = searchView.getQuery().toString();
+        List<AppSelectAdapter.AppEntity> temp = new ArrayList<>();
+        if(list == null || list.size() == 0){
+            return;
+        }
+        if(StringUtils.isEmpty(keywords)){
+            adapter.setData(list);
+            return;
+        }
+        for(AppSelectAdapter.AppEntity entity : list){
+            if(entity.getName().contains(keywords)){
+                temp.add(entity);
+            }
+        }
+        adapter.setData(temp);
     }
 
     @Override

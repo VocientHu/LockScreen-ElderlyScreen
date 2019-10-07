@@ -9,7 +9,9 @@ import android.widget.TextView;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.locker.model.ContactModel;
+import com.kanhui.laowulao.setting.config.ContactConfig;
 import com.kanhui.laowulao.utils.LogUtils;
+import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.widget.Md5HeaderView;
 
 import java.util.ArrayList;
@@ -63,6 +65,9 @@ public class SettingContactAdapter extends RecyclerView.Adapter<SettingContactAd
         }
         ContactModel model = list.get(position);
         holder.tvName.setText(model.getName());
+        if(config != null){
+            holder.tvName.setTextSize(config.getNameSize());
+        }
         holder.tvPhone.setText(model.getPhone());
         holder.tvDelete.setVisibility(View.VISIBLE);
         holder.tvDelete.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +99,6 @@ public class SettingContactAdapter extends RecyclerView.Adapter<SettingContactAd
 
     private int getCurrentBgResId(String text){
         int number = Md5HeaderView.getMd5Index(text);
-        LogUtils.elog("adapter","name: " + text + ", number:" + number);
         int color;
         int i = number%ContactAdapter.colors.length;
         color = ContactAdapter.colors[i];
@@ -114,6 +118,16 @@ public class SettingContactAdapter extends RecyclerView.Adapter<SettingContactAd
             itemGride = itemView.findViewById(R.id.rl_layout);
 
         }
+    }
+
+    private ContactConfig config;
+
+    public void refreshSize(ContactConfig config){
+        if(config == null){
+            config = SharedUtils.getInstance().getContactConfig();
+        }
+        this.config = config;
+        notifyDataSetChanged();
     }
 
     private SettingContactAddListener listener;

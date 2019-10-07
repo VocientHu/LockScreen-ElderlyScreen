@@ -15,7 +15,7 @@
             android:id="@+id/tv_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/config"
+            android:text="@string/screen_config"
             android:textColor="@color/black_3"
             android:textSize="@dimen/font_18"
             android:textStyle="bold"
@@ -63,16 +63,31 @@
             android:orientation="vertical"
             android:padding="@dimen/dimen_16">
 
-            <TextView
-                android:id="@+id/tv_weather"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/weather_setting"
-                android:textColor="@color/black_3"
-                android:textSize="@dimen/font_18"
-                android:textStyle="bold"
 
-                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weather_setting"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/font_18"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_weather_config"
+                    android:text="&#xe6ef;"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/font_28"
+                    />
+            </RelativeLayout>
+
 
             <com.kanhui.laowulao.widget.WeatherView
                 android:id="@+id/wv_setting"
@@ -83,16 +98,34 @@
 
             </com.kanhui.laowulao.widget.WeatherView>
 
-            <TextView
-                android:id="@+id/tv_apps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/apps_setting"
-                android:textColor="@color/black_3"
-                android:textSize="@dimen/font_18"
-                android:textStyle="bold"
+
+
+
+
+            <RelativeLayout
                 android:layout_marginTop="@dimen/dimen_10"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_apps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apps_setting"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/font_18"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_app_config"
+                    android:text="&#xe6ef;"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/font_28"
+                    />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -106,16 +139,32 @@
                     />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_contact_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/contact_setting"
-                android:textColor="@color/black_3"
-                android:textSize="@dimen/font_18"
-                android:textStyle="bold"
+            <RelativeLayout
                 android:layout_marginTop="@dimen/dimen_10"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_contact_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_setting"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/font_18"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_contact_config"
+                    android:text="&#xe6ef;"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/font_28"
+                    />
+            </RelativeLayout>
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
