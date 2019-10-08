@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
-import com.kanhui.laowulao.base.BaseFragment;
 import com.kanhui.laowulao.setting.fragment.AppConfigFragment;
 import com.kanhui.laowulao.setting.fragment.ContactFragment;
 import com.kanhui.laowulao.setting.fragment.WeatherConfigFragment;
+
+import androidx.annotation.Nullable;
 
 public class ConfigActivity extends BaseActivity implements View.OnClickListener{
 
@@ -20,8 +19,6 @@ public class ConfigActivity extends BaseActivity implements View.OnClickListener
     public static final int EXTRA_WEATHER = 3;
 
     public static final String EXTRA_TYPE = "extra_type";
-
-    private BaseFragment weatherConfigFragment,appConfigFragment,contactFragment;
 
     private TextView tvTitle;
 

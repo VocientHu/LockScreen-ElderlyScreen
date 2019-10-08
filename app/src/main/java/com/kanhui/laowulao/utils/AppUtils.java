@@ -5,6 +5,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
+import com.kanhui.laowulao.locker.model.AppsModel;
+
 import java.util.List;
 
 public class AppUtils {
@@ -41,5 +43,26 @@ public class AppUtils {
             }
         }
         return null;
+    }
+
+
+    public AppsModel getModelByName(String name){
+        AppsModel model = new AppsModel();
+        if(pakageinfos == null || pm == null){
+            pm = context.getPackageManager();
+            pakageinfos = pm.getInstalledApplications(0);
+        }
+        for(int i = 0 ; i < pakageinfos.size() ; i++){
+            ApplicationInfo info = pakageinfos.get(i);
+            String label = info.loadLabel(pm).toString();
+            if(label.equals(name)){
+                Drawable d = info.loadIcon(pm);
+                model.setAppName(name);
+                model.setPackageName(info.packageName);
+                model.setAppIcon(d);
+                return model;
+            }
+        }
+        return model;
     }
 }

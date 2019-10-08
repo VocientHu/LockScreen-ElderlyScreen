@@ -1,9 +1,7 @@
 package com.kanhui.laowulao.locker;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.BatteryManager;
@@ -23,8 +21,11 @@ import com.kanhui.laowulao.locker.adapter.ContactAdapter;
 import com.kanhui.laowulao.locker.model.AppsModel;
 import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.setting.adapter.AppsAdapter;
+import com.kanhui.laowulao.setting.config.AppConfig;
+import com.kanhui.laowulao.setting.config.ContactConfig;
+import com.kanhui.laowulao.utils.AppUtils;
+import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.StringUtils;
-import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.BatteryView;
 
 import java.util.ArrayList;
@@ -34,7 +35,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import io.realm.Realm;
 
 import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
@@ -125,18 +125,8 @@ public class LockerActivity extends BaseActivity {
         adapter.setListener(new ContactAdapter.ItemClickListener() {
             @Override
             public void onItemClick(ContactModel model, int position,int type) {
-                if(type == ContactAdapter.CALL_PHONE){
-                    String phone = model.getPhone();
-                    diallPhone(phone);
-                } else if(type == ContactAdapter.CALL_VIDEO){
-                    if(isWeixinAvilible(LockerActivity.this)){
-                        //openWeiXin();
-                    } else {
-                        ToastUtils.showToast(LockerActivity.this,"设备没有安装微信");
-                    }
-                }
-
-
+                String phone = model.getPhone();
+                diallPhone(phone);
             }
         });
 
@@ -184,19 +174,22 @@ public class LockerActivity extends BaseActivity {
 
     void initData(){
         tvTitle.setText(R.string.loading);
-        List<ContactModel> list = new ArrayList<>();
-        List<ContactModel> oldData = Realm.getDefaultInstance().where(ContactModel.class).findAllAsync();
-        list.addAll(oldData);
-        adapter.setData(list);
-        int count = list.size();
+        ContactConfig contactConfig = SharedUtils.getInstance().getContactConfig();
+
+        adapter.setData(contactConfig.getContacts());
+        int count = contactConfig.getContacts().size();
         String text = getResources().getString(R.string.constact_people_count);
         text = String.format(text,count+"");
         tvTitle.setText(text);
 
         // app
         List<AppsModel> apps = new ArrayList<>();
-        List<AppsModel> oldApps = Realm.getDefaultInstance().where(AppsModel.class).findAllAsync();
-        apps.addAll(oldApps);
+        AppConfig appConfig = SharedUtils.getInstance().getAppConfig();
+        List<String> appNames = appConfig.getApps();
+        for(String appName : appNames){
+            AppsModel model = AppUtils.getInstance(LockerActivity.this).getModelByName(appName);
+            apps.add(model);
+        }
         appsAdapter.setData(apps);
     }
 
@@ -205,20 +198,4 @@ public class LockerActivity extends BaseActivity {
         Intent intent = getPackageManager().getLaunchIntentForPackage(model.getPackageName());
         startActivity(intent);
     }
-
-    public static boolean isWeixinAvilible(Context context) {
-        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
-        if (pinfo != null) {
-            for (int i = 0; i < pinfo.size(); i++) {
-                String pn = pinfo.get(i).packageName;
-                if (pn.equals("com.tencent.mm")) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
 }

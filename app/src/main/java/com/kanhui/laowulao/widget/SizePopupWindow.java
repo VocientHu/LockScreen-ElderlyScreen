@@ -26,9 +26,10 @@ public class SizePopupWindow extends PopupWindow implements View.OnClickListener
     }
 
     private void init() {
+
         View view = LayoutInflater.from(context).inflate(R.layout.widget_pop_seekbar,null);
         setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         setContentView(view);
         setFocusable(true);
         setBackgroundDrawable(new ColorDrawable(0x66000000));

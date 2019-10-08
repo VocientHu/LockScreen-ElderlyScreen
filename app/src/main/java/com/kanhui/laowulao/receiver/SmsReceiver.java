@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.SMSModel;
 import com.kanhui.laowulao.service.LockerService;
+import com.kanhui.laowulao.setting.config.WeatherConfig;
 import com.kanhui.laowulao.utils.StringUtils;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,10 @@ import androidx.annotation.NonNull;
 public class SmsReceiver extends BroadcastReceiver {
 
     public static final String SMS_FLAG = "[easycall]";
+
+    public static final String SMS_TYPE_WEATHER = "[weather]";
+    public static final String SMS_TYPE_APP = "[app]";
+    public static final String SMS_TYPE_CONTACT = "[contact]";
 
     private static final int RECEIVERED_MSG = 1;
 
@@ -59,11 +64,24 @@ public class SmsReceiver extends BroadcastReceiver {
             String phone = model.getPhone();
             String content = model.getContent();
             String bindPhons = Config.getConfig().getBindPhones();
+            // 去掉86
+            phone = phone.replace("+86","");
+            if(phone.startsWith("86")){
+                phone = phone.substring(2);
+            }
             //只处理绑定手机发来的短信
             if(!StringUtils.isEmpty(bindPhons) && bindPhons.contains(phone)){
                 if(!StringUtils.isEmpty(content) && content.startsWith(SMS_FLAG)){
                     // 配置文件
                     String configStr = content.replace(SMS_FLAG,"");
+                    if(configStr.contains(SMS_TYPE_WEATHER)){
+                        configStr = configStr.replace(SMS_TYPE_WEATHER,"");
+                        WeatherConfig config = new Gson().fromJson(configStr,WeatherConfig.class);
+                    } else if(configStr.contains(SMS_TYPE_APP)){
+
+                    } else if(configStr.contains(SMS_TYPE_CONTACT)){
+
+                    }
                     Config newConfig = new Gson().fromJson(configStr,Config.class);
                     Config oldConfig = Config.getConfig();
                     newConfig.setBindPhones(oldConfig.getBindPhones());

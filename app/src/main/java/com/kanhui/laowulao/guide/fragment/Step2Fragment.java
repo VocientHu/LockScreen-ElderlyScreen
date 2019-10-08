@@ -60,6 +60,7 @@ public class Step2Fragment extends BaseFragment implements View.OnClickListener{
             SharedUtils.getInstance().putString(Config.SHARED_BIND_PHONES,phones);
             startActivity(MainActivity.class);
             SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
+            getActivity().finish();
         } else {
             ToastUtils.showToast(context,"请填写手机号");
         }

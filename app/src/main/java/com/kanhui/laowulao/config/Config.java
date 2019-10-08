@@ -1,8 +1,15 @@
 package com.kanhui.laowulao.config;
 
+import android.content.Context;
+import android.util.TypedValue;
+
 import com.kanhui.laowulao.utils.SharedUtils;
 
 public class Config {
+
+    public static final String SHARED_USER_TYPE = "shared_user_type";
+    public static final int USER_OLD = 1;
+    public static final int USER_YOUNG = 2;
 
     public static final String SHARED_BIND_PHONES = "shared_bind_phones";
     // 最多添加6个app
@@ -21,6 +28,8 @@ public class Config {
     public static final int SCALE_BIG = 32;// 字体大小，大
     public static final int SCALE_MIDDLE = 28;// 字体大小，中
     public static final int SCALE_SMALL = 24;// 字体大小，小
+    public static final int S_SCALE_SMALL = 20;// 字体大小，小
+    public static final int SS_SCALE_SMALL = 16;// 字体大小，小
 
     public static final int APP_IMG_BIG = 60;
     public static final int APP_IMG_MIDDLE = 50;
@@ -150,6 +159,14 @@ public class Config {
         } else {
             return SMALL;
         }
+    }
+
+    public static int px2dp(Context context, float pxValue) {
+        return (int) (pxValue / context.getResources().getDisplayMetrics().density + 0.5f);
+    }
+
+    public static int dp2px(Context context,int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
 

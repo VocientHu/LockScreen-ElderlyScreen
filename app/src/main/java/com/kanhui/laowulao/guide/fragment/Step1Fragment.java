@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseFragment;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.splash.SplashActivity;
 import com.kanhui.laowulao.utils.SharedUtils;
 
@@ -60,10 +61,13 @@ public class Step1Fragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.btn_next:
                 if(answer == ANWSER_OLD_MAN){
+                    SharedUtils.getInstance().putInt(Config.SHARED_USER_TYPE,Config.USER_OLD);
                     turnToFragment(Step2Fragment.class,null,R.id.framelayout);
                 } else {
+                    SharedUtils.getInstance().putInt(Config.SHARED_USER_TYPE,Config.USER_YOUNG);
                     startActivity(MainActivity.class);
                     SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
+                    getActivity().finish();
                 }
 
                 break;

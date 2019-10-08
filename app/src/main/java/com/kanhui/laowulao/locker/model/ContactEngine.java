@@ -63,7 +63,7 @@ public class ContactEngine {
         return list;
     }
 
-    private List<ContactModel> getContacts() {
+    public List<ContactModel> getContacts() {
         List<ContactModel> list = new ArrayList<>();
         Cursor cursor = null;
         try {

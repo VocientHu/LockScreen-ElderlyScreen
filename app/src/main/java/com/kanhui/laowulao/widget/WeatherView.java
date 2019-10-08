@@ -17,10 +17,12 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
 import com.kanhui.laowulao.R;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.config.Constants;
 import com.kanhui.laowulao.setting.config.WeatherConfig;
 import com.kanhui.laowulao.utils.Lunar;
 import com.kanhui.laowulao.utils.SharedUtils;
+import com.kanhui.laowulao.utils.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,6 +37,10 @@ import interfaces.heweather.com.interfacesmodule.bean.weather.forecast.ForecastB
 import interfaces.heweather.com.interfacesmodule.view.HeWeather;
 
 public class WeatherView extends LinearLayout {
+
+    private static final String SHARED_WEATHER_TEXT = "shared_weather_text";
+    private static final String SHARED_WEATHER_PIC = "shared_weather_pic";
+    private static final String SHARED_WEATHER_CITY = "shared_weather_city";
 
 
     private Context context;
@@ -81,6 +87,7 @@ public class WeatherView extends LinearLayout {
         Calendar today = Calendar.getInstance();
         tvTodayDate.setText("农历" + new Lunar(today).toString() + " " + Lunar.getWeek());
         refreshTime();
+        refreshSize(null);
     }
 
     public void setTodayWeather(String weather){
@@ -107,6 +114,7 @@ public class WeatherView extends LinearLayout {
         public void onLocationChanged(AMapLocation aMapLocation) {
             if(aMapLocation != null){
                 String city = aMapLocation.getCity();
+                SharedUtils.getInstance().putString(SHARED_WEATHER_CITY,city);
                 setCity(city);
                 initWeather(city);
             }
@@ -114,7 +122,20 @@ public class WeatherView extends LinearLayout {
     };
 
     private void initLocation(){
-        setCity("初始化中...");
+        String city = SharedUtils.getInstance().getString(SHARED_WEATHER_CITY,"");
+        if(!StringUtils.isEmpty(city)){
+            setCity(city);
+        } else {
+            setCity("初始化中...");
+        }
+        String weather = SharedUtils.getInstance().getString(SHARED_WEATHER_TEXT,"");
+        if(!StringUtils.isEmpty(weather)){
+            setTodayWeather(weather);
+        }
+        String weatherPic = SharedUtils.getInstance().getString(SHARED_WEATHER_PIC,"");
+        if(!StringUtils.isEmpty(weatherPic)){
+            setWeatherPic(weatherPic);
+        }
         //初始化定位
         mLocationClient = new AMapLocationClient(context.getApplicationContext());
         //设置定位回调监听
@@ -156,8 +177,15 @@ public class WeatherView extends LinearLayout {
 
     private void setTodayWeather(ForecastBase today){
         setTodayWeather(today.getCond_txt_d());
-        String iconUrl = Constants.WeatherIconURL ;
         String code = today.getCond_code_d();
+        setWeatherPic(code);
+        // 缓存天气数据
+        SharedUtils.getInstance().putString(SHARED_WEATHER_TEXT,today.getCond_txt_d());
+        SharedUtils.getInstance().putString(SHARED_WEATHER_PIC,code);
+    }
+
+    private void setWeatherPic(String code){
+        String iconUrl = Constants.WeatherIconURL ;
         iconUrl = iconUrl + code + ".png";
         Glide.with(context).load(iconUrl).into(ivWeather);
     }
@@ -202,7 +230,10 @@ public class WeatherView extends LinearLayout {
         tvTodayDate.setTextSize(config.getWeekSize());
         tvCity.setTextSize(config.getCitySize());
         tvTodayWeather.setTextSize(config.getWeatherSize());
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(config.getWeatherImgSize(),config.getWeatherImgSize());
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivWeather.getLayoutParams();// new RelativeLayout.LayoutParams(config.getWeatherImgSize(),config.getWeatherImgSize());
+        int pxSize = Config.dp2px(context,config.getWeatherImgSize());
+        params.width = pxSize;
+        params.height = pxSize;
         ivWeather.setLayoutParams(params);
         //SharedUtils.getInstance().setWeatherConfig(config);
     }

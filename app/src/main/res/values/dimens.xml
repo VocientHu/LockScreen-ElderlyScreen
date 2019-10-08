@@ -18,6 +18,9 @@
     <dimen name="font_50">50sp</dimen>
     <dimen name="font_60">60sp</dimen>
     <dimen name="font_70">70sp</dimen>
+    <dimen name="font_80">80sp</dimen>
+    <dimen name="font_90">90sp</dimen>
+    <dimen name="font_100">100sp</dimen>
 
     <dimen name="dimen_point_1">0.1dp</dimen>
     <dimen name="dimen_point_2">0.2dp</dimen>

@@ -11,16 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseFragment;
 import com.kanhui.laowulao.locker.model.ContactModel;
-import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.setting.adapter.SettingContactAdapter;
 import com.kanhui.laowulao.setting.config.ContactConfig;
 import com.kanhui.laowulao.utils.SharedUtils;
@@ -30,8 +23,11 @@ import com.kanhui.laowulao.widget.SizePopupWindow;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ContactFragment extends BaseFragment implements View.OnClickListener {
     public static final int REQUEST_SELECT_PHONE_NUMBER = 1;// 选择联系人
@@ -49,13 +45,14 @@ public class ContactFragment extends BaseFragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_app_config,null);
+        rootView = inflater.inflate(R.layout.fragment_contact_config,null);
         initView();
         return rootView;
     }
 
     private void initView() {
         rootView.findViewById(R.id.rl_contact_size).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_save).setOnClickListener(this);
         rvContacts = rootView.findViewById(R.id.rv_contacts);
         tvNameSize = rootView.findViewById(R.id.tv_name_size);
 
@@ -128,12 +125,12 @@ public class ContactFragment extends BaseFragment implements View.OnClickListene
                 getActivity().finish();
                 break;
             case R.id.rl_contact_size:
-                modifyNameSize(view);
+                modifyNameSize();
                 break;
         }
     }
 
-    private void modifyNameSize(View v){
+    private void modifyNameSize(){
         SizePopupWindow window = new SizePopupWindow(context, config.getNameSize(),
                 new SizePopupWindow.SizeChagnedListener() {
                     @Override
@@ -143,5 +140,6 @@ public class ContactFragment extends BaseFragment implements View.OnClickListene
                         contactAdapter.refreshSize(config);
                     }
                 });
+        window.showAsDropDown(rootView);
     }
 }

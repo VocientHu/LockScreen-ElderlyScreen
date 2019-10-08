@@ -2,13 +2,9 @@ package com.kanhui.laowulao.setting.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseFragment;
@@ -17,6 +13,9 @@ import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.SizePopupWindow;
 import com.kanhui.laowulao.widget.WeatherView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class WeatherConfigFragment extends BaseFragment implements View.OnClickListener {
 
@@ -42,25 +41,26 @@ public class WeatherConfigFragment extends BaseFragment implements View.OnClickL
         weatherView.findViewById(R.id.tv_city).setOnClickListener(this);
         weatherView.findViewById(R.id.iv_weather).setOnClickListener(this);
         rootView.findViewById(R.id.btn_save).setOnClickListener(this);
+        config = SharedUtils.getInstance().getWeatherConfig();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_today:// 日期时间
-                setDateTime(view);
+                setDateTime();
                 break;
             case R.id.tv_today_date:// 农历时间
-                setWeek(view);
+                setWeek();
                 break;
             case R.id.tv_today_weather_detail://天气
-                setWeatherSize(view);
+                setWeatherSize();
                 break;
             case R.id.tv_city:// 城市
-                setCity(view);
+                setCity();
                 break;
             case R.id.iv_weather:// 天气图片
-                setWeatherImgSize(view);
+                setWeatherImgSize();
                 break;
             case R.id.btn_save:
                 SharedUtils.getInstance().setWeatherConfig(config);
@@ -71,7 +71,7 @@ public class WeatherConfigFragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    void setDateTime(View view){
+    void setDateTime(){
         SizePopupWindow window = new SizePopupWindow(context, config.getDateTimeSize(),
                 new SizePopupWindow.SizeChagnedListener() {
                     @Override
@@ -80,10 +80,10 @@ public class WeatherConfigFragment extends BaseFragment implements View.OnClickL
                         weatherView.refreshSize(config);
                     }
                 });
-        window.showAsDropDown(view,0,0, Gravity.BOTTOM);
+        window.showAsDropDown(rootView);
     }
 
-    void setWeek(View view){
+    void setWeek(){
         SizePopupWindow window = new SizePopupWindow(context, config.getWeekSize(),
                 new SizePopupWindow.SizeChagnedListener() {
                     @Override
@@ -92,10 +92,10 @@ public class WeatherConfigFragment extends BaseFragment implements View.OnClickL
                         weatherView.refreshSize(config);
                     }
                 });
-        window.showAsDropDown(view,0,0, Gravity.BOTTOM);
+        window.showAsDropDown(rootView);
     }
 
-    void setCity(View view){
+    void setCity(){
         SizePopupWindow window = new SizePopupWindow(context, config.getCitySize(),
                 new SizePopupWindow.SizeChagnedListener() {
                     @Override
@@ -104,10 +104,10 @@ public class WeatherConfigFragment extends BaseFragment implements View.OnClickL
                         weatherView.refreshSize(config);
                     }
                 });
-        window.showAsDropDown(view,0,0, Gravity.BOTTOM);
+        window.showAsDropDown(rootView);
     }
 
-    void setWeatherSize(View view){
+    void setWeatherSize(){
         SizePopupWindow window = new SizePopupWindow(context, config.getWeatherSize(),
                 new SizePopupWindow.SizeChagnedListener() {
                     @Override
@@ -116,9 +116,9 @@ public class WeatherConfigFragment extends BaseFragment implements View.OnClickL
                         weatherView.refreshSize(config);
                     }
                 });
-        window.showAsDropDown(view,0,0, Gravity.BOTTOM);
+        window.showAsDropDown(rootView);
     }
-    void setWeatherImgSize(View view){
+    void setWeatherImgSize(){
         SizePopupWindow window = new SizePopupWindow(context, config.getWeatherImgSize(),
                 new SizePopupWindow.SizeChagnedListener() {
                     @Override
@@ -127,7 +127,7 @@ public class WeatherConfigFragment extends BaseFragment implements View.OnClickL
                         weatherView.refreshSize(config);
                     }
                 });
-        window.showAsDropDown(view,0,0, Gravity.BOTTOM);
+        window.showAsDropDown(rootView);
     }
 
 

@@ -1,14 +1,12 @@
 package com.kanhui.laowulao.locker.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import android.graphics.drawable.Drawable;
 
-public class AppsModel extends RealmObject {
+public class AppsModel{
 
-    @PrimaryKey
     String appName;
 
-    String appIcon;
+    Drawable appIcon;
 
     String packageName;
 
@@ -28,11 +26,11 @@ public class AppsModel extends RealmObject {
         this.appName = appName;
     }
 
-    public String getAppIcon() {
+    public Drawable getAppIcon() {
         return appIcon;
     }
 
-    public void setAppIcon(String appIcon) {
+    public void setAppIcon(Drawable appIcon) {
         this.appIcon = appIcon;
     }
 }

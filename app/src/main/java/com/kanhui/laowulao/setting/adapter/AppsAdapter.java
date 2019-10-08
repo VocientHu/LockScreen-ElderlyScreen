@@ -1,20 +1,15 @@
 package com.kanhui.laowulao.setting.adapter;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.kanhui.laowulao.R;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.AppsModel;
 import com.kanhui.laowulao.setting.config.AppConfig;
 import com.kanhui.laowulao.utils.AppUtils;
@@ -22,6 +17,9 @@ import com.kanhui.laowulao.utils.SharedUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
 
@@ -91,7 +89,6 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
     public int getItemViewType(int position) {
         if(!needHeaderView) return TYPE_NOMAL;
 
-        int count = list.size();
         return position == list.size() ? TYPE_ADD : TYPE_NOMAL;
     }
 
@@ -103,7 +100,11 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
         holder.ivIcon.setImageDrawable(AppUtils.getInstance(context).getIcon(model.getAppName()));
         if(config != null){
             holder.tvName.setTextSize(config.getNameSize());
-            holder.ivIcon.setLayoutParams(new RecyclerView.LayoutParams(config.getIconSize(),config.getIconSize()));
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.ivIcon.getLayoutParams();
+            int pxSize = Config.dp2px(context,config.getIconSize());
+            params.width = pxSize;
+            params.height = pxSize;
+            holder.ivIcon.setLayoutParams(params);
         }
         if(needHeaderView){
             holder.tvDelete.setVisibility(View.VISIBLE);

@@ -3,28 +3,19 @@ package com.kanhui.laowulao.setting.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseFragment;
 import com.kanhui.laowulao.locker.model.AppsModel;
 import com.kanhui.laowulao.setting.AppSelectActivity;
-import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.setting.adapter.AppSelectAdapter;
 import com.kanhui.laowulao.setting.adapter.AppsAdapter;
 import com.kanhui.laowulao.setting.config.AppConfig;
-import com.kanhui.laowulao.utils.AppUtils;
 import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.SizePopupWindow;
@@ -32,8 +23,11 @@ import com.kanhui.laowulao.widget.SizePopupWindow;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AppConfigFragment extends BaseFragment implements View.OnClickListener {
 
@@ -122,9 +116,10 @@ public class AppConfigFragment extends BaseFragment implements View.OnClickListe
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(AppSelectActivity.selectedResult != null){
+            appsList.clear();
             for(AppSelectAdapter.AppEntity entity : AppSelectActivity.selectedResult){
                 AppsModel model = new AppsModel();
-                model.setAppIcon(entity.getName());
+                model.setAppIcon(null);
                 model.setAppName(entity.getName());
                 model.setPackageName(entity.getPackageName());
                 appsList.add(model);

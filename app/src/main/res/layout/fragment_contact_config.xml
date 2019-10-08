@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_contact"
+                    android:id="@+id/rv_contacts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"

@@ -58,7 +58,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     private void initView() {
         findViewById(R.id.btn_save).setOnClickListener(this);
-        findViewById(R.id.iv_contact_config).setOnClickListener(this);
+        findViewById(R.id.iv_app_config).setOnClickListener(this);
         findViewById(R.id.iv_weather_config).setOnClickListener(this);
         findViewById(R.id.iv_contact_config).setOnClickListener(this);
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
@@ -91,39 +91,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         rvApps.setItemAnimator (new DefaultItemAnimator());
         rvApps.setHasFixedSize(true);
         rvApps.setNestedScrollingEnabled(false);
-        appsAdapter.setListener(new AppsAdapter.OnItemClickListener() {
-            @Override
-            public void onDelete(final int position) {
-                AppsModel model = appsList.get(position);
-                final RealmResults<AppsModel> list = Realm.getDefaultInstance().where(AppsModel.class)
-                        .like("appName",model.getAppName()).findAllAsync();
-                Realm.getDefaultInstance().executeTransaction(new Realm.Transaction(){
-                    @Override
-                    public void execute(Realm realm) {
-                        list.get(0).deleteFromRealm();
-                        appsList.remove(position);
-                        appsAdapter.setData(appsList);
-                    }
-                });
-            }
-
-            @Override
-            public void onClick(int position, AppsModel model) {
-                // do nothing
-            }
-
-            @Override
-            public void onAdd() {
-                List<AppSelectAdapter.AppEntity> list = new ArrayList<>();
-                for(AppsModel model : appsList){
-                    AppSelectAdapter.AppEntity entity = new AppSelectAdapter.AppEntity();
-                    entity.setName(model.getAppName());
-                    list.add(entity);
-                }
-                AppSelectActivity.selectedResult = list;
-                startActivityForResult(new Intent(SettingActivity.this,AppSelectActivity.class),REQUEST_SELECT_APPS);
-            }
-        });
 
         initAppsData();
 
@@ -133,6 +100,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     // 读取联系人配置数据
     private void initContactData(){
         ContactConfig config = SharedUtils.getInstance().getContactConfig();
+        contactList.clear();
         contactList.addAll(config.getContacts());
         contactAdapter.setData(contactList);
         contactAdapter.refreshSize(config);
@@ -142,6 +110,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private void initAppsData(){
         AppConfig config = SharedUtils.getInstance().getAppConfig();
         List<String> appNames = config.getApps();
+        appsList.clear();
         for(String name : appNames){
             AppsModel model = new AppsModel();
             model.setAppName(name);
