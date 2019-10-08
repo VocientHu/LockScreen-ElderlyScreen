@@ -1,10 +1,12 @@
 package com.kanhui.laowulao.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.kanhui.laowulao.R;
+import com.kanhui.laowulao.SendSMSActivity;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.setting.fragment.AppConfigFragment;
 import com.kanhui.laowulao.setting.fragment.ContactFragment;
@@ -14,13 +16,15 @@ import androidx.annotation.Nullable;
 
 public class ConfigActivity extends BaseActivity implements View.OnClickListener{
 
-    public static final int EXTRA_APP = 1;
-    public static final int EXTRA_CONTACT = 2;
-    public static final int EXTRA_WEATHER = 3;
+    public static final int EXTRA_WEATHER = 1;
+    public static final int EXTRA_APP = 2;
+    public static final int EXTRA_CONTACT = 3;
 
     public static final String EXTRA_TYPE = "extra_type";
 
     private TextView tvTitle;
+
+    private int type;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,8 +35,10 @@ public class ConfigActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initView() {
+        findViewById(R.id.iv_back).setOnClickListener(this);
+        findViewById(R.id.iv_send).setOnClickListener(this);
         tvTitle = findViewById(R.id.tv_main);
-        int type = getIntent().getIntExtra(EXTRA_TYPE,0);
+        type = getIntent().getIntExtra(EXTRA_TYPE,0);
         switch (type){
             case EXTRA_APP:
                 configApp();
@@ -65,6 +71,11 @@ public class ConfigActivity extends BaseActivity implements View.OnClickListener
         switch (view.getId()){
             case R.id.iv_back:
                 finish();
+                break;
+            case R.id.iv_send:
+                Intent intent = new Intent(ConfigActivity.this, SendSMSActivity.class);
+                intent.putExtra(SendSMSActivity.EXTRA_SMS_TYPE,type);
+                startActivity(intent);
                 break;
         }
     }

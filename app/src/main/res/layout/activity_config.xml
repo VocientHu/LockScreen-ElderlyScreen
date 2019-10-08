@@ -33,6 +33,17 @@
             android:layout_alignParentLeft="true"
             />
 
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#xe6c0;"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_30"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+
     </RelativeLayout>
 
 

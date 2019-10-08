@@ -70,4 +70,5 @@ public class BaseActivity extends AppCompatActivity {
     public void startActivity(Class targetClass){
         startActivity(new Intent(this,targetClass));
     }
+
 }

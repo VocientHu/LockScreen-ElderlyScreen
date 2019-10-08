@@ -14,11 +14,10 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.telephony.SmsMessage;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.kanhui.laowulao.MainActivity;
+import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.locker.LockerActivity;
@@ -78,7 +77,7 @@ public class LockerService extends Service {
         }
 
         Notification.Builder builder = new Notification.Builder(LWLApplicatoin.getInstance());
-        Intent mIntent = new Intent(this, MainActivity.class);
+        Intent mIntent = new Intent(this, SettingActivity.class);
         builder.setContentIntent(PendingIntent.getActivity(this,0,mIntent,0))
 
                 .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))

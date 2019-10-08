@@ -28,22 +28,20 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_30"
             android:textColor="@color/black"
-            android:text="&#xe67d;"
+            android:text="&#xe6ef;"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             />
 
-        <TextView
-            android:id="@+id/tv_preview"
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/preview"
-            android:textColor="@color/black_3"
-            android:textSize="@dimen/font_18"
-            android:textStyle="bold"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            />
+            android:layout_centerVertical="true"
+            android:text="&#xe6c0;"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_30" />
 
     </RelativeLayout>
 

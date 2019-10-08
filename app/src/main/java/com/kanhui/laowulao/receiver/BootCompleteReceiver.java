@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.service.LockerService;
 
 public class BootCompleteReceiver extends BroadcastReceiver {

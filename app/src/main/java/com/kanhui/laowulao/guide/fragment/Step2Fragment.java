@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.kanhui.laowulao.MainActivity;
+import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseFragment;
 import com.kanhui.laowulao.config.Config;
@@ -58,7 +58,7 @@ public class Step2Fragment extends BaseFragment implements View.OnClickListener{
                 }
             }
             SharedUtils.getInstance().putString(Config.SHARED_BIND_PHONES,phones);
-            startActivity(MainActivity.class);
+            startActivity(SettingActivity.class);
             SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
             getActivity().finish();
         } else {

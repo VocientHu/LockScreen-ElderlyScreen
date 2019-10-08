@@ -12,7 +12,10 @@ import com.google.gson.Gson;
 import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.SMSModel;
 import com.kanhui.laowulao.service.LockerService;
+import com.kanhui.laowulao.setting.config.AppConfig;
+import com.kanhui.laowulao.setting.config.ContactConfig;
 import com.kanhui.laowulao.setting.config.WeatherConfig;
+import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.StringUtils;
 
 import androidx.annotation.NonNull;
@@ -77,15 +80,16 @@ public class SmsReceiver extends BroadcastReceiver {
                     if(configStr.contains(SMS_TYPE_WEATHER)){
                         configStr = configStr.replace(SMS_TYPE_WEATHER,"");
                         WeatherConfig config = new Gson().fromJson(configStr,WeatherConfig.class);
+                        SharedUtils.getInstance().setWeatherConfig(config);
                     } else if(configStr.contains(SMS_TYPE_APP)){
-
+                        configStr = configStr.replace(SMS_TYPE_APP,"");
+                        AppConfig config = new Gson().fromJson(configStr,AppConfig.class);
+                        SharedUtils.getInstance().setAppConfig(config);
                     } else if(configStr.contains(SMS_TYPE_CONTACT)){
-
+                        configStr = configStr.replace(SMS_TYPE_CONTACT,"");
+                        ContactConfig config = new Gson().fromJson(configStr,ContactConfig.class);
+                        SharedUtils.getInstance().setContactConfig(config);
                     }
-                    Config newConfig = new Gson().fromJson(configStr,Config.class);
-                    Config oldConfig = Config.getConfig();
-                    newConfig.setBindPhones(oldConfig.getBindPhones());
-                    Config.setConfig(newConfig);
                 }
             }
         }

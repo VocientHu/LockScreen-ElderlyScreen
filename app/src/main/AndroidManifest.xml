@@ -58,7 +58,7 @@
             android:launchMode="standard"
             />
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".setting.SettingActivity"
             android:exported="false"
             android:launchMode="singleTask"
             />
@@ -68,7 +68,7 @@
             android:launchMode="standard"
             />
 
-        <activity android:name=".setting.SettingActivity"
+        <activity android:name=".setting.InspectorActivity"
             android:exported="false"
             android:launchMode="standard"
             />

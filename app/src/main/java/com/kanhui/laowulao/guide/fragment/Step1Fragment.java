@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-import com.kanhui.laowulao.MainActivity;
+import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseFragment;
 import com.kanhui.laowulao.config.Config;
@@ -65,7 +65,7 @@ public class Step1Fragment extends BaseFragment implements View.OnClickListener 
                     turnToFragment(Step2Fragment.class,null,R.id.framelayout);
                 } else {
                     SharedUtils.getInstance().putInt(Config.SHARED_USER_TYPE,Config.USER_YOUNG);
-                    startActivity(MainActivity.class);
+                    startActivity(SettingActivity.class);
                     SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
                     getActivity().finish();
                 }

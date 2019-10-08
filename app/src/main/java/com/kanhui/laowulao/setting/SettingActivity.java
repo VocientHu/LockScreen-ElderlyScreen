@@ -1,160 +1,232 @@
 package com.kanhui.laowulao.setting;
 
+import android.Manifest;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.kanhui.laowulao.R;
+import com.kanhui.laowulao.SendSMSActivity;
+import com.kanhui.laowulao.about.AboutActivity;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.config.Config;
-import com.kanhui.laowulao.locker.adapter.ContactAdapter;
-import com.kanhui.laowulao.locker.model.AppsModel;
-import com.kanhui.laowulao.locker.model.ContactModel;
-import com.kanhui.laowulao.setting.adapter.AppSelectAdapter;
-import com.kanhui.laowulao.setting.adapter.AppsAdapter;
-import com.kanhui.laowulao.setting.adapter.SettingContactAdapter;
-import com.kanhui.laowulao.setting.config.AppConfig;
-import com.kanhui.laowulao.setting.config.ContactConfig;
-import com.kanhui.laowulao.utils.SharedUtils;
+import com.kanhui.laowulao.service.LockerService;
+import com.kanhui.laowulao.utils.PermissionUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
-import com.kanhui.laowulao.widget.WeatherView;
+import com.kanhui.laowulao.widget.FontSizePopupWindow;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import io.realm.Realm;
-import io.realm.RealmResults;
+import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
-    public static final int REQUEST_SELECT_PHONE_NUMBER = 1;// 选择联系人
-    public static final int REQUEST_SELECT_APPS = 2;// 选择app
-    public static final int REQUEST_SELECT_WEATHER = 3;// 天气配置
-    private static final String TAG = "SettingActivity";
+    public static final int PERMISSION_CODE_READ_CONTACT = 1;
 
-    private RecyclerView rvContacts,rvApps;
-    private ContactAdapter contactAdapter;
-    private AppsAdapter appsAdapter;
+    private Button btnStart;
+    private EditText etPhone,etShare;
 
-    private List<ContactModel> contactList = new ArrayList<>();
-    private List<AppsModel> appsList = new ArrayList<>();
+    private static String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
+            Manifest.permission.RECEIVE_SMS};
 
-    private WeatherView weatherView;
+    private TextView tvContactSize,tvAppImgSize,tvAppNameSize;
+
+    // 配置
+    private Config config;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
-
+        setContentView(R.layout.activity_main);
         initView();
+
+        initData();
     }
 
-    private void initView() {
+    void initView(){
+        btnStart = findViewById(R.id.btn_start);
+        etPhone = findViewById(R.id.et_phone);
+        etShare = findViewById(R.id.et_share);
+        btnStart.setOnClickListener(this);
+        tvContactSize = findViewById(R.id.tv_contact_size);
+        tvAppImgSize = findViewById(R.id.tv_app_img_size);
+        tvAppNameSize = findViewById(R.id.tv_app_name_size);
+        findViewById(R.id.btn_stop).setOnClickListener(this);
         findViewById(R.id.btn_save).setOnClickListener(this);
-        findViewById(R.id.iv_app_config).setOnClickListener(this);
-        findViewById(R.id.iv_weather_config).setOnClickListener(this);
-        findViewById(R.id.iv_contact_config).setOnClickListener(this);
-        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        weatherView = findViewById(R.id.wv_setting);
-
-        // 联系人相关
-        rvContacts = findViewById(R.id.rv_contacts);
-        contactAdapter = new ContactAdapter(SettingActivity.this, Config.TYPE_GRIDE);
-        GridLayoutManager manager = new GridLayoutManager(SettingActivity.this,2);
-        rvContacts.setLayoutManager (manager);
-        rvContacts.setAdapter (contactAdapter);
-        rvContacts.setItemAnimator (new DefaultItemAnimator());
-        rvContacts.setHasFixedSize(true);
-        rvContacts.setNestedScrollingEnabled(false);
-        contactAdapter.setData(contactList);
-
-
-        // app相关
-        rvApps = findViewById(R.id.rv_apps);
-        appsAdapter = new AppsAdapter(SettingActivity.this,false);
-        GridLayoutManager appsManager = new GridLayoutManager(SettingActivity.this,3);
-        appsManager.setOrientation(GridLayoutManager.VERTICAL);
-        rvApps.setLayoutManager (appsManager);
-        rvApps.setAdapter (appsAdapter);
-        rvApps.setItemAnimator (new DefaultItemAnimator());
-        rvApps.setHasFixedSize(true);
-        rvApps.setNestedScrollingEnabled(false);
-
-        initAppsData();
-
-        initContactData();
+        findViewById(R.id.btn_send).setOnClickListener(this);
+        findViewById(R.id.iv_call_phone).setOnClickListener(this);
+        findViewById(R.id.tv_setting).setOnClickListener(this);
+        findViewById(R.id.rl_app_img_size).setOnClickListener(this);
+        findViewById(R.id.rl_app_name_size).setOnClickListener(this);
+        findViewById(R.id.rl_contact_size).setOnClickListener(this);
     }
 
-    // 读取联系人配置数据
-    private void initContactData(){
-        ContactConfig config = SharedUtils.getInstance().getContactConfig();
-        contactList.clear();
-        contactList.addAll(config.getContacts());
-        contactAdapter.setData(contactList);
-        contactAdapter.refreshSize(config);
-    }
-
-    // 读取应用配置数据
-    private void initAppsData(){
-        AppConfig config = SharedUtils.getInstance().getAppConfig();
-        List<String> appNames = config.getApps();
-        appsList.clear();
-        for(String name : appNames){
-            AppsModel model = new AppsModel();
-            model.setAppName(name);
-            appsList.add(model);
-        }
-        appsAdapter.setData(appsList);
-        appsAdapter.refreshSize(config);
-
+    void initData(){
+        requsetPermission();
+        config = Config.getConfig();
+        etPhone.setText(config.getBindPhones());
+        etShare.setText(config.getShareUrl());
+        tvContactSize.setText(Config.getContactNameSize(config.getScaleSize()));
+        tvAppImgSize.setText(Config.getContactNameSize(config.getAppImgSize()));
+        tvAppNameSize.setText(Config.getContactNameSize(config.getAppNameSize()));
     }
 
 
-
-
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != RESULT_OK) {
-            return;
-        }
-        initAppsData();
-        initContactData();
-        weatherView.refreshSize(null);
+    void requsetPermission(){
+        ActivityCompat.requestPermissions(
+                SettingActivity.this,permissions,PERMISSION_CODE_READ_CONTACT);
     }
 
     @Override
     public void onClick(View view) {
-        Intent intent;
         switch (view.getId()){
-            case R.id.iv_contact_config:
-                intent = new Intent(SettingActivity.this,ConfigActivity.class);
-                intent.putExtra(ConfigActivity.EXTRA_TYPE,ConfigActivity.EXTRA_CONTACT);
-                startActivityForResult(intent,REQUEST_SELECT_PHONE_NUMBER);
+            case R.id.btn_start:// 开启服务
+                toStart();
                 break;
-            case R.id.iv_app_config:
-                intent = new Intent(SettingActivity.this,ConfigActivity.class);
-                intent.putExtra(ConfigActivity.EXTRA_TYPE,ConfigActivity.EXTRA_APP);
-                startActivityForResult(intent,REQUEST_SELECT_APPS);
+            case R.id.btn_stop:// 停止服务
+                toStop();
                 break;
-            case R.id.iv_weather_config:
-                intent = new Intent(SettingActivity.this,ConfigActivity.class);
-                intent.putExtra(ConfigActivity.EXTRA_TYPE,ConfigActivity.EXTRA_WEATHER);
-                startActivityForResult(intent,REQUEST_SELECT_WEATHER);
+            case R.id.btn_save:// 保存配置
+                saveConfig();
                 break;
-
+            case R.id.btn_send:// 发送配置给指定设备
+                sendConfig();
+                break;
+            case R.id.iv_call_phone:// 关于
+                toAbout();
+                break;
+            case R.id.tv_setting:// 返回
+                finish();
+                break;
+                default:
+                    break;
         }
     }
 
+    private void contactNameSizeChanged(View view) {
+        FontSizePopupWindow popup = new FontSizePopupWindow(SettingActivity.this,
+                new FontSizePopupWindow.FontSizeClickListener() {
+                    @Override
+                    public void onSizeChanged(int size) {
+                        config.setScaleSize(size);
+                        tvContactSize.setText(Config.getContactNameSize(size));
+                    }
+                });
+        popup.setValue(Config.SCALE_BIG,Config.SCALE_MIDDLE,Config.SCALE_SMALL);
+        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
+
+    }
+
+    private void appNameSizeChanged(View view) {
+        FontSizePopupWindow popup = new FontSizePopupWindow(SettingActivity.this,
+                new FontSizePopupWindow.FontSizeClickListener() {
+                    @Override
+                    public void onSizeChanged(int size) {
+                        config.setScaleSize(size);
+                        tvAppNameSize.setText(Config.getAPPNameSize(size));
+                    }
+                });
+        popup.setValue(Config.APP_NAME_BIG,Config.APP_NAME_MIDDLE,Config.APP_NAME_SMALL);
+        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
+
+    }
+
+    private void appIconSizeChanged(View view) {
+        FontSizePopupWindow popup = new FontSizePopupWindow(SettingActivity.this,
+                new FontSizePopupWindow.FontSizeClickListener() {
+                    @Override
+                    public void onSizeChanged(int size) {
+                        config.setScaleSize(size);
+                        tvAppImgSize.setText(Config.getAPPImgSize(size));
+                    }
+                });
+        popup.setValue(Config.APP_IMG_BIG,Config.APP_IMG_MIDDLE,Config.APP_IMG_SMALL);
+        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
+    }
+
+
+    private void toSetting() {
+        startActivity(InspectorActivity.class);
+    }
+
+    void toAbout(){
+        startActivity(AboutActivity.class);
+    }
+
+    void commitConfig(){
+        String phone = etPhone.getText().toString();
+        config.setBindPhones(phone);
+        String address = etShare.getText().toString();
+        config.setShareUrl(address);
+    }
+
+    void saveConfig(){
+        commitConfig();
+        Config.setConfig(config);
+        ToastUtils.showToast(SettingActivity.this,"保存成功");
+    }
+
+    void sendConfig(){
+        commitConfig();
+        Config.setConfig(config);
+        startActivity(SendSMSActivity.class);
+
+    }
+
+    private void toStop(){
+        stopService(new Intent(SettingActivity.this,LockerService.class));
+        ToastUtils.showToast(SettingActivity.this,"服务已停止");
+    }
+
+    private void toStart(){
+        if(!PermissionUtils.hasPermission(SettingActivity.this,permissions)){
+            dealwithPermiss(SettingActivity.this);
+            return;
+        }
+//        startActivity(LockerActivity.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(new Intent(this, LockerService.class));
+        } else {
+            startService(new Intent(this, LockerService.class));
+        }
+        ToastUtils.showToast(SettingActivity.this,"服务已开启");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case PERMISSION_CODE_READ_CONTACT:
+                boolean hasAllGranted = true;
+                //判断是否拒绝  拒绝后要怎么处理 以及取消再次提示的处理
+                for (int grantResult : grantResults) {
+                    if (grantResult == PackageManager.PERMISSION_DENIED) {
+                        hasAllGranted = false;
+                        break;
+                    }
+                }
+                if (!hasAllGranted) { //同意权限做的处理,开启服务提交通讯录
+                    dealwithPermiss(SettingActivity.this);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
 }
