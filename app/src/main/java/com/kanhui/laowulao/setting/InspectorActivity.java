@@ -53,7 +53,6 @@ public class InspectorActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initView() {
-        findViewById(R.id.btn_save).setOnClickListener(this);
         findViewById(R.id.iv_app_config).setOnClickListener(this);
         findViewById(R.id.iv_weather_config).setOnClickListener(this);
         findViewById(R.id.iv_contact_config).setOnClickListener(this);
@@ -61,7 +60,7 @@ public class InspectorActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(SettingActivity.class);
+                finish();
             }
         });
         weatherView = findViewById(R.id.wv_setting);

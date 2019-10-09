@@ -89,15 +89,15 @@
                     />
 
                 <com.kyleduo.switchbutton.SwitchButton
-                    android:layout_width="@dimen/font_100"
-                    android:layout_height="@dimen/dimen_50"
+                    android:layout_width="@dimen/dimen_60"
+                    android:layout_height="@dimen/dimen_30"
                     android:id="@+id/sb_auto_start"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     app:kswThumbColor="@color/main_green"
                     app:kswThumbMargin="@dimen/dimen_2"
-                    app:kswThumbRadius="@dimen/dimen_22"
-                    app:kswBackRadius="@dimen/dimen_26"
+                    app:kswThumbRadius="@dimen/dimen_16"
+                    app:kswBackRadius="@dimen/dimen_16"
                     app:kswBackColor="@color/main_background"
                     app:kswTextOn="开"
                     app:kswTextOff="关"
@@ -126,15 +126,15 @@
                     />
 
                 <com.kyleduo.switchbutton.SwitchButton
-                    android:layout_width="@dimen/font_100"
-                    android:layout_height="@dimen/dimen_50"
+                    android:layout_width="@dimen/dimen_60"
+                    android:layout_height="@dimen/dimen_30"
                     android:id="@+id/sb_remote_start"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     app:kswThumbColor="@color/main_green"
                     app:kswThumbMargin="@dimen/dimen_2"
-                    app:kswThumbRadius="@dimen/dimen_22"
-                    app:kswBackRadius="@dimen/dimen_26"
+                    app:kswThumbRadius="@dimen/dimen_16"
+                    app:kswBackRadius="@dimen/dimen_16"
                     app:kswBackColor="@color/main_background"
                     app:kswTextOn="开"
                     app:kswTextOff="关"

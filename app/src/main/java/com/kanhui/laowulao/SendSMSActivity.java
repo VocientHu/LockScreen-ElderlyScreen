@@ -1,13 +1,19 @@
 package com.kanhui.laowulao;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.config.Config;
+import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.receiver.SmsReceiver;
 import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.setting.config.AppConfig;
@@ -20,6 +26,8 @@ import com.kanhui.laowulao.utils.ToastUtils;
 import androidx.annotation.Nullable;
 
 public class SendSMSActivity extends BaseActivity implements View.OnClickListener{
+
+    public static final int REQUEST_SELECT_PHONE_NUMBER = 1;// 选择联系人
 
     private static final String SHARED_SEND_SMS_PHONE = "shared_send_sms_phone";
 
@@ -35,6 +43,8 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
 
     EditText etPhone;
 
+    TextView tvDes,tvContact;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +58,10 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
     private void initView() {
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.btn_send).setOnClickListener(this);
+        findViewById(R.id.iv_contact).setOnClickListener(this);
         etPhone = findViewById(R.id.et_phone);
-
+        tvContact = findViewById(R.id.tv_contact);
+        tvDes = findViewById(R.id.tv_des);
     }
 
     private void initData(){
@@ -57,7 +69,23 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
         etPhone.setText(phone);
 
         type = getIntent().getIntExtra(EXTRA_SMS_TYPE,0);
+        String text = "";
+        switch (type){
+            case SEND_ALL:
+                text = "将修改目标手机锁屏页面的字体大小，联系人，应用";
+                break;
+            case SEND_APP:
+                text = "将修改目标手机锁屏界面的常用APP大小及其大小";
+                break;
+            case SEND_CONTACT:
+                text = "将修改目标手机锁屏界面的常用联系人及其大小";
+                break;
+            case SEND_WEATHER:
+                text = "将修改目标手机锁屏界面的日期，天气等字体大小";
+                break;
+        }
 
+        tvDes.setText(text);
     }
 
     @Override
@@ -69,7 +97,36 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
             case R.id.btn_send:
                 sendSMS();
                 break;
+            case R.id.iv_contact:
+                selectContact();
+                break;
         }
+    }
+
+    void selectContact(){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        if (intent.resolveActivity(SendSMSActivity.this.getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_SELECT_PHONE_NUMBER);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Uri contactUri = data.getData();
+        String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER,ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+        Cursor cursor = getContentResolver().query(contactUri, projection,
+                null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            String name = cursor.getString(nameIndex);      //联系人姓名
+            String number = cursor.getString(numberIndex);  //联系人号码
+            etPhone.setText(number);
+            tvContact.setText(name);
+            cursor.close();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void sendSMS() {

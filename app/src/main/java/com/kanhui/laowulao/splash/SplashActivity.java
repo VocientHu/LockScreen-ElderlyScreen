@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.config.Config;
@@ -105,7 +106,7 @@ public class SplashActivity extends BaseActivity {
             boolean isGuided = SharedUtils.getInstance().getBoolean(SHARED_GUIDE_STATUS,false);
 
             if(isGuided){
-                startActivity(InspectorActivity.class);
+                startActivity(MainActivity.class);
             } else {
                 startActivity(GuideActivity.class);
             }

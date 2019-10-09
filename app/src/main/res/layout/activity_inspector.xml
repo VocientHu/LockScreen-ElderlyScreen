@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_30"
             android:textColor="@color/black"
-            android:text="&#xe6ef;"
+            android:text="&#xe67d;"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             />
@@ -178,19 +178,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_save"
-        android:text="@string/save"
-        android:gravity="center"
-        android:padding="@dimen/dimen_10"
-        android:layout_margin="@dimen/dimen_16"
-        android:background="@drawable/btn_main_selector"
-        android:textSize="@dimen/font_18"
-        android:textColor="@color/white"
-        />
-
 
 </LinearLayout>

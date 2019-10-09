@@ -37,22 +37,64 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_16">
 
         <EditText
             android:id="@+id/et_phone"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:hint="@string/phone_code"
-            android:padding="@dimen/dimen_5"
+            android:padding="@dimen/dimen_10"
             android:background="@color/white"
             android:gravity="center"
-            android:layout_margin="@dimen/dimen_20"
+            android:layout_margin="@dimen/dimen_16"
+            android:textSize="@dimen/font_16"
+            />
+
+        <com.kanhui.laowulao.widget.IconView
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_50"
+            android:textColor="@color/black_6"
+            android:text="&#xe60a;"
+            android:id="@+id/iv_contact"
+            android:textSize="@dimen/font_40"
+            android:layout_gravity="center_vertical"
             />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/black_6"
+        android:layout_marginHorizontal="@dimen/font_16"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/black_6"
+        android:layout_margin="@dimen/font_16"
+        />
+    <TextView
+        android:id="@+id/tv_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/red"
+        android:layout_margin="@dimen/font_16"
+        android:text="提示：需对方手机绑定了您手机才能生效"
+        android:layout_gravity="center_horizontal"
+        />
+
 
 
 

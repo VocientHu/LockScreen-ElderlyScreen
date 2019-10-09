@@ -27,12 +27,7 @@ import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
-    public static final int PERMISSION_CODE_READ_CONTACT = 1;
 
-    private static String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
-            Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
-            Manifest.permission.RECEIVE_SMS};
 
     private SwitchButton sbAutoStart,sbRemoteStart;
     private TextView tvPhone;
@@ -58,8 +53,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     }
 
     void initData(){
-        requsetPermission();
-
         boolean isAutoStart = SharedUtils.getInstance().getAutoStart();
         boolean isRemoteStart = SharedUtils.getInstance().getRemoteStart();
         sbAutoStart.setChecked(isAutoStart);
@@ -83,20 +76,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    void requsetPermission(){
-        ActivityCompat.requestPermissions(
-                SettingActivity.this,permissions,PERMISSION_CODE_READ_CONTACT);
-    }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_start:// 开启服务
-                toStart();
-                break;
-            case R.id.iv_call_phone:// 关于
-                toAbout();
-                break;
             case R.id.tv_setting:// 返回
                 finish();
                 break;
@@ -128,54 +112,4 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    void toAbout(){
-        startActivity(UseBookActivity.class);
-    }
-
-    private void toStop(){
-        stopService(new Intent(SettingActivity.this,LockerService.class));
-        ToastUtils.showToast(SettingActivity.this,"服务已停止");
-    }
-
-    private void toStart(){
-        if(!PermissionUtils.hasPermission(SettingActivity.this,permissions)){
-            dealwithPermiss(SettingActivity.this);
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(new Intent(this, LockerService.class));
-        } else {
-            startService(new Intent(this, LockerService.class));
-        }
-        ToastUtils.showToast(SettingActivity.this,"服务已开启");
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode){
-            case PERMISSION_CODE_READ_CONTACT:
-                boolean hasAllGranted = true;
-                //判断是否拒绝  拒绝后要怎么处理 以及取消再次提示的处理
-                for (int grantResult : grantResults) {
-                    if (grantResult == PackageManager.PERMISSION_DENIED) {
-                        hasAllGranted = false;
-                        break;
-                    }
-                }
-                if (!hasAllGranted) { //同意权限做的处理,开启服务提交通讯录
-                    dealwithPermiss(SettingActivity.this);
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
-    }
 }

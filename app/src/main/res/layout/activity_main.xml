@@ -13,9 +13,9 @@
             android:id="@+id/iv_inspector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="&#xe67d;"
+            android:text="&#xe8bd;"
             android:textColor="@color/black_3"
-            android:textSize="@dimen/font_18"
+            android:textSize="@dimen/font_30"
             android:textStyle="bold"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
@@ -35,11 +35,11 @@
             android:id="@+id/iv_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="&#xe67d;"
+            android:text="&#xe6ef;"
             android:textColor="@color/black_3"
-            android:textSize="@dimen/font_18"
+            android:textSize="@dimen/font_30"
             android:textStyle="bold"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             />
 
@@ -53,15 +53,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/dimen_16">
+
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#xe617;"
+            android:textColor="@color/main_green"
+            android:textSize="@dimen/font_50"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dimen_20"
+            />
+
         <TextView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:text="启动"
             android:id="@+id/tv_start"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_marginTop="@dimen/dimen_50"
             android:gravity="center"
             android:textSize="@dimen/font_32"
+            android:background="@drawable/btn_start_selector"
+            android:textColor="@color/white"
+            android:layout_below="@+id/iv_light"
             />
         <TextView
             android:layout_width="150dp"
@@ -70,9 +85,11 @@
             android:id="@+id/tv_stop"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_start"
-            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_marginTop="@dimen/dimen_50"
             android:gravity="center"
             android:textSize="@dimen/font_32"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_stop_selector"
             />
 
     </RelativeLayout>
