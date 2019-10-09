@@ -12,6 +12,7 @@ import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.setting.InspectorActivity;
 import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.utils.PermissionUtils;
+import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.IconView;
 
@@ -22,6 +23,8 @@ import androidx.core.app.ActivityCompat;
 import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
+
+    private static final String SHARED_IS_FIRST_OPEN_MAIN = "shared_is_first_open_main";
 
     public static final int PERMISSION_CODE_READ_CONTACT = 1;
 
@@ -43,8 +46,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.tv_start).setOnClickListener(this);
         findViewById(R.id.tv_stop).setOnClickListener(this);
 
-        ivLight = findViewById(R.id.iv_light);
+        boolean isFirstOpen = SharedUtils.getInstance().getBoolean(SHARED_IS_FIRST_OPEN_MAIN,true);
+        if(isFirstOpen){
+            findViewById(R.id.tv_des).setVisibility(View.VISIBLE);
+            SharedUtils.getInstance().putBoolean(SHARED_IS_FIRST_OPEN_MAIN,false);
+        } else {
+            findViewById(R.id.tv_des).setVisibility(View.GONE);
+        }
 
+        ivLight = findViewById(R.id.iv_light);
+        if(LockerService.IsServiceStarted){
+            onLight();
+        } else {
+            offLight();
+        }
         requsetPermission();
     }
 

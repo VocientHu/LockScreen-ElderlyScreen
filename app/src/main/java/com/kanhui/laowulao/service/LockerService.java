@@ -42,6 +42,8 @@ public class LockerService extends Service {
     private static final String CHANNEL_ONE_ID = "com.kanhui.laowulao";
     private static final String CHANNEL_ONE_NAME = "Channel One";
 
+    public static boolean IsServiceStarted = false;
+
     private static final int RECEIVERED_MSG = 1;
 
     private Intent serviceIntent;
@@ -49,13 +51,13 @@ public class LockerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        initBroadcast();
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         serviceIntent = intent;
-        // TODO user can select
+        initBroadcast();
         addNotification();
 
         return super.onStartCommand(intent, flags, startId);
@@ -63,7 +65,7 @@ public class LockerService extends Service {
 
     private void addNotification(){
 
-
+        IsServiceStarted = true;
         NotificationChannel notificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notificationChannel = new NotificationChannel(CHANNEL_ONE_ID,
@@ -151,6 +153,8 @@ public class LockerService extends Service {
         // 保活
         if(serviceIntent != null){
             startService(serviceIntent);
+        } else {
+            IsServiceStarted = false;
         }
     }
 
