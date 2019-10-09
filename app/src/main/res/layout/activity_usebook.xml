@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16"
+        >
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#xe67d;"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/tv_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            />
+
+    </RelativeLayout>
+
+    <View style="@style/horizontal_line"
+        android:id="@+id/line"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_16">
+            <TextView
+                android:id="@+id/tv_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_10"
+                android:textColor="@color/black_6"
+                android:text="@string/des"
+                android:textSize="@dimen/font_14"
+                />
+            <View style="@style/horizontal_line"/>
+            <TextView
+                android:id="@+id/tv_features"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_10"
+                android:textColor="@color/black_6"
+                android:text="@string/features_list"
+                android:textSize="@dimen/font_14"
+                />
+            <View style="@style/horizontal_line"/>
+            <TextView
+                android:id="@+id/tv_notice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_10"
+                android:textColor="@color/red"
+                android:text="@string/notice"
+                android:textSize="@dimen/font_14"
+                />
+            <View style="@style/horizontal_line"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

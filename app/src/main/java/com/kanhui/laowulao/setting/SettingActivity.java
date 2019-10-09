@@ -5,21 +5,20 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.kanhui.laowulao.R;
-import com.kanhui.laowulao.SendSMSActivity;
 import com.kanhui.laowulao.about.AboutActivity;
+import com.kanhui.laowulao.about.UseBookActivity;
 import com.kanhui.laowulao.base.BaseActivity;
-import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.utils.PermissionUtils;
+import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
-import com.kanhui.laowulao.widget.FontSizePopupWindow;
+import com.kanhui.laowulao.widget.EditPhonePopupWindow;
+import com.kyleduo.switchbutton.SwitchButton;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -30,54 +29,57 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     public static final int PERMISSION_CODE_READ_CONTACT = 1;
 
-    private Button btnStart;
-    private EditText etPhone,etShare;
-
     private static String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
             Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
             Manifest.permission.RECEIVE_SMS};
 
-    private TextView tvContactSize,tvAppImgSize,tvAppNameSize;
-
-    // 配置
-    private Config config;
+    private SwitchButton sbAutoStart,sbRemoteStart;
+    private TextView tvPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_setting);
         initView();
 
         initData();
     }
 
     void initView(){
-        btnStart = findViewById(R.id.btn_start);
-        etPhone = findViewById(R.id.et_phone);
-        etShare = findViewById(R.id.et_share);
-        btnStart.setOnClickListener(this);
-        tvContactSize = findViewById(R.id.tv_contact_size);
-        tvAppImgSize = findViewById(R.id.tv_app_img_size);
-        tvAppNameSize = findViewById(R.id.tv_app_name_size);
-        findViewById(R.id.btn_stop).setOnClickListener(this);
-        findViewById(R.id.btn_save).setOnClickListener(this);
-        findViewById(R.id.btn_send).setOnClickListener(this);
+        sbAutoStart = findViewById(R.id.sb_auto_start);
+        sbRemoteStart = findViewById(R.id.sb_remote_start);
+        tvPhone = findViewById(R.id.tv_bind_phone);
         findViewById(R.id.iv_call_phone).setOnClickListener(this);
         findViewById(R.id.tv_setting).setOnClickListener(this);
-        findViewById(R.id.rl_app_img_size).setOnClickListener(this);
-        findViewById(R.id.rl_app_name_size).setOnClickListener(this);
-        findViewById(R.id.rl_contact_size).setOnClickListener(this);
+        findViewById(R.id.rl_bind_phone).setOnClickListener(this);
+        findViewById(R.id.rl_use_book).setOnClickListener(this);
+        findViewById(R.id.rl_version).setOnClickListener(this);
     }
 
     void initData(){
         requsetPermission();
-        config = Config.getConfig();
-        etPhone.setText(config.getBindPhones());
-        etShare.setText(config.getShareUrl());
-        tvContactSize.setText(Config.getContactNameSize(config.getScaleSize()));
-        tvAppImgSize.setText(Config.getContactNameSize(config.getAppImgSize()));
-        tvAppNameSize.setText(Config.getContactNameSize(config.getAppNameSize()));
+
+        boolean isAutoStart = SharedUtils.getInstance().getAutoStart();
+        boolean isRemoteStart = SharedUtils.getInstance().getRemoteStart();
+        sbAutoStart.setChecked(isAutoStart);
+        sbRemoteStart.setChecked(isRemoteStart);
+        sbAutoStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedUtils.getInstance().setAutoStart(isChecked);
+            }
+        });
+        sbRemoteStart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedUtils.getInstance().setRemoteStart(isChecked);
+            }
+        });
+
+        String bindPhone = SharedUtils.getInstance().getBindPhones();
+        tvPhone.setText(bindPhone);
+
     }
 
 
@@ -92,94 +94,42 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.btn_start:// 开启服务
                 toStart();
                 break;
-            case R.id.btn_stop:// 停止服务
-                toStop();
-                break;
-            case R.id.btn_save:// 保存配置
-                saveConfig();
-                break;
-            case R.id.btn_send:// 发送配置给指定设备
-                sendConfig();
-                break;
             case R.id.iv_call_phone:// 关于
                 toAbout();
                 break;
             case R.id.tv_setting:// 返回
                 finish();
                 break;
+            case R.id.rl_bind_phone:// 绑定手机
+                bindPhone(view);
+                break;
+            case R.id.rl_use_book://使用说明
+                startActivity(UseBookActivity.class);
+                break;
+            case R.id.rl_version:// 关于
+                startActivity(AboutActivity.class);
+                break;
                 default:
                     break;
         }
     }
 
-    private void contactNameSizeChanged(View view) {
-        FontSizePopupWindow popup = new FontSizePopupWindow(SettingActivity.this,
-                new FontSizePopupWindow.FontSizeClickListener() {
+    void bindPhone(View v){
+        String bindPhone = SharedUtils.getInstance().getBindPhones();
+        EditPhonePopupWindow window = new EditPhonePopupWindow(SettingActivity.this, bindPhone,
+                new EditPhonePopupWindow.PhoneChagnedListener() {
                     @Override
-                    public void onSizeChanged(int size) {
-                        config.setScaleSize(size);
-                        tvContactSize.setText(Config.getContactNameSize(size));
+                    public void onChanged(String phone) {
+                        tvPhone.setText(phone);
+                        SharedUtils.getInstance().setBindPhones(phone);
                     }
                 });
-        popup.setValue(Config.SCALE_BIG,Config.SCALE_MIDDLE,Config.SCALE_SMALL);
-        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
-
+        window.showAsDropDown(v);
     }
 
-    private void appNameSizeChanged(View view) {
-        FontSizePopupWindow popup = new FontSizePopupWindow(SettingActivity.this,
-                new FontSizePopupWindow.FontSizeClickListener() {
-                    @Override
-                    public void onSizeChanged(int size) {
-                        config.setScaleSize(size);
-                        tvAppNameSize.setText(Config.getAPPNameSize(size));
-                    }
-                });
-        popup.setValue(Config.APP_NAME_BIG,Config.APP_NAME_MIDDLE,Config.APP_NAME_SMALL);
-        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
-
-    }
-
-    private void appIconSizeChanged(View view) {
-        FontSizePopupWindow popup = new FontSizePopupWindow(SettingActivity.this,
-                new FontSizePopupWindow.FontSizeClickListener() {
-                    @Override
-                    public void onSizeChanged(int size) {
-                        config.setScaleSize(size);
-                        tvAppImgSize.setText(Config.getAPPImgSize(size));
-                    }
-                });
-        popup.setValue(Config.APP_IMG_BIG,Config.APP_IMG_MIDDLE,Config.APP_IMG_SMALL);
-        popup.showAtLocation(view, Gravity.BOTTOM,0,0);
-    }
-
-
-    private void toSetting() {
-        startActivity(InspectorActivity.class);
-    }
 
     void toAbout(){
-        startActivity(AboutActivity.class);
-    }
-
-    void commitConfig(){
-        String phone = etPhone.getText().toString();
-        config.setBindPhones(phone);
-        String address = etShare.getText().toString();
-        config.setShareUrl(address);
-    }
-
-    void saveConfig(){
-        commitConfig();
-        Config.setConfig(config);
-        ToastUtils.showToast(SettingActivity.this,"保存成功");
-    }
-
-    void sendConfig(){
-        commitConfig();
-        Config.setConfig(config);
-        startActivity(SendSMSActivity.class);
-
+        startActivity(UseBookActivity.class);
     }
 
     private void toStop(){
@@ -192,7 +142,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             dealwithPermiss(SettingActivity.this);
             return;
         }
-//        startActivity(LockerActivity.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(new Intent(this, LockerService.class));
         } else {

@@ -56,5 +56,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
     implementation 'com.amap.api:location:latest.integration'
     implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
 
 }

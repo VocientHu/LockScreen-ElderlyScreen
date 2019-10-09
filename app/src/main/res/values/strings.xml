@@ -9,7 +9,7 @@
     <string name="push_battery">建议充电</string>
     <string name="constact_people_count">联系人(%s人)</string>
     <string name="loading">正在初始化...</string>
-    <string name="config">参数配置</string>
+    <string name="config">系统配置</string>
     <string name="screen_config">锁屏配置</string>
     <string name="weather_config">天气配置</string>
     <string name="send_config">发送配置</string>

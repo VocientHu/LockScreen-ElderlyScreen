@@ -86,6 +86,14 @@ public class SharedUtils {
         putString(LOCK_SHARE_URL,config.getShareUrl());
     }
 
+    public void setBindPhones(String phone){
+        putString(Config.SHARED_BIND_PHONES,phone);
+    }
+
+    public String getBindPhones(){
+        return getString(Config.SHARED_BIND_PHONES,"");
+    }
+
     private static final String WEATHER_CONFIG = "weather_config";
     public WeatherConfig getWeatherConfig(){
         String json = getString(WEATHER_CONFIG,null);
@@ -135,5 +143,21 @@ public class SharedUtils {
         String json = config == null ? "" : new Gson().toJson(config);
         putString(CONTACT_CONFIG,json);
     }
+
+    private static final String AUTO_START = "app_auto_start";
+    public boolean getAutoStart(){
+        return getBoolean(AUTO_START,true);
+    }
+    public void setAutoStart(boolean status){
+        putBoolean(AUTO_START,status);
+    }
+    private static final String REMOTE_START = "app_remote_start";
+    public boolean getRemoteStart(){
+        return getBoolean(REMOTE_START,true);
+    }
+    public void setRemoteStart(boolean status){
+        putBoolean(REMOTE_START,status);
+    }
+
 
 }

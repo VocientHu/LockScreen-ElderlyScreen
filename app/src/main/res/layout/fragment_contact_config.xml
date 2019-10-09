@@ -53,7 +53,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:id="@+id/iv_arrow"
-                    android:textSize="@dimen/font_16"
+                    android:textSize="@dimen/font_24"
                     />
 
                 <TextView

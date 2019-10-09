@@ -1,8 +1,11 @@
 package com.kanhui.laowulao.about;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
@@ -18,6 +21,22 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
         setContentView(R.layout.activity_about);
 
         findViewById(R.id.iv_back).setOnClickListener(this);
+
+        TextView tvVersion = findViewById(R.id.tv_version);
+        tvVersion.setText("当前版本：" + getAppVersionName(this));
+    }
+
+    public static String getAppVersionName(Context context) {
+        String appVersionName = "";
+        try {
+            PackageInfo packageInfo = context.getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            appVersionName = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+
+        }
+        return appVersionName;
     }
 
     @Override
