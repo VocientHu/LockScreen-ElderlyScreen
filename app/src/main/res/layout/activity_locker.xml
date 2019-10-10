@@ -19,7 +19,6 @@
             android:text="@string/app_name"
             android:textColor="@color/black_3"
             android:textSize="@dimen/font_20"
-            android:textStyle="bold"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             />
@@ -36,10 +35,9 @@
             android:id="@+id/tv_battery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/red"
+            android:textColor="@color/black_6"
             android:layout_centerInParent="true"
-            android:textSize="@dimen/font_24"
-            android:visibility="gone"
+            android:textSize="@dimen/font_20"
             android:text="@string/push_battery"
             />
     </RelativeLayout>

@@ -141,10 +141,18 @@ public class LockerActivity extends BaseActivity {
             BatteryManager manager = (BatteryManager) getSystemService(BATTERY_SERVICE);
             int percent = manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
             bvBattery.setPercent(percent);
+            TextView tvWarning = findViewById(R.id.tv_battery);
+            TextView tvNav = findViewById(R.id.tv_nav);
+            tvNav.setText("电量" + percent + "%");
             if(percent <= 20){
-                findViewById(R.id.tv_battery).setVisibility(View.VISIBLE);
+
+                tvNav.setTextColor(getResources().getColor(R.color.red));
+                tvWarning.setTextColor(getResources().getColor(R.color.red));
+                tvWarning.setText("建议充电");
             } else {
-                findViewById(R.id.tv_battery).setVisibility(View.GONE);
+                tvNav.setTextColor(getResources().getColor(R.color.main_green));
+                tvWarning.setTextColor(getResources().getColor(R.color.main_green));
+                tvWarning.setText("");
             }
         } else {
             bvBattery.setVisibility(View.GONE);

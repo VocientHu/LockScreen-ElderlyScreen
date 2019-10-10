@@ -113,6 +113,9 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data == null){
+            return;
+        }
         Uri contactUri = data.getData();
         String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER,ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
         Cursor cursor = getContentResolver().query(contactUri, projection,

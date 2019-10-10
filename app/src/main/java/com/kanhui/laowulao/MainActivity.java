@@ -11,10 +11,12 @@ import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.setting.InspectorActivity;
 import com.kanhui.laowulao.setting.SettingActivity;
+import com.kanhui.laowulao.utils.AppUtils;
 import com.kanhui.laowulao.utils.PermissionUtils;
 import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
 import com.kanhui.laowulao.widget.IconView;
+import com.kanhui.laowulao.widget.UseWarningDialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,17 +52,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         if(isFirstOpen){
             findViewById(R.id.tv_des).setVisibility(View.VISIBLE);
             SharedUtils.getInstance().putBoolean(SHARED_IS_FIRST_OPEN_MAIN,false);
+            new UseWarningDialog(MainActivity.this).show();
         } else {
             findViewById(R.id.tv_des).setVisibility(View.GONE);
         }
 
         ivLight = findViewById(R.id.iv_light);
-        if(LockerService.IsServiceStarted){
+
+        requsetPermission();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(AppUtils.isServiceRunning(MainActivity.this,LockerService.class.getName())){
             onLight();
         } else {
             offLight();
         }
-        requsetPermission();
     }
 
     @Override

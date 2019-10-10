@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/step1_des"
+        android:text="本APP专为需要协助的老人设计，请问您是老人还是协助者？"
         android:textSize="@dimen/font_18"
         android:textColor="@color/black_3"
         />
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cb_answer1"
-            android:text="@string/step1_answer2"
+            android:text="我是老人"
             android:textSize="@dimen/font_16"
             android:textColor="@color/black_6"
             android:layout_centerVertical="true"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cb_answer2"
-            android:text="@string/step1_answer1"
+            android:text="我是协助者"
             android:textSize="@dimen/font_16"
             android:textColor="@color/black_6"
             android:layout_centerVertical="true"

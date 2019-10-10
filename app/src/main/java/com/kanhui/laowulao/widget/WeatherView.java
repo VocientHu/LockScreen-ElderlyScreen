@@ -176,11 +176,15 @@ public class WeatherView extends LinearLayout {
     }
 
     private void setTodayWeather(ForecastBase today){
-        setTodayWeather(today.getCond_txt_d());
+        String condTxt = today.getCond_txt_d();
+        String tmpMin = today.getTmp_min();
+        String tmpMax = today.getTmp_max();
+        String weather = condTxt + " " + tmpMin + "°-" + tmpMax + "°";
+        setTodayWeather(weather);
         String code = today.getCond_code_d();
         setWeatherPic(code);
         // 缓存天气数据
-        SharedUtils.getInstance().putString(SHARED_WEATHER_TEXT,today.getCond_txt_d());
+        SharedUtils.getInstance().putString(SHARED_WEATHER_TEXT,weather);
         SharedUtils.getInstance().putString(SHARED_WEATHER_PIC,code);
     }
 

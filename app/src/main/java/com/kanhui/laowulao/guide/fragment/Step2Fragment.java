@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseFragment;
@@ -49,6 +50,7 @@ public class Step2Fragment extends BaseFragment implements View.OnClickListener{
 
     private void toNext() {
         String phones = etPhone.getText().toString();
+        SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
         if(!StringUtils.isEmpty(phones)){
             String[] arr = phones.split(";");
             for(String phone : arr){
@@ -58,11 +60,10 @@ public class Step2Fragment extends BaseFragment implements View.OnClickListener{
                 }
             }
             SharedUtils.getInstance().putString(Config.SHARED_BIND_PHONES,phones);
-            startActivity(SettingActivity.class);
-            SharedUtils.getInstance().putBoolean(SplashActivity.SHARED_GUIDE_STATUS,true);
+            startActivity(MainActivity.class);
             getActivity().finish();
         } else {
-            ToastUtils.showToast(context,"请填写手机号");
+            startActivity(MainActivity.class);
         }
 
     }
