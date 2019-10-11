@@ -1,37 +1,29 @@
 # laowulao
 
-#### Description
-老吾老以及人之老，幼吾幼以及人之幼
-只是想给古稀老爸一个使用智能手机的可行方案
+---
 
-#### Software Architecture
-Software architecture description
+一款专门为老年人做的锁屏APP。
 
-#### Installation
+初衷是家中老人尚不会太用智能手机，他们不会密码解锁，不会指纹解锁，进入桌面后不会操作，不知道如何操作,最简单的打电话，还经常会打错。
 
-1. xxxx
-2. xxxx
-3. xxxx
+他们对智能手机有期待，有需求。他们希望能准确操作给谁拨电话，跟亲人视频，能看到天气，或者新闻。
 
-#### Instructions
+基于以上问题和需求，这款APP诞生了。
 
-1. xxxx
-2. xxxx
-3. xxxx
+APP功能清单：
 
-#### Contribution
+* 1：老人按下电源键后，就能看到APP的锁屏界面；
 
-1. Fork the repository
-2. Create Feat_xxx branch
-3. Commit your code
-4. Create Pull Request
+* 2：锁屏界面能看到天气，常用应用，常用联系人；
+
+* 3：锁屏页面上的所有字体大小可以灵活调整；
+
+* 4：常用应用，常用联系人可以灵活配置；
+
+* 5：可以绑定一个手机号，绑定手机号可以远程配置锁屏页面的内容（比如作者常年在外，家中老人的手机出现什么问题，无法及时调整。可通过绑定手机号来实现简单的远程控制，比如远程启动APP，远程配置锁屏页面上的字体大小，APP，联系人等）。
 
 
-#### Gitee Feature
 
-1. You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2. Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3. Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4. The most valuable open source project [GVP](https://gitee.com/gvp)
-5. The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6. The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+
+
