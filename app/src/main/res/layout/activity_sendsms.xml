@@ -8,7 +8,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_16"
+        android:padding="@dimen/dimen_10"
         android:background="@color/white"
         >
         <TextView
@@ -39,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/dimen_16">
+        android:padding="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_20">
 
         <EditText
             android:id="@+id/et_phone"
@@ -50,8 +51,9 @@
             android:padding="@dimen/dimen_10"
             android:background="@color/white"
             android:gravity="center"
-            android:layout_margin="@dimen/dimen_16"
             android:textSize="@dimen/font_16"
+            android:layout_marginHorizontal="@dimen/dimen_10"
+            android:layout_gravity="center_vertical"
             />
 
         <com.kanhui.laowulao.widget.IconView
@@ -60,8 +62,9 @@
             android:textColor="@color/black_6"
             android:text="&#xe60a;"
             android:id="@+id/iv_contact"
-            android:textSize="@dimen/font_40"
+            android:textSize="@dimen/font_30"
             android:layout_gravity="center_vertical"
+            android:gravity="center"
             />
 
     </LinearLayout>
@@ -80,9 +83,10 @@
         android:id="@+id/tv_des"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/font_16"
+        android:textSize="@dimen/font_14"
         android:textColor="@color/black_6"
         android:layout_margin="@dimen/font_16"
+        android:layout_gravity="center_horizontal"
         />
     <TextView
         android:id="@+id/tv_warning"
@@ -102,7 +106,7 @@
         android:id="@+id/btn_send"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="发送短信"
+        android:text="发送"
         android:textSize="@dimen/font_16"
         android:textColor="@color/white"
         android:gravity="center"

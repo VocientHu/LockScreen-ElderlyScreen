@@ -18,12 +18,16 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
 
         findViewById(R.id.iv_back).setOnClickListener(this);
 
         TextView tvVersion = findViewById(R.id.tv_version);
         tvVersion.setText("当前版本：" + getAppVersionName(this));
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_about;
     }
 
     public static String getAppVersionName(Context context) {

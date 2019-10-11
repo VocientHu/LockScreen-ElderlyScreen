@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_16"
+        android:padding="@dimen/dimen_10"
         android:background="@color/white"
         >
         <TextView
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/searchView"
             app:queryHint="@string/search_app_name"
-            app:queryBackground="@color/main_background"
+            app:queryBackground="@color/white"
             android:layout_margin="@dimen/dimen_16"
             android:background="@color/white"
             />

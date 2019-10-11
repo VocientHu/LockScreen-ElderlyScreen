@@ -14,10 +14,15 @@ public class UseBookActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usebook);
 
         findViewById(R.id.iv_back).setOnClickListener(this);
     }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_usebook;
+    }
+
 
     @Override
     public void onClick(View view) {

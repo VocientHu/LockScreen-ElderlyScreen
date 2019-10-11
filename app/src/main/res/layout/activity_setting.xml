@@ -79,19 +79,27 @@
                 android:id="@+id/rl_auto_start"
                 >
                 <TextView
+                    android:id="@+id/tv_auto_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10"
                     android:textColor="@color/black_3"
                     android:text="允许开机启动"
                     android:textSize="@dimen/font_14"
-                    android:layout_centerVertical="true"
                     android:textStyle="bold"
                     />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:text="开机启动能确保服务稳定运行"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_auto_start"
+                    />
+
 
                 <com.kyleduo.switchbutton.SwitchButton
-                    android:layout_width="@dimen/dimen_60"
-                    android:layout_height="@dimen/dimen_30"
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_24"
                     android:id="@+id/sb_auto_start"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -116,19 +124,26 @@
                 android:id="@+id/rl_remote_start"
                 >
                 <TextView
+                    android:id="@+id/tv_remote_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10"
                     android:textColor="@color/black_3"
                     android:text="允许远程启动"
                     android:textSize="@dimen/font_14"
-                    android:layout_centerVertical="true"
                     android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:text="开启后绑定的手机可启动服务"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_remote_start"
                     />
 
                 <com.kyleduo.switchbutton.SwitchButton
-                    android:layout_width="@dimen/dimen_60"
-                    android:layout_height="@dimen/dimen_30"
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_24"
                     android:id="@+id/sb_remote_start"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -156,7 +171,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10"
                     android:textColor="@color/black_3"
                     android:text="绑定手机"
                     android:textSize="@dimen/font_14"
@@ -187,14 +201,59 @@
                     android:id="@+id/tv_bind_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10"
                     android:textColor="@color/black_6"
-                    android:text="未绑定"
                     android:textSize="@dimen/font_14"
-                    android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/iv_bind_phone"
                     />
+                <TextView
+                    android:id="@+id/tv_bind_phone_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_bind_phone"
+                    android:layout_alignRight="@+id/tv_bind_phone"
+                    />
 
+
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"
+                android:layout_marginTop="@dimen/dimen_10"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/rl_remote_contral"
+                android:background="@drawable/btn_white_selector"
+                >
+                <TextView
+                    android:id="@+id/tv_remote_contral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_3"
+                    android:text="远程启动"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:text="对方绑定了您的手机号才能生效"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_remote_contral"
+                    />
+
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="&#xe636;"
+                    android:textSize="@dimen/font_24"
+                    />
             </RelativeLayout>
 
             <View style="@style/horizontal_line"
@@ -210,7 +269,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10"
+                    android:layout_marginVertical="@dimen/dimen_10"
                     android:textColor="@color/black_3"
                     android:text="使用说明"
                     android:textSize="@dimen/font_14"
@@ -239,7 +298,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10"
+                    android:layout_marginVertical="@dimen/dimen_10"
                     android:textColor="@color/black_3"
                     android:text="关于Easy Call"
                     android:textSize="@dimen/font_14"
@@ -264,11 +323,12 @@
                 android:padding="@dimen/dimen_10"
                 android:id="@+id/rl_author"
                 android:background="@drawable/btn_white_selector"
+                android:visibility="gone"
                 >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10"
+                    android:layout_marginVertical="@dimen/dimen_10"
                     android:textColor="@color/black_3"
                     android:text="赞赏作者"
                     android:textSize="@dimen/font_14"

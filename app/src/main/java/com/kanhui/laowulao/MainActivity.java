@@ -41,8 +41,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
         findViewById(R.id.iv_inspector).setOnClickListener(this);
         findViewById(R.id.iv_setting).setOnClickListener(this);
         findViewById(R.id.tv_start).setOnClickListener(this);
@@ -60,6 +58,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         ivLight = findViewById(R.id.iv_light);
 
         requsetPermission();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_main;
     }
 
     @Override

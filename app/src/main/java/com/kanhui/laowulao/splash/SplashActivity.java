@@ -11,7 +11,6 @@ import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.guide.GuideActivity;
 import com.kanhui.laowulao.locker.model.ContactEngine;
 import com.kanhui.laowulao.locker.model.ContactModel;
-import com.kanhui.laowulao.setting.InspectorActivity;
 import com.kanhui.laowulao.setting.config.AppConfig;
 import com.kanhui.laowulao.setting.config.ContactConfig;
 import com.kanhui.laowulao.setting.config.WeatherConfig;
@@ -32,9 +31,12 @@ public class SplashActivity extends BaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_splash);
-
         init();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_splash;
     }
 
     void init(){

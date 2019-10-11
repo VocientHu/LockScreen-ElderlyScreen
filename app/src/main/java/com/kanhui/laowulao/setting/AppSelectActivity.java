@@ -2,30 +2,27 @@ package com.kanhui.laowulao.setting;
 
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.setting.adapter.AppSelectAdapter;
-import com.kanhui.laowulao.setting.adapter.AppsAdapter;
 import com.kanhui.laowulao.utils.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AppSelectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -41,11 +38,15 @@ public class AppSelectActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_apps);
 
         initView();
 
         initData();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_select_apps;
     }
 
     private void initData() {
@@ -81,6 +82,19 @@ public class AppSelectActivity extends BaseActivity implements View.OnClickListe
 
     }
 
+    private void resetSearchViewBorder(SearchView svCustomer) {
+        try {
+            Class<?> argClass = svCustomer.getClass();
+            Field ownField = argClass.getDeclaredField("mSearchPlate");
+            ownField.setAccessible(true);
+            View mView = (View) ownField.get(svCustomer);
+            mView.setBackgroundResource(R.drawable.searchview_line);
+        } catch (Exception e) {
+
+        }
+    }
+
+
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -98,6 +112,7 @@ public class AppSelectActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.tv_finish).setOnClickListener(this);
         tvTitle = findViewById(R.id.tv_main);
         searchView = findViewById(R.id.searchView);
+        resetSearchViewBorder(searchView);
         rvList = findViewById(R.id.rv_list);
         LinearLayoutManager manager = new LinearLayoutManager(AppSelectActivity.this);
         rvList.setLayoutManager(manager);
@@ -130,22 +145,22 @@ public class AppSelectActivity extends BaseActivity implements View.OnClickListe
                 return false;
             }
         });
-        setUnderLinetransparent(searchView);
+//        setUnderLinetransparent(searchView);
     }
 
     /**设置SearchView下划线透明**/
-    private void setUnderLinetransparent(SearchView searchView){
-        try {
-            Class<?> argClass = searchView.getClass();
-            // ll_search_view是SearchView父布局的名字
-            Field ownField = argClass.getDeclaredField("ll_search_view");
-            ownField.setAccessible(true);
-            View mView = (View) ownField.get(searchView);
-            mView.setBackgroundColor(Color.TRANSPARENT);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void setUnderLinetransparent(SearchView searchView){
+//        try {
+//            Class<?> argClass = searchView.getClass();
+//            // ll_search_view是SearchView父布局的名字
+//            Field ownField = argClass.getDeclaredField("ll_search_view");
+//            ownField.setAccessible(true);
+//            View mView = (View) ownField.get(searchView);
+//            mView.setBackgroundColor(Color.TRANSPARENT);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     void startSearch(){
         String keywords = searchView.getQuery().toString();

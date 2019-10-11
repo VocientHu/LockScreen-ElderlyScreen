@@ -47,9 +47,13 @@ public class InspectorActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inspector);
 
         initView();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_inspector;
     }
 
     private void initView() {

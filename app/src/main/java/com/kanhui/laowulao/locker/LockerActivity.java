@@ -40,8 +40,6 @@ import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
 public class LockerActivity extends BaseActivity {
 
-    private static final int LOAD_DATA = 1;
-
     // 联系人，app列表
     private RecyclerView recyclerView,rvApps;
     private TextView tvTitle;
@@ -54,17 +52,21 @@ public class LockerActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //替换系统锁屏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        setContentView(R.layout.activity_locker);
+        super.onCreate(savedInstanceState);
+        //替换系统锁屏
         // 避免多个activity
         LWLApplicatoin.getInstance().clearActivity();
         LWLApplicatoin.getInstance().addActivity(this);
 
         initView();
         initData();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_locker;
     }
 
     void initView() {

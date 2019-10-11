@@ -7,7 +7,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_16"
+        android:padding="@dimen/dimen_10"
         >
         <com.kanhui.laowulao.widget.IconView
             android:id="@+id/iv_back"
@@ -51,7 +51,7 @@
             android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="微信在上，某宝在下\n黄天厚土，感激涕零"
+            android:text="微信在上，支付宝在下\n~~~感谢您的支持~~~"
             android:layout_marginTop="@dimen/dimen_30"
             android:textSize="@dimen/font_20"
             android:textColor="@color/black_6"

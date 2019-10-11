@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kanhui.laowulao.base.BaseActivity;
-import com.kanhui.laowulao.config.Config;
-import com.kanhui.laowulao.locker.model.ContactModel;
 import com.kanhui.laowulao.receiver.SmsReceiver;
 import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.setting.config.AppConfig;
@@ -35,8 +33,10 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
     public static final int SEND_APP = 2;
     public static final int SEND_CONTACT = 3;
     public static final int SEND_ALL = 4;
+    public static final int SEND_CMD = 5;
 
     public static final String EXTRA_SMS_TYPE = "extra_sms_type";
+    public static final String EXTRA_SMS_CMD = "extra_sms_cmd";
 
     private int type = 0;
 
@@ -45,14 +45,19 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
 
     TextView tvDes,tvContact;
 
+    String cmd;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_sendsms);
-
         initView();
         initData();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_sendsms;
     }
 
     private void initView() {
@@ -82,6 +87,10 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
                 break;
             case SEND_WEATHER:
                 text = "将修改目标手机锁屏界面的日期，天气等字体大小";
+                break;
+            case SEND_CMD:
+                text = "将远程启动目标手机的锁屏服务";
+                cmd = getIntent().getStringExtra(EXTRA_SMS_CMD);
                 break;
         }
 
@@ -186,8 +195,16 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
         StringBuffer smsBuffer = new StringBuffer();
         smsBuffer.append(LockerService.SMS_FLAG);
         smsBuffer.append(SmsReceiver.SMS_TYPE_CONTACT);
-         ContactConfig contactConfig = SharedUtils.getInstance().getContactConfig();
-         smsBuffer.append(new Gson().toJson(contactConfig));
+        ContactConfig contactConfig = SharedUtils.getInstance().getContactConfig();
+        smsBuffer.append(new Gson().toJson(contactConfig));
+        return smsBuffer.toString();
+    }
+
+    private String getCMDStr(){
+        StringBuffer smsBuffer = new StringBuffer();
+        smsBuffer.append(LockerService.SMS_FLAG);
+        smsBuffer.append(SmsReceiver.SMS_TYPE_CMD);
+        smsBuffer.append(cmd);
         return smsBuffer.toString();
     }
 

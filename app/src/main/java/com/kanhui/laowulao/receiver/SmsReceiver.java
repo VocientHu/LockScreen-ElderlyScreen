@@ -9,6 +9,7 @@ import android.os.Message;
 import android.telephony.SmsMessage;
 
 import com.google.gson.Gson;
+import com.kanhui.laowulao.config.CMDModel;
 import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.SMSModel;
 import com.kanhui.laowulao.service.LockerService;
@@ -27,17 +28,19 @@ public class SmsReceiver extends BroadcastReceiver {
     public static final String SMS_TYPE_WEATHER = "[weather]";
     public static final String SMS_TYPE_APP = "[app]";
     public static final String SMS_TYPE_CONTACT = "[contact]";
+    public static final String SMS_TYPE_CMD = "[cmd]";
 
     private static final int RECEIVERED_MSG = 1;
+
+    Context context;
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        this.context = context;
         dealMessage(intent);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(new Intent(context, LockerService.class));
-        }
+
     }
 
     void dealMessage(Intent intent){
@@ -89,6 +92,14 @@ public class SmsReceiver extends BroadcastReceiver {
                         configStr = configStr.replace(SMS_TYPE_CONTACT,"");
                         ContactConfig config = new Gson().fromJson(configStr,ContactConfig.class);
                         SharedUtils.getInstance().setContactConfig(config);
+                    } else if(configStr.contains(SMS_TYPE_CMD)){
+                        configStr = configStr.replace(SMS_TYPE_CMD,"");
+                        // 启动服务
+                        if(CMDModel.CMD_START_SERVICE.equals(configStr)){
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                context.startForegroundService(new Intent(context, LockerService.class));
+                            }
+                        }
                     }
                 }
             }

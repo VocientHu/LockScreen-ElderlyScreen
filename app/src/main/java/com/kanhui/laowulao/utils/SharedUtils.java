@@ -8,6 +8,7 @@ import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.setting.config.AppConfig;
 import com.kanhui.laowulao.setting.config.ContactConfig;
+import com.kanhui.laowulao.setting.config.PhoneModel;
 import com.kanhui.laowulao.setting.config.WeatherConfig;
 
 public class SharedUtils {
@@ -137,6 +138,20 @@ public class SharedUtils {
         }
         ContactConfig config = new Gson().fromJson(json,ContactConfig.class);
         return config;
+    }
+
+    public PhoneModel getPhoneModel(){
+        PhoneModel model = null;
+        String json = getString(Config.SHARED_BIND_PHONES,null);
+        if(!StringUtils.isEmpty(json)){
+           model = new Gson().fromJson(json,PhoneModel.class);
+        }
+        return model;
+    }
+
+    public void setPhoneModel(PhoneModel model){
+        String json = new Gson().toJson(model);
+        putString(Config.SHARED_BIND_PHONES,json);
     }
 
     public void setContactConfig(ContactConfig config){

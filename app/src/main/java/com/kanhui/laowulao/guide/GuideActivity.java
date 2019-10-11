@@ -1,7 +1,6 @@
 package com.kanhui.laowulao.guide;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
@@ -17,8 +16,12 @@ public class GuideActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
         initView();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_guide;
     }
 
     private void initView() {

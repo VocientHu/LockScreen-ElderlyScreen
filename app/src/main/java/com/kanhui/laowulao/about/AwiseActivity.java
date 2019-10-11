@@ -3,10 +3,10 @@ package com.kanhui.laowulao.about;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
+
+import androidx.annotation.Nullable;
 
 public class AwiseActivity extends BaseActivity implements View.OnClickListener{
 
@@ -15,9 +15,14 @@ public class AwiseActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_awise);
         findViewById(R.id.iv_back).setOnClickListener(this);
     }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_awise;
+    }
+
 
     @Override
     public void onClick(View view) {

@@ -30,8 +30,12 @@ public class ConfigActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_config);
         initView();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_config;
     }
 
     private void initView() {

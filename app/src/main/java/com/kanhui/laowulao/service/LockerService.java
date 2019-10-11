@@ -11,21 +11,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.kanhui.laowulao.setting.SettingActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.locker.LockerActivity;
-import com.kanhui.laowulao.config.Config;
-import com.kanhui.laowulao.locker.model.SMSModel;
-import com.kanhui.laowulao.utils.StringUtils;
+import com.kanhui.laowulao.setting.SettingActivity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -101,6 +93,7 @@ public class LockerService extends Service {
         IntentFilter filter = new IntentFilter();
         // 屏幕关闭
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_SCREEN_ON);
         registerReceiver(receiver,filter);
     }
 
@@ -109,37 +102,13 @@ public class LockerService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(Intent.ACTION_SCREEN_OFF.equals(action)){
+            if(Intent.ACTION_SCREEN_OFF.equals(action) || Intent.ACTION_SCREEN_ON.equals(action)){
                 lockScreen();
             }
         }
     };
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            SMSModel model = (SMSModel) msg.obj;
-            String phone = model.getPhone();
-            String content = model.getContent();
-            String bindPhons = Config.getConfig().getBindPhones();
-            //只处理绑定手机发来的短信
-            if(!StringUtils.isEmpty(bindPhons) && bindPhons.contains(phone)){
-                if(!StringUtils.isEmpty(content) && content.startsWith(SMS_FLAG)){
-                    // 配置文件
-                    String configStr = content.replace(SMS_FLAG,"");
-                    Config newConfig = new Gson().fromJson(configStr,Config.class);
-                    Config oldConfig = Config.getConfig();
-                    newConfig.setBindPhones(oldConfig.getBindPhones());
-                    Config.setConfig(newConfig);
-                }
-            }
-        }
-    };
-
-
     private void lockScreen(){
-        Log.e("service","start activity");
         Intent mIntent = new Intent(LockerService.this, LockerActivity.class);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mIntent);

@@ -7,7 +7,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_16"
+        android:padding="@dimen/dimen_10"
         >
         <com.kanhui.laowulao.widget.IconView
             android:id="@+id/iv_back"
@@ -15,8 +15,7 @@
             android:layout_height="wrap_content"
             android:text="&#xe67d;"
             android:textColor="@color/black_3"
-            android:textSize="@dimen/font_18"
-            android:textStyle="bold"
+            android:textSize="@dimen/font_30"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             />
@@ -26,9 +25,9 @@
             android:layout_height="wrap_content"
             android:text="@string/about"
             android:textColor="@color/black_3"
-            android:textSize="@dimen/font_30"
+            android:textSize="@dimen/font_18"
             android:textStyle="bold"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             />
 
     </RelativeLayout>
