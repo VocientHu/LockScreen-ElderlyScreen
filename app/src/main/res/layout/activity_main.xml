@@ -27,7 +27,7 @@
             android:textColor="@color/black_3"
             android:textSize="@dimen/font_18"
             android:textStyle="bold"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             />
 
         <com.kanhui.laowulao.widget.IconView

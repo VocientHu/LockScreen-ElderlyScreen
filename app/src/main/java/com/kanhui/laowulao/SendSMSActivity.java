@@ -170,6 +170,9 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
                 manager.sendTextMessage(phone,null,getAppStr(),null,null);
                 manager.sendTextMessage(phone,null,getContactStr(),null,null);
                 break;
+            case SEND_CMD:
+                manager.sendTextMessage(phone,null,getCMDStr(),null,null);
+                break;
         }
         ToastUtils.showToast(this,"发送成功");
         finish();

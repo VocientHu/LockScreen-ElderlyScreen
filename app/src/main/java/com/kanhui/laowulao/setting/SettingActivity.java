@@ -15,6 +15,7 @@ import com.kanhui.laowulao.about.AboutActivity;
 import com.kanhui.laowulao.about.AwiseActivity;
 import com.kanhui.laowulao.about.UseBookActivity;
 import com.kanhui.laowulao.base.BaseActivity;
+import com.kanhui.laowulao.config.CMDModel;
 import com.kanhui.laowulao.setting.config.PhoneModel;
 import com.kanhui.laowulao.utils.SharedUtils;
 import com.kyleduo.switchbutton.SwitchButton;
@@ -111,6 +112,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.rl_remote_contral:// 远程启动
                 Intent intent = new Intent(SettingActivity.this, SendSMSActivity.class);
                 intent.putExtra(SendSMSActivity.EXTRA_SMS_TYPE,SendSMSActivity.SEND_CMD);
+                intent.putExtra(SendSMSActivity.EXTRA_SMS_CMD, CMDModel.CMD_START_SERVICE);
                 startActivity(intent);
                 break;
                 default:

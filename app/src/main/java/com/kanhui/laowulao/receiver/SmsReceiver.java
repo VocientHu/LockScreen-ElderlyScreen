@@ -10,11 +10,11 @@ import android.telephony.SmsMessage;
 
 import com.google.gson.Gson;
 import com.kanhui.laowulao.config.CMDModel;
-import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.SMSModel;
 import com.kanhui.laowulao.service.LockerService;
 import com.kanhui.laowulao.setting.config.AppConfig;
 import com.kanhui.laowulao.setting.config.ContactConfig;
+import com.kanhui.laowulao.setting.config.PhoneModel;
 import com.kanhui.laowulao.setting.config.WeatherConfig;
 import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.StringUtils;
@@ -69,14 +69,23 @@ public class SmsReceiver extends BroadcastReceiver {
             SMSModel model = (SMSModel) msg.obj;
             String phone = model.getPhone();
             String content = model.getContent();
-            String bindPhons = Config.getConfig().getBindPhones();
+            PhoneModel bindPhoneModel = SharedUtils.getInstance().getPhoneModel();
+            if(bindPhoneModel == null){
+                return;
+            }
+            String bindPhone = bindPhoneModel.getPhone();
+            if(StringUtils.isEmpty(bindPhone)){
+                return;
+            }
+            bindPhone = bindPhone.replace(" ", "");// 去掉空格
+            bindPhone = bindPhone.replace("+86","");// 去掉+86
             // 去掉86
             phone = phone.replace("+86","");
             if(phone.startsWith("86")){
                 phone = phone.substring(2);
             }
             //只处理绑定手机发来的短信
-            if(!StringUtils.isEmpty(bindPhons) && bindPhons.contains(phone)){
+            if(bindPhone.contains(phone)){
                 if(!StringUtils.isEmpty(content) && content.startsWith(SMS_FLAG)){
                     // 配置文件
                     String configStr = content.replace(SMS_FLAG,"");
