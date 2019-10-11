@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.kanhui.laowulao.locker.model.AppsModel;
 
@@ -29,9 +32,14 @@ public class AppUtils {
         this.context = context;
     }
 
+    public void init(){
+        pm = context.getPackageManager();
+        pakageinfos = pm.getInstalledApplications(0);
+    }
+
     private List<ApplicationInfo> pakageinfos;
     private PackageManager pm ;
-    public Drawable getIcon(String name){
+    private Drawable getIcon(String name){
 
         if(pakageinfos == null || pm == null){
             pm = context.getPackageManager();
@@ -46,6 +54,29 @@ public class AppUtils {
             }
         }
         return null;
+    }
+
+
+    public void setIconToImageView(final String name, final ImageView iv){
+        final Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Drawable d = (Drawable) msg.obj;
+                if(iv != null && name.equals(iv.getTag())){
+                    iv.setImageDrawable(d);
+                }
+            }
+        };
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                Message msg = new Message();
+                msg.obj = getIcon(name);
+                handler.sendMessage(msg);
+            }
+        }.start();
     }
 
 

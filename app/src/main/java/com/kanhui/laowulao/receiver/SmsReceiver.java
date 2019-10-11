@@ -105,8 +105,14 @@ public class SmsReceiver extends BroadcastReceiver {
                         configStr = configStr.replace(SMS_TYPE_CMD,"");
                         // 启动服务
                         if(CMDModel.CMD_START_SERVICE.equals(configStr)){
+                            // 远程启动关闭时不做启动
+                            if(!SharedUtils.getInstance().getRemoteStart()){
+                                return;
+                            }
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 context.startForegroundService(new Intent(context, LockerService.class));
+                            } else {
+                                context.startService(new Intent(context, LockerService.class));
                             }
                         }
                     }

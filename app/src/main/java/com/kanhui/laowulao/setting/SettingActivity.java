@@ -142,6 +142,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
             String name = cursor.getString(nameIndex);      //联系人姓名
             String number = cursor.getString(numberIndex);  //联系人号码
+            number = number.replace("+86","");
+            number = number.replace(" ","");
             phoneModel = new PhoneModel();
             phoneModel.setName(name);
             phoneModel.setPhone(number);

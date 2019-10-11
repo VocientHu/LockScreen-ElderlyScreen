@@ -17,6 +17,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
 import com.kanhui.laowulao.R;
+import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.config.Constants;
 import com.kanhui.laowulao.setting.config.WeatherConfig;
@@ -41,6 +42,9 @@ public class WeatherView extends LinearLayout {
     private static final String SHARED_WEATHER_TEXT = "shared_weather_text";
     private static final String SHARED_WEATHER_PIC = "shared_weather_pic";
     private static final String SHARED_WEATHER_CITY = "shared_weather_city";
+
+    private static final int REFRESH_DATE = 0;
+    private static final int LOCATION = 1;
 
 
     private Context context;
@@ -114,9 +118,10 @@ public class WeatherView extends LinearLayout {
         public void onLocationChanged(AMapLocation aMapLocation) {
             if(aMapLocation != null){
                 String city = aMapLocation.getCity();
-                SharedUtils.getInstance().putString(SHARED_WEATHER_CITY,city);
-                setCity(city);
-                initWeather(city);
+                Message msg = new Message();
+                msg.what = LOCATION;
+                msg.obj = city;
+                handler.sendMessage(msg);
             }
         }
     };
@@ -141,18 +146,27 @@ public class WeatherView extends LinearLayout {
         //设置定位回调监听
         mLocationClient.setLocationListener(mLocationListener);
 
-        AMapLocationClientOption option = new AMapLocationClientOption();
-        /**
-         * 设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
-         */
-        option.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
-        option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
-        option.setOnceLocation(true);
+
+
         if(null != mLocationClient){
-            mLocationClient.setLocationOption(option);
-            //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
-            mLocationClient.stopLocation();
-            mLocationClient.startLocation();
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    /**
+                     * 设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
+                     */
+                    AMapLocationClientOption option = new AMapLocationClientOption();
+                    option.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
+                    option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
+                    option.setOnceLocation(true);
+                    mLocationClient.setLocationOption(option);
+                    //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
+                    mLocationClient.stopLocation();
+                    mLocationClient.startLocation();
+                }
+            }.start();
+
         }
 
     }
@@ -191,7 +205,7 @@ public class WeatherView extends LinearLayout {
     private void setWeatherPic(String code){
         String iconUrl = Constants.WeatherIconURL ;
         iconUrl = iconUrl + code + ".png";
-        Glide.with(context).load(iconUrl).into(ivWeather);
+        Glide.with(LWLApplicatoin.getInstance().getApplicationContext()).load(iconUrl).into(ivWeather);
     }
 
     // refresh time
@@ -199,7 +213,18 @@ public class WeatherView extends LinearLayout {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            tvToday.setText(getSysDate());
+            switch (msg.what){
+                case REFRESH_DATE:
+                    tvToday.setText(getSysDate());
+                    break;
+                case LOCATION:
+                    String city = (String) msg.obj;
+                    SharedUtils.getInstance().putString(SHARED_WEATHER_CITY,city);
+                    setCity(city);
+                    initWeather(city);
+                    break;
+            }
+
         }
     };
 
@@ -217,7 +242,7 @@ public class WeatherView extends LinearLayout {
         task = new TimerTask() {
             @Override
             public void run() {
-                handler.sendEmptyMessage(0);
+                handler.sendEmptyMessage(REFRESH_DATE);
             }
         };
         timer.schedule(task,60*1000,60*1000);
@@ -234,12 +259,24 @@ public class WeatherView extends LinearLayout {
         tvTodayDate.setTextSize(config.getWeekSize());
         tvCity.setTextSize(config.getCitySize());
         tvTodayWeather.setTextSize(config.getWeatherSize());
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivWeather.getLayoutParams();// new RelativeLayout.LayoutParams(config.getWeatherImgSize(),config.getWeatherImgSize());
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivWeather.getLayoutParams();
         int pxSize = Config.dp2px(context,config.getWeatherImgSize());
         params.width = pxSize;
         params.height = pxSize;
         ivWeather.setLayoutParams(params);
         //SharedUtils.getInstance().setWeatherConfig(config);
+    }
+
+    public void onDestroy(){
+        if(timer != null){
+            timer.cancel();
+        }
+        if(task != null){
+            task.cancel();
+        }
+        if(mLocationClient != null){
+            mLocationClient.onDestroy();
+        }
     }
 
 }

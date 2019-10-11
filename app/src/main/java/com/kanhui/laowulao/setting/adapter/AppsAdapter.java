@@ -97,7 +97,9 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
         if(getItemViewType(position) == TYPE_ADD) return;
         final AppsModel model = list.get(position);
         holder.tvName.setText(model.getAppName());
-        holder.ivIcon.setImageDrawable(AppUtils.getInstance(context).getIcon(model.getAppName()));
+        holder.ivIcon.setTag(model.getAppName());
+        AppUtils.getInstance(context).setIconToImageView(model.getAppName(),holder.ivIcon);
+        //holder.ivIcon.setImageDrawable(AppUtils.getInstance(context).getIcon(model.getAppName()));
         if(config != null){
             holder.tvName.setTextSize(config.getNameSize());
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.ivIcon.getLayoutParams();

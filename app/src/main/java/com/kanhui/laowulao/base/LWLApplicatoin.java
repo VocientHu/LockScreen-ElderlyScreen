@@ -3,6 +3,7 @@ package com.kanhui.laowulao.base;
 import android.app.Application;
 
 import com.kanhui.laowulao.config.Constants;
+import com.kanhui.laowulao.utils.AppUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class LWLApplicatoin extends Application {
         HeConfig.switchToFreeServerNode();
         // 付费域名,默认
         //HeConfig.switchToCNBusinessServerNode();
+
+        AppUtils.getInstance(this).init();
     }
 
     public void addActivity(BaseActivity activity){

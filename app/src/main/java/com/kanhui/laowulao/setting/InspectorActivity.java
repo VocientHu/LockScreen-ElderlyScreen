@@ -33,7 +33,9 @@ public class InspectorActivity extends BaseActivity implements View.OnClickListe
     public static final int REQUEST_SELECT_PHONE_NUMBER = 1;// 选择联系人
     public static final int REQUEST_SELECT_APPS = 2;// 选择app
     public static final int REQUEST_SELECT_WEATHER = 3;// 天气配置
-    private static final String TAG = "InspectorActivity";
+
+    private static final int APPS_DATA = 1;
+    private static final int CONTACT_DATA = 2;
 
     private RecyclerView rvContacts,rvApps;
     private ContactAdapter contactAdapter;
@@ -121,9 +123,6 @@ public class InspectorActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-
-
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_OK) {
             return;
@@ -161,4 +160,11 @@ public class InspectorActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(weatherView != null){
+            weatherView.onDestroy();
+        }
+    }
 }
