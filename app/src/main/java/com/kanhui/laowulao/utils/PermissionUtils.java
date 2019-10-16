@@ -10,8 +10,6 @@ import android.provider.Settings;
 
 import androidx.core.content.ContextCompat;
 
-import com.kanhui.laowulao.MainActivity;
-
 public class PermissionUtils {
 
     public static boolean hasPermission(Context context, String[] permissions){

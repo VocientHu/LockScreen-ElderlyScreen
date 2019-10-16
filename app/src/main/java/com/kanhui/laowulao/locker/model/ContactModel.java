@@ -1,5 +1,7 @@
 package com.kanhui.laowulao.locker.model;
 
+import io.realm.annotations.PrimaryKey;
+
 public class ContactModel {
     public static final int CALL_IN = 1;
     public static final int CALL_OUT = 2;
@@ -7,6 +9,7 @@ public class ContactModel {
     // 姓名
     String name;
     // 手机号
+    @PrimaryKey
     String phone;
     // 上次通话时间
     String lastTime;

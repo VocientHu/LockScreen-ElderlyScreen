@@ -1,264 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
         >
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_inspector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#xe6ef;"
+            android:textColor="@color/black_6"
+            android:textSize="@dimen/font_30"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            />
         <TextView
             android:id="@+id/tv_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="服务启停"
             android:textColor="@color/black_3"
             android:textSize="@dimen/font_18"
-            android:layout_marginTop="@dimen/dimen_16"
-            android:layout_marginHorizontal="@dimen/dimen_16"
-            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
             />
+
         <com.kanhui.laowulao.widget.IconView
-            android:id="@+id/iv_call_phone"
+            android:id="@+id/iv_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_40"
-            android:textColor="@color/main_green_low"
-            android:text="&#xe648;"
-            android:layout_centerVertical="true"
+            android:text="&#xe8bd;"
+            android:textColor="@color/black_6"
+            android:textSize="@dimen/font_30"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dimen_16"
+            android:layout_centerVertical="true"
             />
 
     </RelativeLayout>
 
-
     <View style="@style/horizontal_line"
-        android:layout_below="@+id/header"
-        android:layout_marginTop="@dimen/dimen_5"
         android:id="@+id/line"/>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/line"
-        android:layout_above="@+id/btn_layout">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/dimen_10">
-            <TextView
-                android:id="@+id/tv_des"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/black_6"
-                android:text="@string/des"
-                android:textSize="@dimen/font_14"
-                />
-            <View style="@style/horizontal_line"/>
-            <TextView
-                android:id="@+id/tv_features"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/black_6"
-                android:text="@string/features_list"
-                android:textSize="@dimen/font_14"
-                />
-             <View style="@style/horizontal_line"/>
-             <TextView
-                android:id="@+id/tv_notice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/red"
-                android:text="@string/notice"
-                android:textSize="@dimen/font_14"
-                />
-            <View style="@style/horizontal_line"/>
-            <TextView
-                android:id="@+id/tv_setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/black_3"
-                android:text="@string/config"
-                android:textStyle="bold"
-                android:textSize="@dimen/font_16"
-                />
-            <View style="@style/horizontal_line"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_10"
-                android:textColor="@color/black_3"
-                android:text="@string/name_size"
-                android:textStyle="bold"
-                android:textSize="@dimen/font_14"
-                />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-                <CheckBox
-                    android:id="@+id/cb_big"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="大(32dp)"
-                    android:textColor="@color/black_3"
-                    android:textSize="@dimen/font_14"
-                    android:background="@drawable/config_checkbox_selector"
-                    android:layout_marginLeft="@dimen/dimen_12"
-                    />
-                <CheckBox
-                    android:id="@+id/cb_middle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="中(28dp)"
-                    android:textColor="@color/black_3"
-                    android:checked="true"
-                    android:textSize="@dimen/font_14"
-                    android:background="@drawable/config_checkbox_selector"
-                    android:layout_marginLeft="@dimen/dimen_12"
-                    />
-                <CheckBox
-                    android:id="@+id/cb_small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="小(24dp)"
-                    android:layout_marginLeft="@dimen/dimen_12"
-                    android:textColor="@color/black_3"
-                    android:textSize="@dimen/font_14"
-                    android:background="@drawable/config_checkbox_selector"
-                    />
-            </LinearLayout>
-            <View style="@style/horizontal_line"
-                android:layout_marginVertical="@dimen/dimen_10"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10"
-                    android:textColor="@color/black_3"
-                    android:text="@string/list_style"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/font_14"
-                    />
-                <CheckBox
-                    android:id="@+id/cb_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="列表"
-                    android:textColor="@color/black_3"
-                    android:textSize="@dimen/font_14"
-                    android:checked="true"
-                    android:background="@drawable/config_checkbox_selector"
-                    android:layout_marginLeft="@dimen/dimen_12"
-                    />
-                <CheckBox
-                    android:id="@+id/cb_gride"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="网格"
-                    android:textSize="@dimen/font_14"
-                    android:textColor="@color/black_3"
-                    android:background="@drawable/config_checkbox_selector"
-                    android:layout_marginLeft="@dimen/dimen_12"
-                    />
-            </LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_16">
 
-            <View style="@style/horizontal_line"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_10"
-                >
-                <Button
-                    android:id="@+id/btn_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="保存"
-                    android:textSize="@dimen/font_14"
-                    android:gravity="center"
-                    android:paddingHorizontal="@dimen/dimen_16"
-                    android:paddingVertical="@dimen/dimen_5"
-                    android:background="@drawable/btn_gray_selector"
-                    android:textColor="@color/black_3"
-                    />
-                <Button
-                    android:id="@+id/btn_send"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="远程配置"
-                    android:textSize="@dimen/font_14"
-                    android:gravity="center"
-                    android:paddingHorizontal="@dimen/dimen_16"
-                    android:paddingVertical="@dimen/dimen_5"
-                    android:background="@drawable/btn_main_selector"
-                    android:textColor="@color/white"
-                    android:layout_marginLeft="@dimen/dimen_50"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/btn_layout"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:padding="@dimen/dimen_10"
-        >
-        <Button
-            android:id="@+id/btn_start"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_light"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_one_key_start"
-            android:textSize="@dimen/font_16"
+            android:text="&#xe617;"
+            android:textColor="@color/main_green"
+            android:textSize="@dimen/font_50"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dimen_20"
+            />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:text="启动"
+            android:id="@+id/tv_start"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:gravity="center"
+            android:textSize="@dimen/font_32"
+            android:background="@drawable/btn_start_selector"
             android:textColor="@color/white"
-            android:gravity="center"
-            android:background="@drawable/btn_main_selector"
-            android:layout_marginRight="@dimen/dimen_10"
-            android:textStyle="bold"
-
+            android:layout_below="@+id/iv_light"
             />
         <Button
-            android:id="@+id/btn_stop"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_one_key_stop"
-            android:textSize="@dimen/font_16"
-            android:textColor="@color/black_3"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:text="暂停"
+            android:id="@+id/tv_stop"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_start"
+            android:layout_marginTop="@dimen/dimen_50"
             android:gravity="center"
-            android:background="@drawable/btn_gray_selector"
-            android:textStyle="bold"
-
+            android:textSize="@dimen/font_32"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_stop_selector"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_des"
+            android:text="初次使用时数据为系统默认数据，请点击左上角进行配置"
+            android:textColor="@color/black_6"
+            android:textSize="@dimen/font_16"
+            android:layout_below="@+id/tv_stop"
+            android:layout_margin="@dimen/dimen_16"
+            />
+    </RelativeLayout>
 
-
-    </LinearLayout>
-
-
-
-</RelativeLayout>
+</LinearLayout>

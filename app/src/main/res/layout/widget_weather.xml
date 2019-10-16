@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/dimen_16">
+
+    <TextView
+        android:id="@+id/tv_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dimen_20"
+        android:textColor="@color/black_3"
+        android:textStyle="bold"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_10">
+        <RelativeLayout
+            android:id="@+id/rl_weather_today"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_today_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_20"
+                android:textColor="@color/black_3"
+                android:text="@string/today"
+                />
+            <TextView
+                android:id="@+id/tv_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_20"
+                android:textColor="@color/black_3"
+                android:text="2019年9月19号"
+                android:layout_below="@+id/tv_today_date"
+                android:layout_marginTop="@dimen/dimen_10"
+                />
+            <TextView
+                android:id="@+id/tv_today_weather_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_20"
+                android:textStyle="bold"
+                android:textColor="@color/black_3"
+                android:layout_below="@+id/tv_city"
+                android:layout_marginTop="@dimen/dimen_10"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
+                android:id="@+id/iv_weather"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

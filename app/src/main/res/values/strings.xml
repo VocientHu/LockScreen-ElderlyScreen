@@ -6,11 +6,35 @@
     <string name="main_title">Easy Call</string>
     <string name="theme_text">老吾老，以及人之老</string>
     <string name="constact_people">联系人</string>
+    <string name="push_battery">建议充电</string>
     <string name="constact_people_count">联系人(%s人)</string>
     <string name="loading">正在初始化...</string>
-    <string name="config">配置锁屏界面</string>
-    <string name="name_size">名字大小</string>
+    <string name="config">系统配置</string>
+    <string name="screen_config">锁屏配置</string>
+    <string name="weather_config">天气配置</string>
+    <string name="send_config">发送配置</string>
+    <string name="setting">设置</string>
+    <string name="weather_setting">日期和天气</string>
+    <string name="cancel">取消</string>
+    <string name="sure">确定</string>
+    <string name="contact_setting">常用联系人配置</string>
+    <string name="apps_setting">常用应用配置</string>
+    <string name="contact">常用联系人</string>
+    <string name="apps_usually">常用应用</string>
+    <string name="search_app_name">输入应用名称</string>
+    <string name="today">今天</string>
+    <string name="tomorrow">明天</string>
+    <string name="save">保存</string>
+    <string name="city">城市</string>
+    <string name="preview">预览</string>
+    <string name="finish">完成</string>
+    <string name="app_select">选择应用</string>
+    <string name="name_size">联系人名字大小</string>
+    <string name="app_img_size">APP图标大小</string>
+    <string name="app_name_size">APP名称大小</string>
     <string name="list_style">通讯录样式</string>
+    <string name="send_phone_des">发送到远程手机</string>
+    <string name="bind_hones">绑定手机</string>
     <string name="des">本app的初心是作者为了解决年过古稀的父亲不会使用智能手机的问题，他不会打电话，不会开手机，
         不会滑屏手势，但热切希望能跟在外地的儿子打电话，发视频。
         \n 如果您恰巧也有同样的需求，不妨让您的亲人也装上试一下。
@@ -31,5 +55,13 @@
         \n 4、手机最好使用一张sim卡，如果是多张，点击拨打电话后需要选择sim卡拨打，多一步操作</string>
 
 
+    <string name="about">关于Easy Call</string>
+    <string name="step1_des">您希望使用Easy Call达到什么目的？</string>
+    <string name="step1_answer1">自己能更便捷的打电话，玩微信</string>
+    <string name="step1_answer2">协助亲人更便捷的打电话，玩微信</string>
+    <string name="step2_des">您是否需要人协助？如果是，请填写协助人手机号,如不需要，请直接点击下一步</string>
+    <string name="step_next">下一步</string>
+    <string name="set_phone_code">请填写手机号</string>
+    <string name="phone_code">请填写手机号</string>
 
 </resources>

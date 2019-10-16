@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    android:padding="@dimen/dimen_20">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/step2_des"
+        android:textSize="@dimen/font_18"
+        android:textColor="@color/black_3"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        android:id="@+id/rl_bind_phone"
+        android:background="@drawable/btn_white_selector"
+        android:layout_centerVertical="true"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_3"
+            android:text="绑定手机"
+            android:textSize="@dimen/font_14"
+            android:textStyle="bold"
+            android:id="@+id/tv_bind_phone_text"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_9"
+            android:text="绑定的设备可以控制本机"
+            android:textSize="@dimen/font_14"
+            android:layout_below="@+id/tv_bind_phone_text"
+            android:layout_alignLeft="@+id/tv_bind_phone_text"
+            />
+
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_bind_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="&#xe636;"
+            android:textSize="@dimen/font_24"
+            />
+
+        <TextView
+            android:id="@+id/tv_bind_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_6"
+            android:textSize="@dimen/font_14"
+            android:layout_toLeftOf="@+id/iv_bind_phone"
+            />
+        <TextView
+            android:id="@+id/tv_bind_phone_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_9"
+            android:textSize="@dimen/font_14"
+            android:layout_alignRight="@+id/tv_bind_phone"
+            android:layout_below="@+id/tv_bind_phone"
+            />
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_20"
+        android:id="@+id/btn_next"
+        android:text="@string/step_next"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/black_3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        />
+
+</RelativeLayout>

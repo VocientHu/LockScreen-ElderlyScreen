@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_16">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_apps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    />
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/rl_app_name_size"
+                android:background="@drawable/btn_white_selector"
+                android:layout_marginTop="@dimen/dimen_10"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:textColor="@color/black_3"
+                    android:text="@string/app_name_size"
+                    android:textSize="@dimen/font_14"
+                    android:layout_centerVertical="true"
+                    />
+
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&#xe636;"
+                    android:textColor="@color/black_9"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/iv_arrow"
+                    android:textSize="@dimen/font_16"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:textColor="@color/black_3"
+                    android:text="小"
+                    android:textSize="@dimen/font_16"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_app_name_size"
+                    android:layout_toLeftOf="@+id/iv_arrow"
+                    android:layout_marginRight="@dimen/dimen_10"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/rl_app_img_size"
+                android:background="@drawable/btn_white_selector"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:textColor="@color/black_3"
+                    android:text="@string/app_img_size"
+                    android:textSize="@dimen/font_14"
+                    android:layout_centerVertical="true"
+                    />
+
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&#xe636;"
+                    android:textColor="@color/black_9"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/iv_img_arrow"
+                    android:textSize="@dimen/font_16"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:textColor="@color/black_3"
+                    android:text="小"
+                    android:textSize="@dimen/font_16"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_app_img_size"
+                    android:layout_toLeftOf="@+id/iv_img_arrow"
+                    android:layout_marginRight="@dimen/dimen_10"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_des"
+                android:text="最多选择6个app"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_gravity="center_horizontal"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_save"
+        android:text="@string/save"
+        android:gravity="center"
+        android:padding="@dimen/dimen_10"
+        android:layout_margin="@dimen/dimen_16"
+        android:background="@drawable/btn_main_selector"
+        android:textSize="@dimen/font_18"
+        android:textColor="@color/white"
+        />
+
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_16">
+
+            <com.kanhui.laowulao.widget.WeatherView
+                android:id="@+id/wv_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:minHeight="150dp">
+
+            </com.kanhui.laowulao.widget.WeatherView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_des"
+                android:text="点击天气组件中的文字/图片可以设置大小"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_gravity="center_horizontal"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_save"
+        android:text="@string/save"
+        android:gravity="center"
+        android:padding="@dimen/dimen_10"
+        android:layout_margin="@dimen/dimen_16"
+        android:background="@drawable/btn_main_selector"
+        android:textSize="@dimen/font_18"
+        android:textColor="@color/white"
+        />
+
+
+</LinearLayout>

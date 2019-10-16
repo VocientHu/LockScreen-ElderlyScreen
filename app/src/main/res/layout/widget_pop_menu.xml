@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_half_trans"
+    android:gravity="bottom">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60"
+        android:id="@+id/tv_big"
+        android:textSize="@dimen/font_32"
+        android:textColor="@color/black_3"
+        android:gravity="center"
+        android:text="大"
+        android:background="@drawable/btn_white_selector"
+        />
+    <View style="@style/horizontal_line"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60"
+        android:id="@+id/tv_middle"
+        android:textSize="@dimen/font_28"
+        android:textColor="@color/black_3"
+        android:gravity="center"
+        android:text="中"
+        android:background="@drawable/btn_white_selector"
+        />
+    <View style="@style/horizontal_line"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60"
+        android:id="@+id/tv_small"
+        android:textSize="@dimen/font_24"
+        android:textColor="@color/black_3"
+        android:gravity="center"
+        android:text="小"
+        android:background="@drawable/btn_white_selector"
+        />
+    <View style="@style/horizontal_line"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_60"
+        android:id="@+id/tv_cancel"
+        android:textSize="@dimen/font_18"
+        android:textColor="@color/black_6"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:background="@drawable/btn_white_selector"
+        />
+
+</LinearLayout>

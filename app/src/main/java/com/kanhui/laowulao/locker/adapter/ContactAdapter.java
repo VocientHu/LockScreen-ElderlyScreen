@@ -7,14 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.kanhui.laowulao.R;
-import com.kanhui.laowulao.locker.model.Config;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.model.ContactModel;
+import com.kanhui.laowulao.setting.config.ContactConfig;
 import com.kanhui.laowulao.utils.LogUtils;
+import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.StringUtils;
 import com.kanhui.laowulao.widget.IconView;
 import com.kanhui.laowulao.widget.Md5HeaderView;
@@ -22,19 +20,19 @@ import com.kanhui.laowulao.widget.Md5HeaderView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
-    private static final int[] colors = {R.color.header_bg1,R.color.header_bg2,R.color.header_bg3,
-            R.color.header_bg4,R.color.header_bg5,R.color.header_bg6,R.color.header_bg7,R.color.header_bg8};
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-    public static final int TYPE_GRIDE = 10;
-    public static final int TYPE_LIST = 11;
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
+    public static final int[] colors = {R.color.header_bg1,R.color.header_bg2,R.color.header_bg3,
+            R.color.header_bg4,R.color.header_bg5,R.color.header_bg6,R.color.header_bg7,R.color.header_bg8};
 
     public static final int CALL_PHONE = 1;
     public static final int CALL_VIDEO = 2;
 
     private List<ContactModel> list = new ArrayList<>();
     private Context context;
-    private int type = TYPE_LIST;
+    private int type = Config.TYPE_LIST;
 
     private ItemClickListener listener;
 
@@ -49,6 +47,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public ContactAdapter(Context c,int type){
         this.context = c;
         this.type = type;
+        this.config = SharedUtils.getInstance().getContactConfig();
     }
 
     public void setData(List<ContactModel> l){
@@ -61,7 +60,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if(type == TYPE_GRIDE){
+        if(type == Config.TYPE_GRIDE){
             view = LayoutInflater.from(context).inflate(R.layout.item_gride_contact,null);
         } else {
             view = LayoutInflater.from(context).inflate(R.layout.item_contact,null);
@@ -78,26 +77,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         final ContactModel model = list.get(position);
         holder.tvName.setText(model.getName());
         holder.tvPhone.setText(model.getPhone());
-        Config config = Config.getConfig();
-        holder.tvName.setTextSize(config.getScaleSize());
-//        switch (config.getScaleSize()){
-//            case Config.SCALE_BIG:
-//                holder.tvName.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_32));
-//                break;
-//            case Config.SCALE_MIDDLE:
-//                holder.tvName.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_28));
-//                break;
-//            case Config.SCALE_SMALL:
-//                holder.tvName.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.font_24));
-//                break;
-//        }
+        if(config != null){
+            holder.tvName.setTextSize(config.getNameSize());
+        }
         String date = model.getDateStr();
         if(!StringUtils.isEmpty(date)){
             holder.tvHistory.setText(date + "有通话");
         } else {
             holder.tvHistory.setText("");
         }
-        if(type == TYPE_GRIDE){
+        if(type == Config.TYPE_GRIDE){
             int bgColor = getCurrentBgResId(model.getName());
             holder.itemGride.setBackgroundColor(context.getResources().getColor(bgColor));
             holder.tvHistory.setTextColor(context.getResources().getColor(R.color.white));
@@ -114,14 +103,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 }
             }
         });
-        holder.btnCallVideo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(listener != null){
-                    listener.onItemClick(model,position,CALL_VIDEO);
-                }
-            }
-        });
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +111,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 }
             }
         });
+    }
+
+    private ContactConfig config;
+    public void refreshSize(ContactConfig config){
+        if(config == null){
+            config = SharedUtils.getInstance().getContactConfig();
+        }
+        this.config = config;
+        notifyDataSetChanged();
     }
 
     private int getCurrentBgResId(String text){
@@ -149,7 +139,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
         View rootView;
         TextView tvName,tvPhone,tvHistory;
-        IconView btnCallPhone,btnCallVideo;
+        IconView btnCallPhone;//btnCallVideo;
         ImageView ivHeader;
         Md5HeaderView md5HeaderView;
         View itemGride;
@@ -160,7 +150,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             tvPhone = itemView.findViewById(R.id.tv_phone);
             ivHeader = itemView.findViewById(R.id.iv_header);
             btnCallPhone = itemView.findViewById(R.id.iv_call_phone);
-            btnCallVideo = itemView.findViewById(R.id.iv_call_video);
+            //btnCallVideo = itemView.findViewById(R.id.iv_call_video);
             md5HeaderView = itemView.findViewById(R.id.md5_header_view);
             tvHistory = itemView.findViewById(R.id.tv_history);
             itemGride = itemView.findViewById(R.id.rl_layout);

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".setting.SettingActivity">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        >
+        <TextView
+            android:id="@+id/tv_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/config"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_centerInParent="true"
+            />
+
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/tv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#xe67d;"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_30"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            />
+
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_call_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_30"
+            android:textColor="@color/black_6"
+            android:text="&#xe648;"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+
+    <View style="@style/horizontal_line"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:id="@+id/line"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:background="@color/main_background"
+        android:layout_above="@+id/btn_layout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <View style="@style/horizontal_line"
+                android:layout_marginTop="@dimen/dimen_10"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:background="@drawable/btn_white_selector"
+                android:id="@+id/rl_auto_start"
+                >
+                <TextView
+                    android:id="@+id/tv_auto_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_3"
+                    android:text="允许开机启动"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:text="开机启动能确保服务稳定运行"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_auto_start"
+                    />
+
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_24"
+                    android:id="@+id/sb_auto_start"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:kswThumbColor="@color/main_green"
+                    app:kswThumbMargin="@dimen/dimen_2"
+                    app:kswThumbRadius="@dimen/dimen_16"
+                    app:kswBackRadius="@dimen/dimen_16"
+                    app:kswBackColor="@color/main_background"
+                    app:kswTextOn="开"
+                    app:kswTextOff="关"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:background="@drawable/btn_white_selector"
+                android:id="@+id/rl_remote_start"
+                >
+                <TextView
+                    android:id="@+id/tv_remote_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_3"
+                    android:text="允许远程启动"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:text="开启后绑定的手机可启动服务"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_remote_start"
+                    />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_24"
+                    android:id="@+id/sb_remote_start"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:kswThumbColor="@color/main_green"
+                    app:kswThumbMargin="@dimen/dimen_2"
+                    app:kswThumbRadius="@dimen/dimen_16"
+                    app:kswBackRadius="@dimen/dimen_16"
+                    app:kswBackColor="@color/main_background"
+                    app:kswTextOn="开"
+                    app:kswTextOff="关"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"
+                android:layout_marginTop="@dimen/dimen_10"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/rl_bind_phone"
+                android:background="@drawable/btn_white_selector"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_3"
+                    android:text="绑定手机"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_bind_phone_text"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:text="绑定的设备可以控制本机"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_bind_phone_text"
+                    android:layout_alignLeft="@+id/tv_bind_phone_text"
+                    />
+
+                <com.kanhui.laowulao.widget.IconView
+                    android:id="@+id/iv_bind_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="&#xe636;"
+                    android:textSize="@dimen/font_24"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_bind_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_6"
+                    android:textSize="@dimen/font_14"
+                    android:layout_toLeftOf="@+id/iv_bind_phone"
+                    />
+                <TextView
+                    android:id="@+id/tv_bind_phone_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_bind_phone"
+                    android:layout_alignRight="@+id/tv_bind_phone"
+                    />
+
+
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"
+                android:layout_marginTop="@dimen/dimen_10"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/rl_remote_contral"
+                android:background="@drawable/btn_white_selector"
+                >
+                <TextView
+                    android:id="@+id/tv_remote_contral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_3"
+                    android:text="远程启动"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_9"
+                    android:text="对方绑定了您的手机号才能生效"
+                    android:textSize="@dimen/font_14"
+                    android:layout_below="@+id/tv_remote_contral"
+                    />
+
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="&#xe636;"
+                    android:textSize="@dimen/font_24"
+                    />
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"
+                android:layout_marginTop="@dimen/dimen_10"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/rl_use_book"
+                android:background="@drawable/btn_white_selector"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dimen_10"
+                    android:textColor="@color/black_3"
+                    android:text="使用说明"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="&#xe636;"
+                    android:textSize="@dimen/font_24"
+                    />
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"
+                android:layout_marginTop="@dimen/dimen_10"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/rl_version"
+                android:background="@drawable/btn_white_selector"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dimen_10"
+                    android:textColor="@color/black_3"
+                    android:text="关于Easy Call"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="&#xe636;"
+                    android:textSize="@dimen/font_24"
+                    />
+            </RelativeLayout>
+
+            <View style="@style/horizontal_line"
+                android:layout_marginTop="@dimen/dimen_10"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/rl_author"
+                android:background="@drawable/btn_white_selector"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dimen_10"
+                    android:textColor="@color/black_3"
+                    android:text="赞赏作者"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="&#xe636;"
+                    android:textSize="@dimen/font_24"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/dimen_10"
+        android:visibility="gone"
+        >
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_one_key_start"
+            android:textSize="@dimen/font_16"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/btn_main_selector"
+            android:textStyle="bold"
+
+            />
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_one_key_stop"
+            android:textSize="@dimen/font_16"
+            android:textColor="@color/black_3"
+            android:gravity="center"
+            android:background="@drawable/btn_gray_selector"
+            android:textStyle="bold"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

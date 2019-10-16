@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        android:background="@color/white"
+        >
+        <TextView
+            android:id="@+id/tv_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_config"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_centerInParent="true"
+            />
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_30"
+            android:textColor="@color/black"
+            android:text="&#xe67d;"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            />
+
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="&#xe6c0;"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_30" />
+
+    </RelativeLayout>
+
+
+    <View style="@style/horizontal_line"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:id="@+id/line"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_16">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weather_setting"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/font_18"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_weather_config"
+                    android:text="&#xe6ef;"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/font_28"
+                    />
+            </RelativeLayout>
+
+
+            <com.kanhui.laowulao.widget.WeatherView
+                android:id="@+id/wv_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:minHeight="150dp">
+
+            </com.kanhui.laowulao.widget.WeatherView>
+
+
+
+
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_apps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apps_setting"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/font_18"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_app_config"
+                    android:text="&#xe6ef;"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/font_28"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_apps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_contact_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_setting"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/font_18"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    />
+                <com.kanhui.laowulao.widget.IconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_contact_config"
+                    android:text="&#xe6ef;"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/font_28"
+                    />
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_contacts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

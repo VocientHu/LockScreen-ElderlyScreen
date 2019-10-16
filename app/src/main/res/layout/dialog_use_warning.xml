@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_white_selector">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="提示"
+        android:textColor="@color/black_6"
+        android:textSize="@dimen/font_16"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="@dimen/dimen_10"
+        />
+    <View style="@style/horizontal_line"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        android:text="为了确保服务稳定运行，请在手机管家类软件中允许软件后台运行,并允许开机启动，否则可能锁屏界面无法开启"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我知道了"
+        android:textColor="@color/main_green"
+        android:background="@drawable/btn_white_selector"
+        android:gravity="center"
+        android:padding="@dimen/dimen_10"
+        android:id="@+id/btn_close"
+        />
+</LinearLayout>

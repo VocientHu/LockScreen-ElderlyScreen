@@ -1,57 +1,61 @@
 package com.kanhui.laowulao.locker;
 
 import android.Manifest;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.kanhui.laowulao.MainActivity;
+import com.bumptech.glide.Glide;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.base.LWLApplicatoin;
+import com.kanhui.laowulao.config.Config;
 import com.kanhui.laowulao.locker.adapter.ContactAdapter;
-import com.kanhui.laowulao.locker.model.Config;
-import com.kanhui.laowulao.locker.model.ContactEngin;
+import com.kanhui.laowulao.locker.model.AppsModel;
 import com.kanhui.laowulao.locker.model.ContactModel;
-import com.kanhui.laowulao.utils.PermissionUtils;
-import com.kanhui.laowulao.utils.ToastUtils;
+import com.kanhui.laowulao.setting.adapter.AppsAdapter;
+import com.kanhui.laowulao.setting.config.AppConfig;
+import com.kanhui.laowulao.setting.config.ContactConfig;
+import com.kanhui.laowulao.utils.AppUtils;
+import com.kanhui.laowulao.utils.SharedUtils;
+import com.kanhui.laowulao.utils.StringUtils;
+import com.kanhui.laowulao.widget.BatteryView;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
 public class LockerActivity extends BaseActivity {
 
-    private static final int LOAD_DATA = 1;
-
-    private RecyclerView recyclerView;
+    // 联系人，app列表
+    private RecyclerView recyclerView,rvApps;
     private TextView tvTitle;
 
-    private ContactAdapter adapter;
+    private ContactAdapter adapter;// 联系人
+    private AppsAdapter appsAdapter;// apps
+    private BatteryView bvBattery;// 电源
+
+    private ImageView wvShare;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //替换系统锁屏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        setContentView(R.layout.activity_locker);
+        super.onCreate(savedInstanceState);
+        //替换系统锁屏
         // 避免多个activity
         LWLApplicatoin.getInstance().clearActivity();
         LWLApplicatoin.getInstance().addActivity(this);
@@ -60,38 +64,102 @@ public class LockerActivity extends BaseActivity {
         initData();
     }
 
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_locker;
+    }
+
     void initView() {
-        recyclerView = findViewById(R.id.rv_list);
-        tvTitle = findViewById(R.id.tv_title);
-        Config config = Config.getConfig();
-        adapter = new ContactAdapter(LockerActivity.this,config.getListType());
-        if(config.getListType() == ContactAdapter.TYPE_GRIDE){
-            GridLayoutManager manager = new GridLayoutManager(this, 2);
-            manager.setOrientation(GridLayoutManager.VERTICAL);
-            recyclerView.setLayoutManager(manager);
+        initBaterry();
+        initApps();
+        initContact();
+        initWebView();
+    }
+
+    private void initWebView() {
+        wvShare = findViewById(R.id.iv_share);
+        if(!StringUtils.isEmpty(Config.getConfig().getShareUrl())){
+            Glide.with(LockerActivity.this).load(Config.getConfig().getShareUrl()).into(wvShare);
         } else {
-            LinearLayoutManager manager = new LinearLayoutManager(LockerActivity.this);
-            recyclerView.setLayoutManager(manager);
+            wvShare.setVisibility(View.GONE);
         }
+    }
+
+    private void initApps(){
+        rvApps = findViewById(R.id.rv_app_list);
+        //Config config = Config.getConfig();
+        appsAdapter = new AppsAdapter(LockerActivity.this);
+        GridLayoutManager manager = new GridLayoutManager(this, 3);
+        manager.setOrientation(GridLayoutManager.VERTICAL);
+        rvApps.setLayoutManager(manager);
+        rvApps.setAdapter(appsAdapter);
+
+        appsAdapter.setListener(new AppsAdapter.OnItemClickListener() {
+            @Override
+            public void onDelete(int position) {
+                // nothing
+            }
+
+            @Override
+            public void onClick(int position, AppsModel model) {
+                // open app
+                openApp(model);
+            }
+
+            @Override
+            public void onAdd() {
+                // nothing
+            }
+        });
+    }
+
+    private void initContact(){
+        // 联系人相关
+        recyclerView = findViewById(R.id.rv_list);
+        tvTitle = findViewById(R.id.tv_contact_title);
+        Config config = Config.getConfig();
+        adapter = new ContactAdapter(LockerActivity.this,Config.TYPE_GRIDE);
+        GridLayoutManager manager = new GridLayoutManager(this, 2);
+        manager.setOrientation(GridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
         adapter.setListener(new ContactAdapter.ItemClickListener() {
             @Override
             public void onItemClick(ContactModel model, int position,int type) {
-                if(type == ContactAdapter.CALL_PHONE){
-                    String phone = model.getPhone();
-                    diallPhone(phone);
-                } else if(type == ContactAdapter.CALL_VIDEO){
-                    if(isWeixinAvilible(LockerActivity.this)){
-                        openWeiXin();
-                    } else {
-                        ToastUtils.showToast(LockerActivity.this,"设备没有安装微信");
-                    }
-                }
-
-
+                String phone = model.getPhone();
+                diallPhone(phone);
             }
         });
+
+    }
+
+    // 初始化电源状态
+    private void initBaterry(){
+        bvBattery = findViewById(R.id.bv_battery);
+        // api > 5.0
+        if(android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            bvBattery.setVisibility(View.VISIBLE);
+            BatteryManager manager = (BatteryManager) getSystemService(BATTERY_SERVICE);
+            int percent = manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+            bvBattery.setPercent(percent);
+            TextView tvWarning = findViewById(R.id.tv_battery);
+            TextView tvNav = findViewById(R.id.tv_nav);
+            tvNav.setText("电量" + percent + "%");
+            if(percent <= 20){
+
+                tvNav.setTextColor(getResources().getColor(R.color.red));
+                tvWarning.setTextColor(getResources().getColor(R.color.red));
+                tvWarning.setText("建议充电");
+            } else {
+                tvNav.setTextColor(getResources().getColor(R.color.main_green));
+                tvWarning.setTextColor(getResources().getColor(R.color.main_green));
+                tvWarning.setText("");
+            }
+        } else {
+            bvBattery.setVisibility(View.GONE);
+        }
+
     }
 
     public void diallPhone(String phoneNum) {
@@ -116,56 +184,28 @@ public class LockerActivity extends BaseActivity {
 
     void initData(){
         tvTitle.setText(R.string.loading);
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                List<ContactModel> list =  ContactEngin.getInstance(LockerActivity.this).getContactsWidthLog();
-                Message msg = new Message();
-                msg.what = LOAD_DATA;
-                msg.obj = list;
-                handler.sendMessage(msg);
-            }
-        }.start();
+        ContactConfig contactConfig = SharedUtils.getInstance().getContactConfig();
+
+        adapter.setData(contactConfig.getContacts());
+        int count = contactConfig.getContacts().size();
+        String text = getResources().getString(R.string.constact_people_count);
+        text = String.format(text,count+"");
+        tvTitle.setText(text);
+
+        // app
+        List<AppsModel> apps = new ArrayList<>();
+        AppConfig appConfig = SharedUtils.getInstance().getAppConfig();
+        List<String> appNames = appConfig.getApps();
+        for(String appName : appNames){
+            AppsModel model = AppUtils.getInstance(LockerActivity.this).getModelByName(appName);
+            apps.add(model);
+        }
+        appsAdapter.setData(apps);
     }
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            List<ContactModel> list = (List<ContactModel>) msg.obj;
-            adapter.setData(list);
-            int count = list.size();
-            String text = getResources().getString(R.string.constact_people_count);
-            text = String.format(text,count+"");
-            tvTitle.setText(text);
 
-        }
-    };
-
-    private void openWeiXin(){
-        Intent intent = new Intent();
-        ComponentName cpn = new ComponentName("com.tencent.mm","com.tencent.mm.ui.LauncherUI");
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setComponent(cpn);
+    private void openApp(AppsModel model){
+        Intent intent = getPackageManager().getLaunchIntentForPackage(model.getPackageName());
         startActivity(intent);
     }
-
-    public static boolean isWeixinAvilible(Context context) {
-        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
-        if (pinfo != null) {
-            for (int i = 0; i < pinfo.size(); i++) {
-                String pn = pinfo.get(i).packageName;
-                if (pn.equals("com.tencent.mm")) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
 }

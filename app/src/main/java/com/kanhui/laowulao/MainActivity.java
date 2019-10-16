@@ -1,202 +1,96 @@
 package com.kanhui.laowulao;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.Html;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.kanhui.laowulao.base.BaseActivity;
-import com.kanhui.laowulao.base.LWLApplicatoin;
-import com.kanhui.laowulao.locker.LockerActivity;
-import com.kanhui.laowulao.locker.adapter.ContactAdapter;
-import com.kanhui.laowulao.locker.model.Config;
 import com.kanhui.laowulao.service.LockerService;
+import com.kanhui.laowulao.setting.InspectorActivity;
+import com.kanhui.laowulao.setting.SettingActivity;
+import com.kanhui.laowulao.utils.AppUtils;
 import com.kanhui.laowulao.utils.PermissionUtils;
 import com.kanhui.laowulao.utils.SharedUtils;
 import com.kanhui.laowulao.utils.ToastUtils;
+import com.kanhui.laowulao.widget.IconView;
+import com.kanhui.laowulao.widget.UseWarningDialog;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 
 import static com.kanhui.laowulao.utils.PermissionUtils.dealwithPermiss;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener{
+
+    private static final String SHARED_IS_FIRST_OPEN_MAIN = "shared_is_first_open_main";
 
     public static final int PERMISSION_CODE_READ_CONTACT = 1;
 
-    private Button btnStart,btnStop,btnSave,btnSend;
-    private CheckBox cbBig,cbMiddle,cbSmall,cbList,cbGride;
-    private TextView tvDes,tvFeatures,tvNotice;
+    private static String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_CALL_LOG,Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS,Manifest.permission.SEND_SMS,
+            Manifest.permission.RECEIVE_SMS};
 
-    private String[] permissions = {Manifest.permission.READ_CONTACTS,Manifest.permission.CALL_PHONE,Manifest.permission.READ_CALL_LOG};
-
-    // 配置
-    private Config config;
+    IconView ivLight;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
 
-        initData();
-    }
+        findViewById(R.id.iv_inspector).setOnClickListener(this);
+        findViewById(R.id.iv_setting).setOnClickListener(this);
+        findViewById(R.id.tv_start).setOnClickListener(this);
+        findViewById(R.id.tv_stop).setOnClickListener(this);
 
-    void initView(){
-        btnStart = findViewById(R.id.btn_start);
-        cbBig = findViewById(R.id.cb_big);
-        cbMiddle = findViewById(R.id.cb_middle);
-        cbSmall = findViewById(R.id.cb_small);
-        cbList = findViewById(R.id.cb_list);
-        cbGride = findViewById(R.id.cb_gride);
-        tvDes = findViewById(R.id.tv_des);
-        tvFeatures = findViewById(R.id.tv_features);
-        tvNotice = findViewById(R.id.tv_notice);
+        boolean isFirstOpen = SharedUtils.getInstance().getBoolean(SHARED_IS_FIRST_OPEN_MAIN,true);
+        if(isFirstOpen){
+            findViewById(R.id.tv_des).setVisibility(View.VISIBLE);
+            SharedUtils.getInstance().putBoolean(SHARED_IS_FIRST_OPEN_MAIN,false);
+            new UseWarningDialog(MainActivity.this).show();
+        } else {
+            findViewById(R.id.tv_des).setVisibility(View.GONE);
+        }
 
-        btnStart.setOnClickListener(this);
-        findViewById(R.id.btn_stop).setOnClickListener(this);
-        findViewById(R.id.btn_save).setOnClickListener(this);
-        findViewById(R.id.btn_send).setOnClickListener(this);
-    }
+        ivLight = findViewById(R.id.iv_light);
 
-    void initData(){
         requsetPermission();
-        config = Config.getConfig();
-        cbBig.setChecked(false);
-        cbMiddle.setChecked(false);
-        cbSmall.setChecked(false);
-        switch (config.getScaleSize()){
-            case Config.SCALE_BIG:
-                cbBig.setChecked(true);
-                break;
-            case Config.SCALE_MIDDLE:
-                cbMiddle.setChecked(true);
-                break;
-            case Config.SCALE_SMALL:
-                cbSmall.setChecked(true);
-                break;
+    }
 
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(AppUtils.isServiceRunning(MainActivity.this,LockerService.class.getName())){
+            onLight();
+        } else {
+            offLight();
         }
-        cbList.setChecked(false);
-        cbGride.setChecked(false);
-        switch (config.getListType()){
-            case ContactAdapter.TYPE_LIST:
-                cbList.setChecked(true);
-                break;
-            case ContactAdapter.TYPE_GRIDE:
-                cbGride.setChecked(true);
-                break;
-        }
-        initSizeCheckBox();
-    }
-
-    void initSizeCheckBox(){
-        cbBig.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cbMiddle.setChecked(false);
-                cbSmall.setChecked(false);
-                cbBig.setChecked(true);
-                config.setScaleSize(Config.SCALE_BIG);
-            }
-        });
-        cbMiddle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cbMiddle.setChecked(true);
-                cbSmall.setChecked(false);
-                cbBig.setChecked(false);
-                config.setScaleSize(Config.SCALE_MIDDLE);
-            }
-        });
-        cbSmall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cbMiddle.setChecked(false);
-                cbSmall.setChecked(true);
-                cbBig.setChecked(false);
-                config.setScaleSize(Config.SCALE_SMALL);
-            }
-        });
-        cbGride.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                cbGride.setChecked(true);
-                cbList.setChecked(false);
-                config.setListType(ContactAdapter.TYPE_GRIDE);
-            }
-        });
-        cbList.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                cbGride.setChecked(false);
-                cbList.setChecked(true);
-                config.setListType(ContactAdapter.TYPE_LIST);
-            }
-        });
-
-    }
-
-    void requsetPermission(){
-        ActivityCompat.requestPermissions(
-                MainActivity.this,permissions,PERMISSION_CODE_READ_CONTACT);
-    }
-
-    private void setStartBtnStatus(boolean status){
-        btnStart.setEnabled(status);
-        int resId = status ? R.string.btn_one_key_start : R.string.lock_screen_started;
-        btnStart.setText(resId);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_start:
+            case R.id.iv_inspector:// 设计器
+                startActivity(InspectorActivity.class);
+                break;
+            case R.id.iv_setting:// 系统配置
+                startActivity(SettingActivity.class);
+                break;
+            case R.id.tv_start:
                 toStart();
                 break;
-            case R.id.btn_stop:
+            case R.id.tv_stop:
                 toStop();
                 break;
-            case R.id.btn_save:
-                saveConfig();
-                break;
-            case R.id.btn_send:
-                sendConfig();
-                break;
-                default:
-                    break;
         }
-    }
-
-    void saveConfig(){
-        Config.setConfig(config);
-        ToastUtils.showToast(MainActivity.this,"保存成功");
-    }
-
-    void sendConfig(){
-        ToastUtils.showToast(MainActivity.this,"建设中...");
-    }
-
-    private void toStop(){
-        stopService(new Intent(MainActivity.this,LockerService.class));
-        ToastUtils.showToast(MainActivity.this,"服务已停止");
     }
 
     private void toStart(){
@@ -204,14 +98,32 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             dealwithPermiss(MainActivity.this);
             return;
         }
-//        startActivity(new Intent(this,LockerActivity.class));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(new Intent(this, LockerService.class));
         } else {
             startService(new Intent(this, LockerService.class));
         }
-//        setStartBtnStatus(false);
+        onLight();
         ToastUtils.showToast(MainActivity.this,"服务已开启");
+    }
+
+    private void onLight(){
+        ivLight.setTextColor(getResources().getColor(R.color.main_green));
+    }
+
+    private void offLight(){
+        ivLight.setTextColor(getResources().getColor(R.color.black_9));
+    }
+
+    void requsetPermission(){
+        ActivityCompat.requestPermissions(
+                MainActivity.this,permissions,PERMISSION_CODE_READ_CONTACT);
+    }
+
+    private void toStop(){
+        offLight();
+        stopService(new Intent(MainActivity.this,LockerService.class));
+        ToastUtils.showToast(MainActivity.this,"服务已停止");
     }
 
     @Override
@@ -242,4 +154,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
     }
+
 }

@@ -1,37 +1,60 @@
 # laowulao
 
-#### Description
-老吾老以及人之老，幼吾幼以及人之幼
-只是想给古稀老爸一个使用智能手机的可行方案
+---
 
-#### Software Architecture
-Software architecture description
+初衷是给家人做的一款老人锁屏APP，他们不会使用智能手机，不会解锁，不会滑屏，经常打错电话。
 
-#### Installation
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### Instructions
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### Contribution
-
-1. Fork the repository
-2. Create Feat_xxx branch
-3. Commit your code
-4. Create Pull Request
+所以希望他能按下电源键后就能看到要打电话的人，能知道电池电量，天气，时间日期。
 
 
-#### Gitee Feature
+### features:
 
-1. You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2. Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3. Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4. The most valuable open source project [GVP](https://gitee.com/gvp)
-5. The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6. The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+* 安装后开启服务就能看到电池电量，日期天气，常用APP，常用联系人
+
+
+截图：
+
+![img](./screen/lock.png)
+
+
+* 锁屏上的日期天气组件可以调整文字图片的大小
+
+截图：
+
+![img](./screen/config.png)
+
+* 常用APP的内容可配置，最多可配置6个常用APP，图标和名称大小也可配置
+
+* 常用联系人可配置，最多可配置4个常用联系人，联系人名称大小可配置
+
+* 可绑定指定手机，绑定后的手机可以远程启动本机服务
+
+截图：
+
+![img](./screen/sys_config.png)
+
+* 绑定后的手机可以远程配置本机的锁屏界面
+
+截图：
+
+![img](./screen/send_sms.png)
+
+
+### Description
+
+APP是个单页应用，远程控制是通过短信收发实现
+
+APP本身只是个锁屏功能，锁屏功能需要启动后台服务，为了确保锁屏能正常使用，启用了常驻service，只为注册动态广播，监听屏幕的唤醒与熄灭，因为这个广播全局注册是不生效。
+
+APP默认开启了开机启动功能，因为真实场景是老人用到没电关机了，充电后再开机，确保服务开机就能启动，即开机就能正常使用。
+
+APP可以远程启动，万一服务被kill掉了，锁屏无法启动，老人又不会用，绑定者能远程启动服务。
+
+APP下载：
+
+![img](./screen/qrcode.png)
+
+
+
+
+

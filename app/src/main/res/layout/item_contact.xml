@@ -65,28 +65,16 @@
             android:layout_alignLeft="@+id/tv_phone"
             />
 
-
-        <com.kanhui.laowulao.widget.IconView
-            android:id="@+id/iv_call_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/font_40"
-            android:textColor="@color/main_green_low"
-            android:text="&#xf14a;"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            />
-
         <com.kanhui.laowulao.widget.IconView
             android:id="@+id/iv_call_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_40"
-            android:textColor="@color/main_green_low"
+            android:textColor="@color/black_6"
             android:text="&#xe647;"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/iv_call_video"
             android:layout_marginRight="@dimen/dimen_16"
+            android:layout_alignParentRight="true"
             />
     </RelativeLayout>
 

@@ -3,7 +3,7 @@
 
     <dimen name="font_14">14sp</dimen>
     <dimen name="font_16">16sp</dimen>
-    <dimen name="font_18">16sp</dimen>
+    <dimen name="font_18">18sp</dimen>
     <dimen name="font_20">20sp</dimen>
     <dimen name="font_22">22sp</dimen>
     <dimen name="font_24">24sp</dimen>
@@ -18,6 +18,9 @@
     <dimen name="font_50">50sp</dimen>
     <dimen name="font_60">60sp</dimen>
     <dimen name="font_70">70sp</dimen>
+    <dimen name="font_80">80sp</dimen>
+    <dimen name="font_90">90sp</dimen>
+    <dimen name="font_100">100sp</dimen>
 
     <dimen name="dimen_point_1">0.1dp</dimen>
     <dimen name="dimen_point_2">0.2dp</dimen>
@@ -47,4 +50,7 @@
     <dimen name="dimen_40">40dp</dimen>
     <dimen name="dimen_50">50dp</dimen>
     <dimen name="dimen_60">60dp</dimen>
+    <dimen name="dimen_70">70dp</dimen>
+    <dimen name="dimen_75">75dp</dimen>
+    <dimen name="dimen_80">80dp</dimen>
 </resources>

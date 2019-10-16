@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        android:background="@color/white"
+        >
+        <TextView
+            android:id="@+id/tv_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_config"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_centerInParent="true"
+            />
+        <com.kanhui.laowulao.widget.IconView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_30"
+            android:textColor="@color/black"
+            android:text="&#xe67d;"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_20">
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/phone_code"
+            android:padding="@dimen/dimen_10"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/font_16"
+            android:layout_marginHorizontal="@dimen/dimen_10"
+            android:layout_gravity="center_vertical"
+            />
+
+        <com.kanhui.laowulao.widget.IconView
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_50"
+            android:textColor="@color/black_6"
+            android:text="&#xe60a;"
+            android:id="@+id/iv_contact"
+            android:textSize="@dimen/font_30"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/black_6"
+        android:layout_marginHorizontal="@dimen/font_16"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_14"
+        android:textColor="@color/black_6"
+        android:layout_margin="@dimen/font_16"
+        android:layout_gravity="center_horizontal"
+        />
+    <TextView
+        android:id="@+id/tv_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/red"
+        android:layout_margin="@dimen/font_16"
+        android:text="提示：需对方手机绑定了您手机才能生效"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="发送"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/btn_main_selector"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/dimen_16"
+        android:layout_marginHorizontal="@dimen/dimen_16"
+        />
+
+</LinearLayout>

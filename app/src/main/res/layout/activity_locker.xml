@@ -4,31 +4,119 @@
     android:layout_height="match_parent"
     android:background="@color/black_ec">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/dimen_20"
+        android:paddingHorizontal="@dimen/dimen_10"
+        android:paddingVertical="@dimen/dimen_10"
         android:background="@color/white"
         >
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_nav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/constact_people"
+            android:text="@string/app_name"
             android:textColor="@color/black_3"
-            android:textSize="@dimen/font_18"
-            android:textStyle="bold"
+            android:textSize="@dimen/font_20"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             />
-    </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list"
+        <com.kanhui.laowulao.widget.BatteryView
+            android:id="@+id/bv_battery"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/tv_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_6"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/font_20"
+            android:text="@string/push_battery"
+            />
+    </RelativeLayout>
+
+    <View style="@style/horizontal_line"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/dimen_half"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_16"
-        />
+        android:scrollbars="none"
+        android:padding="@dimen/dimen_16"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.kanhui.laowulao.widget.WeatherView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+            </com.kanhui.laowulao.widget.WeatherView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_3"
+                android:text="@string/apps_usually"
+                android:id="@+id/tv_apps_title"
+                android:layout_marginTop="@dimen/dimen_16"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_app_list"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_half"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dimen_16"
+                    android:nestedScrollingEnabled="false"
+                    />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_3"
+                android:text="@string/contact"
+                android:id="@+id/tv_contact_title"
+                android:layout_marginTop="@dimen/dimen_16"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_half"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dimen_16"
+                    android:nestedScrollingEnabled="false"
+                    />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                />
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 
 
 </LinearLayout>

@@ -3,10 +3,15 @@ package com.kanhui.laowulao.base;
 import android.app.Application;
 
 import com.kanhui.laowulao.config.Constants;
+import com.kanhui.laowulao.utils.AppUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import interfaces.heweather.com.interfacesmodule.view.HeConfig;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class LWLApplicatoin extends Application {
 
@@ -27,6 +32,19 @@ public class LWLApplicatoin extends Application {
         application = this;
         // init bugly
         CrashReport.initCrashReport(getApplicationContext(), Constants.BuglyAppId, false);
+
+        // init realm
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder().name("laowulao.realm").build();
+        Realm.setDefaultConfiguration(config);
+        // init hefeng weather
+        HeConfig.init("HE1909181806551611","67571b85940e498ea3e8d076745a00f7");
+        // 免费域名
+        HeConfig.switchToFreeServerNode();
+        // 付费域名,默认
+        //HeConfig.switchToCNBusinessServerNode();
+
+        AppUtils.getInstance(this).init();
     }
 
     public void addActivity(BaseActivity activity){

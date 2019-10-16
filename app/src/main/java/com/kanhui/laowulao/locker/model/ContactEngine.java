@@ -1,17 +1,11 @@
 package com.kanhui.laowulao.locker.model;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
-import android.telephony.PhoneNumberUtils;
-import android.util.Log;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.kanhui.laowulao.utils.LogUtils;
 import com.kanhui.laowulao.utils.StringUtils;
@@ -23,23 +17,23 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class ContactEngin {
+import androidx.core.content.ContextCompat;
+
+public class ContactEngine {
 
     private Context context;
 
-    private static ContactEngin Instance;
+    private static ContactEngine Instance;
 
-    public static ContactEngin getInstance(Context context) {
+    public static ContactEngine getInstance(Context context) {
         if (Instance == null) {
-            Instance = new ContactEngin(context);
+            Instance = new ContactEngine(context);
         }
         return Instance;
     }
 
-    private ContactEngin(Context c) {
+    private ContactEngine(Context c) {
         this.context = c;
     }
 
@@ -69,7 +63,7 @@ public class ContactEngin {
         return list;
     }
 
-    private List<ContactModel> getContacts() {
+    public List<ContactModel> getContacts() {
         List<ContactModel> list = new ArrayList<>();
         Cursor cursor = null;
         try {
@@ -89,7 +83,7 @@ public class ContactEngin {
                     }
                     number = number.replace("+86 ", "");
                     number = number.replace("+86", "");
-                    if (!isPhoneNumber(number)) {
+                    if (!StringUtils.isPhoneNumber(number)) {
                         continue;
                     }
                     if (displayName.equals(number)) {
@@ -114,26 +108,7 @@ public class ContactEngin {
         return list;
     }
 
-    public static boolean isPhoneNumber(String phoneNo) {
-        if (StringUtils.isEmpty(phoneNo)) {
-            return false;
-        }
-        if (phoneNo.length() == 11) {
-            for (int i = 0; i < 11; i++) {
-                if (!PhoneNumberUtils.isISODigit(phoneNo.charAt(i))) {
-                    return false;
-                }
-            }
-            Pattern p = Pattern.compile("^((13[^4,\\D])" + "|(134[^9,\\D])" +
-                    "|(14[5,7])" +
-                    "|(15[^4,\\D])" +
-                    "|(17[3,6-8])" +
-                    "|(18[0-9]))\\d{8}$");
-            Matcher m = p.matcher(phoneNo);
-            return m.matches();
-        }
-        return false;
-    }
+
 
     private HashMap<String,ContactModel> getCallHistoryList() {
         HashMap map = new HashMap();

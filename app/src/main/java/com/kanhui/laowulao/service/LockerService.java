@@ -12,29 +12,44 @@ import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.IBinder;
-import android.util.Log;
 
-import androidx.annotation.Nullable;
-
-import com.kanhui.laowulao.MainActivity;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.base.LWLApplicatoin;
 import com.kanhui.laowulao.locker.LockerActivity;
+import com.kanhui.laowulao.setting.SettingActivity;
 
+import androidx.annotation.Nullable;
+
+/**
+ * 锁屏服务
+ * 注册屏幕打开广播监听，并保活。确保锁屏能正常使用
+ * 可开机启动，可短信激活。可以设置开关
+ */
 public class LockerService extends Service {
     private static final String TAG = "LockerService";
+
+    private static final String SMS_ACTION = "android.provider.Telephony.SMS_RECEIVED";
+    public static final String SMS_FLAG = "[easycall]";
+
+    private static final String CHANNEL_ONE_ID = "com.kanhui.laowulao";
+    private static final String CHANNEL_ONE_NAME = "Channel One";
+
+    public static boolean IsServiceStarted = false;
+
+    private static final int RECEIVERED_MSG = 1;
+
     private Intent serviceIntent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        initBroadcast();
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         serviceIntent = intent;
-        // TODO user can select
+        initBroadcast();
         addNotification();
 
         return super.onStartCommand(intent, flags, startId);
@@ -42,8 +57,7 @@ public class LockerService extends Service {
 
     private void addNotification(){
 
-        String CHANNEL_ONE_ID = "com.kanhui.laowulao";
-        String CHANNEL_ONE_NAME = "Channel One";
+        IsServiceStarted = true;
         NotificationChannel notificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notificationChannel = new NotificationChannel(CHANNEL_ONE_ID,
@@ -57,7 +71,7 @@ public class LockerService extends Service {
         }
 
         Notification.Builder builder = new Notification.Builder(LWLApplicatoin.getInstance());
-        Intent mIntent = new Intent(this, MainActivity.class);
+        Intent mIntent = new Intent(this, SettingActivity.class);
         builder.setContentIntent(PendingIntent.getActivity(this,0,mIntent,0))
 
                 .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
@@ -77,7 +91,9 @@ public class LockerService extends Service {
 
     private void initBroadcast(){
         IntentFilter filter = new IntentFilter();
+        // 屏幕关闭
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_SCREEN_ON);
         registerReceiver(receiver,filter);
     }
 
@@ -85,13 +101,14 @@ public class LockerService extends Service {
     private BroadcastReceiver receiver = new BroadcastReceiver(){
         @Override
         public void onReceive(Context context, Intent intent) {
-            lockScreen();
+            String action = intent.getAction();
+            if(Intent.ACTION_SCREEN_OFF.equals(action) || Intent.ACTION_SCREEN_ON.equals(action)){
+                lockScreen();
+            }
         }
     };
 
-
     private void lockScreen(){
-        Log.e("service","start activity");
         Intent mIntent = new Intent(LockerService.this, LockerActivity.class);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mIntent);
@@ -105,6 +122,8 @@ public class LockerService extends Service {
         // 保活
         if(serviceIntent != null){
             startService(serviceIntent);
+        } else {
+            IsServiceStarted = false;
         }
     }
 
