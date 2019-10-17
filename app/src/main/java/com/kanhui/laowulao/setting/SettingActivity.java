@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.kanhui.laowulao.R;
 import com.kanhui.laowulao.SendSMSActivity;
 import com.kanhui.laowulao.about.AboutActivity;
-import com.kanhui.laowulao.about.AwiseActivity;
 import com.kanhui.laowulao.about.UseBookActivity;
 import com.kanhui.laowulao.base.BaseActivity;
 import com.kanhui.laowulao.config.CMDModel;
@@ -105,9 +104,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.rl_version:// 关于
                 startActivity(AboutActivity.class);
-                break;
-            case R.id.rl_author:// 赞赏作者
-                startActivity(AwiseActivity.class);
                 break;
             case R.id.rl_remote_contral:// 远程启动
                 Intent intent = new Intent(SettingActivity.this, SendSMSActivity.class);
