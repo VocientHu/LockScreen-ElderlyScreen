@@ -15,13 +15,13 @@ android {
 
     signingConfigs {
         debug {
-            keyAlias 'easy_call.jks'
+            keyAlias 'easycall'
             keyPassword '123456'
             storeFile file('../easy_call.jks')
             storePassword '123456'
         }
         release {
-            keyAlias 'easy_call.jks'
+            keyAlias 'easycall'
             keyPassword '123456'
             storeFile file('../easy_call.jks')
             storePassword '123456'

@@ -22,7 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayout());
-        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), false);
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
         initFragment();
     }
 

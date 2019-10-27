@@ -28,7 +28,7 @@
 }
 
 # for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+#-keep resourcexmlelements manifest/application/meta-data@value=GlideModule
 
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
