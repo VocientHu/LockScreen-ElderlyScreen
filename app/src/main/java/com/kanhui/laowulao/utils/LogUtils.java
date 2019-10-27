@@ -2,8 +2,9 @@ package com.kanhui.laowulao.utils;
 
 import android.util.Log;
 
+import static com.kanhui.laowulao.config.Variants.isDebug;
+
 public class LogUtils {
-    private static final boolean isDebug = true;
 
     public static void elog(String tag,String log){
         if(isDebug){

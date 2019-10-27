@@ -99,6 +99,7 @@
             android:textSize="@dimen/font_16"
             android:layout_below="@+id/tv_stop"
             android:layout_margin="@dimen/dimen_16"
+            android:visibility="gone"
             />
     </RelativeLayout>
 

@@ -122,8 +122,6 @@ public class LockerService extends Service {
         // 保活
         if(serviceIntent != null){
             startService(serviceIntent);
-        } else {
-            IsServiceStarted = false;
         }
     }
 

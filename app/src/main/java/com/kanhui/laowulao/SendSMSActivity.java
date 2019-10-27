@@ -153,8 +153,6 @@ public class SendSMSActivity extends BaseActivity implements View.OnClickListene
         }
         SharedUtils.getInstance().putString(SHARED_SEND_SMS_PHONE,phone);
         SmsManager manager = SmsManager.getDefault();
-
-
         switch (type){
             case SEND_WEATHER:
                 manager.sendTextMessage(phone,null,getWeatherStr(),null,null);
